@@ -8,11 +8,107 @@
     "name": "Air Conditioning / Pressurization / Ventilation"
   },
   {
-    "ataChapter": "100000",
+    "ataChapter": "22",
+    "name": "Auto Flight"
+  },
+  {
+    "ataChapter": "23",
+    "name": "Communications"
+  },
+  {
+    "ataChapter": "24",
+    "name": "Electrical"
+  },
+  {
+    "ataChapter": "25",
+    "name": "Equipment"
+  },
+  {
+    "ataChapter": "26",
+    "name": "Fire Protection"
+  },
+  {
+    "ataChapter": "27",
+    "name": "Flight Controls"
+  },
+  {
+    "ataChapter": "28",
+    "name": "Fuel"
+  },
+  {
+    "ataChapter": "29",
+    "name": "Hydraulic"
+  },
+  {
+    "ataChapter": "30",
+    "name": "Ice and Rain Protection"
+  },
+  {
+    "ataChapter": "31",
+    "name": "Indicating/Recording Systems"
+  },
+  {
+    "ataChapter": "32",
+    "name": "Landing Gear"
+  },
+  {
+    "ataChapter": "33",
+    "name": "Lights"
+  },
+  {
+    "ataChapter": "34",
+    "name": "Navigation"
+  },
+  {
+    "ataChapter": "35",
+    "name": "Oxygen"
+  },
+  {
+    "ataChapter": "36",
+    "name": "Pneumatic"
+  },
+  {
+    "ataChapter": "38",
+    "name": "Water / Waste"
+  },
+  {
+    "ataChapter": "45",
+    "name": "Maintenance System"
+  },
+  {
+    "ataChapter": "46",
+    "name": "Information Systems"
+  },
+  {
+    "ataChapter": "49",
+    "name": "APU"
+  },
+  {
+    "ataChapter": "52",
+    "name": "Doors"
+  },
+  {
+    "ataChapter": "56",
+    "name": "Cockpit Windows"
+  },
+  {
+    "ataChapter": "70",
+    "name": "Engines"
+  },
+  {
+    "ataChapter": "",
     "name": ""
   },
   {
-    "ataChapter": "1",
-    "name": "D"
+    "ataChapter": "",
+    "name": ""
+  },
+  {
+    "ataChapter": "",
+    "name": ""
+  },
+  {
+    "ataChapter": "",
+    "name": ""
   }
 ]
