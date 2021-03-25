@@ -22,7 +22,7 @@ public class ChapterAddBindingModel {
     }
 
     @NotBlank(message = "Chapter name cannot be empty.")
-    @Size(min = 5, message = "Chapter name length must be at least 5 characters.")
+    @Size(min = 3, message = "Chapter name length must be at least 3 characters.")
     public String getName() {
         return name;
     }
