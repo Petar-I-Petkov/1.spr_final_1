@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "paragpraphs")
-public class ParagraphEntity extends BaseEntity {
+public class
+ParagraphEntity extends BaseEntity {
 
     private String title;
     private String documentReference;
@@ -19,7 +20,8 @@ public class ParagraphEntity extends BaseEntity {
     private LocalDateTime documentDate;
     private String description;
     // todo - add picture holders
-    private SectionEntity section;
+    private ATASectionEntity ataSection;
+    private DocumentEntity document;
 
     public ParagraphEntity() {
     }
@@ -70,11 +72,20 @@ public class ParagraphEntity extends BaseEntity {
     }
 
     @ManyToOne
-    public SectionEntity getSection() {
-        return section;
+    public ATASectionEntity getAtaSection() {
+        return ataSection;
     }
 
-    public void setSection(SectionEntity section) {
-        this.section = section;
+    public void setAtaSection(ATASectionEntity ataSection) {
+        this.ataSection = ataSection;
+    }
+
+    @ManyToOne
+    public DocumentEntity getDocument() {
+        return document;
+    }
+
+    public void setDocument(DocumentEntity document) {
+        this.document = document;
     }
 }

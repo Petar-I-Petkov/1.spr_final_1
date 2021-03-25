@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.web;
 
-import com.petkov.spr_final_1.model.binding.ChapterAddBindingModel;
+import com.petkov.spr_final_1.model.binding.ATAChapterAddBindingModel;
 import com.petkov.spr_final_1.model.service.ChapterServiceModel;
 import com.petkov.spr_final_1.service.ChapterService;
 import org.modelmapper.ModelMapper;
@@ -29,8 +29,8 @@ public class DocumentController {
     }
 
     @ModelAttribute("chapterAddBindingModel")
-    public ChapterAddBindingModel chapterAddBindingModel() {
-        return new ChapterAddBindingModel();
+    public ATAChapterAddBindingModel chapterAddBindingModel() {
+        return new ATAChapterAddBindingModel();
     }
 
 
@@ -41,13 +41,13 @@ public class DocumentController {
     }
 
     @PostMapping("/add-chapter")
-    public String addChapterConfirm(@Valid ChapterAddBindingModel chapterAddBindingModel,
+    public String addChapterConfirm(@Valid ATAChapterAddBindingModel ATAChapterAddBindingModel,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
 
         if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("chapterAddBindingModel", chapterAddBindingModel);
+            redirectAttributes.addFlashAttribute("chapterAddBindingModel", ATAChapterAddBindingModel);
             redirectAttributes
                     .addFlashAttribute("org.springframework.validation.BindingResult.chapterAddBindingModel", bindingResult);
 
@@ -57,7 +57,7 @@ public class DocumentController {
 
         //todo - addChapter - check if chapter exists and redirect to add-chapter page
         ChapterServiceModel chapterServiceModel = modelMapper.map(
-                chapterAddBindingModel,
+                ATAChapterAddBindingModel,
                 ChapterServiceModel.class);
 
         chapterService.addChapterToDB(chapterServiceModel);

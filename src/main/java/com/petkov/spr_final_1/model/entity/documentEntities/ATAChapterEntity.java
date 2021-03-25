@@ -11,13 +11,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "chapters")
-public class ChapterEntity extends BaseEntity {
+public class ATAChapterEntity extends BaseEntity {
 
     private Integer ataChapter;
     private String name;
-    private List<SectionEntity> sections;
+    private List<ATASectionEntity> ataSections;
 
-    public ChapterEntity() {
+    public ATAChapterEntity() {
     }
 
     @Column(name = "ata_chapter", unique = true, nullable = false)
@@ -40,11 +40,11 @@ public class ChapterEntity extends BaseEntity {
     }
 
     @OneToMany
-    public List<SectionEntity> getSections() {
-        return sections;
+    public List<ATASectionEntity> getSections() {
+        return ataSections;
     }
 
-    public void setSections(List<SectionEntity> sections) {
-        this.sections = sections;
+    public void setSections(List<ATASectionEntity> ataSections) {
+        this.ataSections = ataSections;
     }
 }

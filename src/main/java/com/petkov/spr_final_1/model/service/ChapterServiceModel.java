@@ -1,17 +1,13 @@
 package com.petkov.spr_final_1.model.service;
 
 import com.google.gson.annotations.Expose;
-import com.petkov.spr_final_1.model.entity.documentEntities.SectionEntity;
 
 import javax.validation.constraints.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChapterServiceModel extends BaseServiceModel{
 
     @Expose
     private Integer ataChapter;
-
     @Expose
     private String name;
 

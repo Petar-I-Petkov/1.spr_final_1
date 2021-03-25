@@ -74,7 +74,7 @@
                          aria-labelledby="chapter-tab">
 
                         <div class="mx-5">
-                            <form th:object="${chapterAddBindingModel}" method="POST"
+                            <form th:object="${ATAChapterAddBindingModel}" method="POST"
                                   th:action="@{/documents/add-chapter}">
 
                                 <table class="table table-borderless">
@@ -100,7 +100,7 @@
                                             <div class="input-group input-group-sm">
                                                 <input th:field="*{name}"
                                                        th:errorclass="is-invalid"
-                                                       required minlength="5"
+                                                       required minlength="3"
                                                        id="name"
                                                        name="name"
                                                        type="text" class="form-control" placeholder="Chapter Name">

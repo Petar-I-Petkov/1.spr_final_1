@@ -48,7 +48,7 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @Column(name = "email", unique = true, nullable = true)//todo - email must not be empty
+    @Column(name = "email", unique = true, nullable = true)//todo - email must not be empty, set like this for dev process
     public String getEmail() {
         return email;
     }

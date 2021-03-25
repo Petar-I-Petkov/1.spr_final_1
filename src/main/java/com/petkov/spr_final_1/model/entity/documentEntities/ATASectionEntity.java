@@ -7,14 +7,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "sections")
-public class SectionEntity extends BaseEntity {
+public class ATASectionEntity extends BaseEntity {
 
     private String ataSection;
     private String name;
-    private List<ParagraphEntity> subSections;
-    private ChapterEntity chapter;
+    private List<ParagraphEntity> paragraphs;
+    private ATAChapterEntity ataChapter;
 
-    public SectionEntity() {
+    public ATASectionEntity() {
     }
 
     @Column(name = "ata_section", unique = true, nullable = false)
@@ -37,19 +37,19 @@ public class SectionEntity extends BaseEntity {
 
     @OneToMany
     public List<ParagraphEntity> getSubSections() {
-        return subSections;
+        return paragraphs;
     }
 
-    public void setSubSections(List<ParagraphEntity> subSections) {
-        this.subSections = subSections;
+    public void setSubSections(List<ParagraphEntity> paragraphs) {
+        this.paragraphs = paragraphs;
     }
 
     @ManyToOne
-    public ChapterEntity getChapter() {
-        return chapter;
+    public ATAChapterEntity getChapter() {
+        return ataChapter;
     }
 
-    public void setChapter(ChapterEntity chapter) {
-        this.chapter = chapter;
+    public void setChapter(ATAChapterEntity ataChapter) {
+        this.ataChapter = ataChapter;
     }
 }

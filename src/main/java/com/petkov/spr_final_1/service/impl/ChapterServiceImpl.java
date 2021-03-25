@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.service.impl;
 
 import com.google.gson.Gson;
-import com.petkov.spr_final_1.model.entity.documentEntities.ChapterEntity;
+import com.petkov.spr_final_1.model.entity.documentEntities.ATAChapterEntity;
 import com.petkov.spr_final_1.model.service.ChapterServiceModel;
 import com.petkov.spr_final_1.repository.ChapterRepository;
 import com.petkov.spr_final_1.service.ChapterService;
@@ -59,7 +59,7 @@ public class ChapterServiceImpl implements ChapterService {
         if (this.validationUtil.isValid(chapterServiceModel)) {
 
             //chapterServiceModel is valid -> map it to real Chapter, seed to database
-            ChapterEntity chapter = this.modelMapper.map(chapterServiceModel, ChapterEntity.class);
+            ATAChapterEntity chapter = this.modelMapper.map(chapterServiceModel, ATAChapterEntity.class);
             this.chapterRepository.saveAndFlush(chapter);
 
         } else {
@@ -77,12 +77,8 @@ public class ChapterServiceImpl implements ChapterService {
     @Override
     public void addChapterToDB(ChapterServiceModel chapterServiceModel) {
 
-        ChapterEntity chapterEntity = this.modelMapper.map(chapterServiceModel, ChapterEntity.class);
-
-        //todo - /before item save in db/ test point
-        System.out.println();
-
-        this.chapterRepository.saveAndFlush(chapterEntity);
+        ATAChapterEntity ATAChapterEntity = this.modelMapper.map(chapterServiceModel, ATAChapterEntity.class);
+        this.chapterRepository.saveAndFlush(ATAChapterEntity);
 
     }
 }
