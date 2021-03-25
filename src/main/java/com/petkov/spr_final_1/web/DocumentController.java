@@ -28,8 +28,8 @@ public class DocumentController {
         this.modelMapper = modelMapper;
     }
 
-    @ModelAttribute("chapterAddBindingModel")
-    public ATAChapterAddBindingModel chapterAddBindingModel() {
+    @ModelAttribute("ataChapterAddBindingModel")
+    public ATAChapterAddBindingModel ataChapterAddBindingModel() {
         return new ATAChapterAddBindingModel();
     }
 
@@ -41,15 +41,15 @@ public class DocumentController {
     }
 
     @PostMapping("/add-chapter")
-    public String addChapterConfirm(@Valid ATAChapterAddBindingModel ATAChapterAddBindingModel,
+    public String addChapterConfirm(@Valid ATAChapterAddBindingModel ataChapterAddBindingModel,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
 
         if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("chapterAddBindingModel", ATAChapterAddBindingModel);
+            redirectAttributes.addFlashAttribute("ataChapterAddBindingModel", ataChapterAddBindingModel);
             redirectAttributes
-                    .addFlashAttribute("org.springframework.validation.BindingResult.chapterAddBindingModel", bindingResult);
+                    .addFlashAttribute("org.springframework.validation.BindingResult.ataChapterAddBindingModel", bindingResult);
 
             return "redirect:add-chapter";
         }
@@ -57,7 +57,7 @@ public class DocumentController {
 
         //todo - addChapter - check if chapter exists and redirect to add-chapter page
         ChapterServiceModel chapterServiceModel = modelMapper.map(
-                ATAChapterAddBindingModel,
+                ataChapterAddBindingModel,
                 ChapterServiceModel.class);
 
         chapterService.addChapterToDB(chapterServiceModel);
