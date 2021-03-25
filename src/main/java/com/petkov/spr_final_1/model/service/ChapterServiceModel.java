@@ -1,20 +1,26 @@
 package com.petkov.spr_final_1.model.service;
 
+import com.google.gson.annotations.Expose;
 import com.petkov.spr_final_1.model.entity.documentEntities.SectionEntity;
 
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChapterServiceModel extends BaseServiceModel{
 
+    @Expose
     private Integer ataChapter;
+
+    @Expose
     private String name;
-    private List<SectionEntity> sections = new ArrayList<>();
 
     public ChapterServiceModel() {
     }
 
-    //todo ChapterServiceModel - add getter validations
+    @NotNull(message = "ATA code cannot be empty.")
+    @Min(value = 0, message = "ATA chapter minimum is 00.")
+    @Max(value = 100,  message = "ATA chapter maximum is 100.")
     public Integer getAtaChapter() {
         return ataChapter;
     }
@@ -23,6 +29,9 @@ public class ChapterServiceModel extends BaseServiceModel{
         this.ataChapter = ataChapter;
     }
 
+
+    @NotBlank(message = "Chapter name cannot be empty.")
+    @Size(min = 5, message = "Chapter name length must be at least 5 characters.")
     public String getName() {
         return name;
     }
@@ -31,11 +40,4 @@ public class ChapterServiceModel extends BaseServiceModel{
         this.name = name;
     }
 
-    public List<SectionEntity> getSections() {
-        return sections;
-    }
-
-    public void setSections(List<SectionEntity> sections) {
-        this.sections = sections;
-    }
 }
