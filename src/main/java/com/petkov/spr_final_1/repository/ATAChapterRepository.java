@@ -11,4 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ATAChapterRepository extends JpaRepository<ATAChapterEntity, Long> {
 
+    Optional<ATAChapterEntity> findByAtaChapter(Integer ataChapter);
+
 }

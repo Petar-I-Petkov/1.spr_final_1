@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "sections")
+@Table(name = "sub_chapters")
 public class ATASubChapterEntity extends BaseEntity {
 
     private Integer ataSubCode;
@@ -35,7 +35,7 @@ public class ATASubChapterEntity extends BaseEntity {
         this.subchapterName = subchapterName;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "ataSubChapter", targetEntity = ParagraphEntity.class)
     public List<ParagraphEntity> getParagraphs() {
         return paragraphs;
     }
@@ -46,6 +46,7 @@ public class ATASubChapterEntity extends BaseEntity {
 
 
     @ManyToOne
+    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
     public ATAChapterEntity getAtaChapterRef() {
         return ataChapterRef;
     }

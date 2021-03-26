@@ -243,11 +243,11 @@
                                         <td>
                                             <div class="input-group input-group-sm">
                                                 <select
-                                                        id="ataChapterRef"
-                                                        name="ataChapterRef"
+                                                        id="ataChapterRefInput"
+                                                        name="ataChapterRefInput"
                                                         class="form-select"
                                                         aria-label="Select ATA Chapter">
-                                                    <option selected>Select ATA Chapter...</option>
+                                                    <option selected th:text="*{ataChapterRefInput}">Select...</option>
                                                     <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">
                                                         One
                                                     </option>
@@ -257,7 +257,7 @@
                                         <td>
                                             <div class="input-group input-group-sm">
                                                 <input
-
+                                                        th:value="*{ataSubCode}"
                                                         id="ataSubCode"
                                                         name="ataSubCode"
                                                         type="number"
@@ -269,7 +269,7 @@
                                         <td>
                                             <div class="input-group input-group-sm">
                                                 <input
-
+                                                        th:value="*{subchapterName}"
                                                         id="subchapterName"
                                                         name="subchapterName"
                                                         type="text"
@@ -288,21 +288,26 @@
                                     <tr>
                                         <td class="text-center small">
                                             <small
-
+                                                    th:each="e: ${#fields.errors('ataChapterRefInput')}"
+                                                    th:text="${e}"
                                                     id="ataChapterRefError"
                                                     class="text-danger">
                                             </small>
                                         </td>
-                                        <td>
+                                        <td class="text-center small">
                                             <small
-
+                                                    th:each="e: ${#fields.errors('ataSubCode')}"
+                                                    th:text="${e}"
                                                     id="ataSubCodeError"
                                                     class="text-danger">
                                             </small>
+                                            <small th:if="${ataSubChapterExistsError}" id="ataSubChapterExistsError"
+                                                   class="text-danger">SubChapter already exists in DB!</small>
                                         </td>
-                                        <td>
+                                        <td class="text-center small">
                                             <small
-
+                                                    th:each="e: ${#fields.errors('subchapterName')}"
+                                                    th:text="${e}"
                                                     id="subchapterNameError"
                                                     class="text-danger">
                                             </small>

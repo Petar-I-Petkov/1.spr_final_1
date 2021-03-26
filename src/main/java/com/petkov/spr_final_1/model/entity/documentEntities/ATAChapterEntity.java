@@ -39,7 +39,7 @@ public class ATAChapterEntity extends BaseEntity {
         this.name = name;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "ataChapterRef", targetEntity = ATASubChapterEntity.class)
     public List<ATASubChapterEntity> getSections() {
         return ataSections;
     }

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.documentEntities.ATAChapterEntity;
 import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
 import com.petkov.spr_final_1.repository.ATAChapterRepository;
-import com.petkov.spr_final_1.service.ChapterService;
+import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.service.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ChapterServiceImpl implements ChapterService {
+public class ATAChapterServiceImpl implements ATAChapterService {
 
     private final ModelMapper modelMapper;
     private final ATAChapterRepository ATAChapterRepository;
@@ -29,10 +29,10 @@ public class ChapterServiceImpl implements ChapterService {
     private final Resource chaptersInitFile;
     private final ValidationUtil validationUtil;
 
-    public ChapterServiceImpl(ModelMapper modelMapper,
-                              ATAChapterRepository ATAChapterRepository,
-                              Gson gson,
-                              @Value("classpath:init/chaptersInit.json") Resource chaptersInitFile, ValidationUtil validationUtil) {
+    public ATAChapterServiceImpl(ModelMapper modelMapper,
+                                 ATAChapterRepository ATAChapterRepository,
+                                 Gson gson,
+                                 @Value("classpath:init/chaptersInit.json") Resource chaptersInitFile, ValidationUtil validationUtil) {
         this.modelMapper = modelMapper;
         this.ATAChapterRepository = ATAChapterRepository;
         this.gson = gson;
@@ -98,5 +98,13 @@ public class ChapterServiceImpl implements ChapterService {
                         .collect(Collectors.toList());
 
         return chaptersAtaAndNameExportList;
+    }
+
+    @Override
+    public ATAChapterEntity findAtaChapterByCode(Integer ataChapterCode) {
+
+       return this.ATAChapterRepository.findByAtaChapter(ataChapterCode)
+                .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
+
     }
 }

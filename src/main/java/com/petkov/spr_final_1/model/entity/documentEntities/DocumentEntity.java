@@ -4,13 +4,16 @@ import com.petkov.spr_final_1.model.entity.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "documents")
 public class DocumentEntity extends BaseEntity {
 
     private String name;
+    private List<ParagraphEntity> paragraphs;
 
     public DocumentEntity() {
     }
@@ -24,4 +27,12 @@ public class DocumentEntity extends BaseEntity {
         this.name = name;
     }
 
+    @OneToMany(mappedBy = "document", targetEntity = ParagraphEntity.class)
+    public List<ParagraphEntity> getParagraphs() {
+        return paragraphs;
+    }
+
+    public void setParagraphs(List<ParagraphEntity> paragraphs) {
+        this.paragraphs = paragraphs;
+    }
 }

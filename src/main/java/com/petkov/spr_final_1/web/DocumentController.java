@@ -5,7 +5,7 @@ import com.petkov.spr_final_1.model.binding.ATASubChapterAddBindingModel;
 import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.service.ATASubChapterServiceModel;
 import com.petkov.spr_final_1.service.ATASubchapterService;
-import com.petkov.spr_final_1.service.ChapterService;
+import com.petkov.spr_final_1.service.ATAChapterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,26 +22,25 @@ import javax.validation.Valid;
 @RequestMapping("/documents")
 public class DocumentController {
 
-    private final ChapterService chapterService;
+    private final ATAChapterService ATAChapterService;
     private final ATASubchapterService ataSubchapterService;
     private final ModelMapper modelMapper;
 
-    public DocumentController(ChapterService chapterService, ATASubchapterService ataSubchapterService, ModelMapper modelMapper) {
-        this.chapterService = chapterService;
+    public DocumentController(ATAChapterService ATAChapterService, ATASubchapterService ataSubchapterService, ModelMapper modelMapper) {
+        this.ATAChapterService = ATAChapterService;
         this.ataSubchapterService = ataSubchapterService;
         this.modelMapper = modelMapper;
     }
 
 
-
     @GetMapping("/add-references")
-    private String addReference(Model model){
+    private String addReference(Model model) {
 
-        if(!model.containsAttribute("redirectFrom")){
+        if (!model.containsAttribute("redirectFrom")) {
             model.addAttribute("redirectFrom", "add-document-post");
         }
 
-        model.addAttribute("ataDBList", this.chapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
+        model.addAttribute("ataDBList", this.ATAChapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
 
         return "add-references";
     }
@@ -53,13 +52,13 @@ public class DocumentController {
     }
 
     @GetMapping("/add-chapter")
-    private String addChapter(Model model){
+    private String addChapter(Model model) {
 
-        if(!model.containsAttribute("redirectFrom")){
+        if (!model.containsAttribute("redirectFrom")) {
             model.addAttribute("redirectFrom", "add-chapter-post");
         }
 
-        if(!model.containsAttribute("seedOk")){
+        if (!model.containsAttribute("seedOk")) {
             model.addAttribute("seedOk", "false");
         }
 
@@ -68,12 +67,12 @@ public class DocumentController {
 
     @PostMapping("/add-chapter")
     public String addChapterConfirm(@Valid ATAChapterAddBindingModel ataChapterAddBindingModel,
-                           BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+                                    BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes) {
 
         redirectAttributes.addFlashAttribute("redirectFrom", "add-chapter-post");
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("ataChapterAddBindingModel", ataChapterAddBindingModel);
             redirectAttributes
                     .addFlashAttribute("org.springframework.validation.BindingResult.ataChapterAddBindingModel", bindingResult);
@@ -86,13 +85,11 @@ public class DocumentController {
                 ataChapterAddBindingModel,
                 ATAChapterServiceModel.class);
 
-        chapterService.addChapterToDB(ataChapterServiceModel);
+        ATAChapterService.addChapterToDB(ataChapterServiceModel);
 
         redirectAttributes.addFlashAttribute("seedOk", true);
         return "redirect:add-references";
     }
-
-
 
 
     @ModelAttribute("ataSubChapterAddBindingModel")
@@ -101,14 +98,18 @@ public class DocumentController {
     }
 
     @GetMapping("/add-subChapter")
-    private String addSubChapter(Model model){
+    private String addSubChapter(Model model) {
 
-        if(!model.containsAttribute("redirectFrom")){
+        if (!model.containsAttribute("redirectFrom")) {
             model.addAttribute("redirectFrom", "add-subChapter-post");
         }
 
-        if(!model.containsAttribute("seedOk")){
-            model.addAttribute("seedOk", "false");
+        if (!model.containsAttribute("ataSubChapterExistsError")) {
+            model.addAttribute("ataSubChapterExistsError", false);
+        }
+
+        if (!model.containsAttribute("seedOk")) {
+            model.addAttribute("seedOk", false);
         }
 
         return "add-references";
@@ -116,12 +117,12 @@ public class DocumentController {
 
     @PostMapping("/add-subChapter")
     public String addSubChapterConfirm(@Valid ATASubChapterAddBindingModel ataSubChapterAddBindingModel,
-                                    BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes) {
+                                       BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes) {
 
         redirectAttributes.addFlashAttribute("redirectFrom", "add-subChapter-post");
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("ataSubChapterAddBindingModel", ataSubChapterAddBindingModel);
             redirectAttributes
                     .addFlashAttribute("org.springframework.validation.BindingResult.ataSubChapterAddBindingModel", bindingResult);
@@ -130,6 +131,14 @@ public class DocumentController {
         }
 
         //todo - addSubChapterConfirm - check if subChapter exists and redirect to add-subChapter page
+
+        if (ataSubchapterService.subChapterAtaCodeExists(ataSubChapterAddBindingModel.getAtaSubCode())) {
+
+            redirectAttributes.addFlashAttribute("ataSubChapterAddBindingModel", ataSubChapterAddBindingModel);
+            redirectAttributes.addFlashAttribute("ataSubChapterExistsError", true);
+
+            return "redirect:/users/register";
+        }
         ATASubChapterServiceModel ataSubChapterServiceModel = modelMapper.map(
                 ataSubChapterAddBindingModel,
                 ATASubChapterServiceModel.class);
@@ -137,9 +146,9 @@ public class DocumentController {
         ataSubchapterService.seedATASubchapterToDb(ataSubChapterServiceModel);
 
         redirectAttributes.addFlashAttribute("seedOk", true);
+
         return "redirect:add-references";
     }
-
 
 
 }

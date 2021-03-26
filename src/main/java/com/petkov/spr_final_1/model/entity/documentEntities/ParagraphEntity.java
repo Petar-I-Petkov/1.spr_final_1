@@ -3,23 +3,19 @@ package com.petkov.spr_final_1.model.entity.documentEntities;
 
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "paragraphs")
-public class
-ParagraphEntity extends BaseEntity {
+public class ParagraphEntity extends BaseEntity {
 
     private String title;
     private String documentRevision;
     private LocalDateTime documentDate;
     private String description;
     // todo - ParagraphEntity - add picture field
-    private ATASubChapterEntity ataSection;
+    private ATASubChapterEntity ataSubChapter;
     private DocumentEntity document;
 
     public ParagraphEntity() {
@@ -52,7 +48,7 @@ ParagraphEntity extends BaseEntity {
         this.documentDate = documentDate;
     }
 
-    @Column(name = "description", unique = false, nullable = false , columnDefinition = "TEXT")
+    @Column(name = "description", unique = false, nullable = false, columnDefinition = "TEXT")
     public String getDescription() {
         return description;
     }
@@ -62,15 +58,18 @@ ParagraphEntity extends BaseEntity {
     }
 
     @ManyToOne
-    public ATASubChapterEntity getAtaSection() {
-        return ataSection;
+    @JoinColumn(name = "ata_sub_chapter", referencedColumnName = "id")
+    public ATASubChapterEntity getAtaSubChapter() {
+        return ataSubChapter;
     }
 
-    public void setAtaSection(ATASubChapterEntity ataSection) {
-        this.ataSection = ataSection;
+    public void setAtaSubChapter(ATASubChapterEntity ataSubChapter) {
+        this.ataSubChapter = ataSubChapter;
     }
+
 
     @ManyToOne
+    @JoinColumn(name = "document", referencedColumnName = "id")
     public DocumentEntity getDocument() {
         return document;
     }
