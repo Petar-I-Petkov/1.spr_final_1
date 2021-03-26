@@ -25,6 +25,8 @@ public class DBInit implements CommandLineRunner {
         userService.seedUsers();
         this.chapterService.initSeedChapters();
 
+        this.chapterService.listAllChaptersAtaAndNameOrderByAtaDesc();
+
     }
 
 }

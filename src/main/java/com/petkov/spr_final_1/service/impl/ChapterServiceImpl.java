@@ -9,6 +9,7 @@ import com.petkov.spr_final_1.service.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChapterServiceImpl implements ChapterService {
@@ -70,7 +73,7 @@ public class ChapterServiceImpl implements ChapterService {
                     .stream()
                     .map(ConstraintViolation::getMessage)
                     .forEach(System.out::println);
-            System.out.printf("For chapter '%s' - '%s' %n",chapterServiceModel.getAtaChapter(), chapterServiceModel.getName());
+            System.out.printf("For chapter '%s' - '%s' %n", chapterServiceModel.getAtaChapter(), chapterServiceModel.getName());
         }
     }
 
@@ -80,5 +83,20 @@ public class ChapterServiceImpl implements ChapterService {
         ATAChapterEntity ATAChapterEntity = this.modelMapper.map(chapterServiceModel, ATAChapterEntity.class);
         this.chapterRepository.saveAndFlush(ATAChapterEntity);
 
+    }
+
+    @Override
+    public List<String> listAllChaptersAtaAndNameOrderByAtaDesc() {
+
+        List<ATAChapterEntity> allChapters =
+                this.chapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataChapter")));
+
+        List<String> chaptersAtaAndNameExportList =
+                allChapters
+                        .stream()
+                        .map(chapter -> String.format("%02d - %s ", chapter.getAtaChapter(), chapter.getName()))
+                        .collect(Collectors.toList());
+
+        return chaptersAtaAndNameExportList;
     }
 }

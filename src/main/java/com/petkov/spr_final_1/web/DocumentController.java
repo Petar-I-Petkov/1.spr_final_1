@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/documents")
@@ -40,6 +41,8 @@ public class DocumentController {
         if(!model.containsAttribute("redirectFrom")){
             model.addAttribute("redirectFrom", "add-document-post");
         }
+
+        model.addAttribute("ataDBList", this.chapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
 
         return "add-references";
     }
@@ -83,6 +86,21 @@ public class DocumentController {
         //todo addChapterConfirm - display success message and stay on tab using Model do pass data to addReference GetMapping
         redirectAttributes.addFlashAttribute("seedOk", true);
         return "redirect:add-references";
+    }
+
+    @GetMapping("/add-subChapter")
+    private String addSubChapter(Model model){
+
+        if(!model.containsAttribute("redirectFrom")){
+            model.addAttribute("redirectFrom", "add-chapter-post");
+        }
+
+        if(!model.containsAttribute("seedOk")){
+            model.addAttribute("seedOk", "false");
+        }
+
+
+        return "add-references";
     }
 
 }

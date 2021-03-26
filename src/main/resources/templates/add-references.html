@@ -70,7 +70,8 @@
                         <button class="nav-link"
                                 th:classappend="${redirectFrom == 'add-subChapter-post' ? 'active' : ''}"
                                 id="subChapter-tab" data-bs-toggle="tab" data-bs-target="#subChapter"
-                                type="button" role="tab" aria-controls="subChapter" aria-selected="false">Add ATA SubChapter
+                                type="button" role="tab" aria-controls="subChapter" aria-selected="false">Add ATA
+                            SubChapter
                         </button>
                     </li>
                 </ul>
@@ -242,9 +243,9 @@
                                             <div class="input-group input-group-sm">
                                                 <select class="form-select" aria-label="Select ATA Chapter">
                                                     <option selected>Select ATA Chapter...</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">
+                                                        One
+                                                    </option>
                                                 </select>
                                             </div>
                                         </td>
@@ -252,9 +253,9 @@
                                             <div class="input-group input-group-sm">
                                                 <input
 
-                                                       id="ataSubCode"
-                                                       name="ataSubCode"
-                                                       type="number" class="form-control" placeholder="SubChapter ATA">
+                                                        id="ataSubCode"
+                                                        name="ataSubCode"
+                                                        type="number" class="form-control" placeholder="SubChapter ATA">
                                             </div>
 
                                         </td>
@@ -265,15 +266,18 @@
                                                         required minlength="3"
                                                         id="subchapterName"
                                                         name="subchapterName"
-                                                        type="number" class="form-control" placeholder="SubChapter Name">
+                                                        type="number" class="form-control"
+                                                        placeholder="SubChapter Name">
                                             </div>
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
-                                            <a href="/documents/add-subChapter" class="btn btn-primary btn-sm">Cancel</a>
+                                            <a href="/documents/add-subChapter"
+                                               class="btn btn-primary btn-sm">Cancel</a>
                                         </td>
 
                                     </tr>
+                                    <!--                                    todo add button below the ATA chapter dropdown to go to Add ATA Chapter page-->
                                     <tr>
                                         <td class="text-center small">
                                             <small
@@ -328,7 +332,6 @@
                 });
             </script>
             <!-- EO Success message display-->
-
 
 
         </div>
