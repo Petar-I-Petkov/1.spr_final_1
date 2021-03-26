@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "sections")
 public class ATASubChapterEntity extends BaseEntity {
 
-    private String ataSubCode;
+    private Integer ataSubCode;
     private String subchapterName;
     private List<ParagraphEntity> paragraphs;
     private ATAChapterEntity ataChapterRef;
@@ -18,11 +18,11 @@ public class ATASubChapterEntity extends BaseEntity {
     }
 
     @Column(name = "ata_subcode", unique = true, nullable = false)
-    public String getAtaSubCode() {
+    public Integer getAtaSubCode() {
         return ataSubCode;
     }
 
-    public void setAtaSubCode(String ataSubCode) {
+    public void setAtaSubCode(Integer ataSubCode) {
         this.ataSubCode = ataSubCode;
     }
 

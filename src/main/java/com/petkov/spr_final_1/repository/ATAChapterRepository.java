@@ -9,6 +9,6 @@ import java.util.Optional;
 
 
 @Repository
-public interface ChapterRepository extends JpaRepository<ATAChapterEntity, Long> {
+public interface ATAChapterRepository extends JpaRepository<ATAChapterEntity, Long> {
 
 }

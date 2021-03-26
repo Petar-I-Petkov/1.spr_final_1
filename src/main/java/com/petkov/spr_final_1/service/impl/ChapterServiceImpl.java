@@ -2,8 +2,8 @@ package com.petkov.spr_final_1.service.impl;
 
 import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.documentEntities.ATAChapterEntity;
-import com.petkov.spr_final_1.model.service.ChapterServiceModel;
-import com.petkov.spr_final_1.repository.ChapterRepository;
+import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
+import com.petkov.spr_final_1.repository.ATAChapterRepository;
 import com.petkov.spr_final_1.service.ChapterService;
 import com.petkov.spr_final_1.service.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
@@ -24,17 +24,17 @@ import java.util.stream.Collectors;
 public class ChapterServiceImpl implements ChapterService {
 
     private final ModelMapper modelMapper;
-    private final ChapterRepository chapterRepository;
+    private final ATAChapterRepository ATAChapterRepository;
     private final Gson gson;
     private final Resource chaptersInitFile;
     private final ValidationUtil validationUtil;
 
     public ChapterServiceImpl(ModelMapper modelMapper,
-                              ChapterRepository chapterRepository,
+                              ATAChapterRepository ATAChapterRepository,
                               Gson gson,
                               @Value("classpath:init/chaptersInit.json") Resource chaptersInitFile, ValidationUtil validationUtil) {
         this.modelMapper = modelMapper;
-        this.chapterRepository = chapterRepository;
+        this.ATAChapterRepository = ATAChapterRepository;
         this.gson = gson;
         this.chaptersInitFile = chaptersInitFile;
         this.validationUtil = validationUtil;
@@ -42,13 +42,13 @@ public class ChapterServiceImpl implements ChapterService {
 
     @Override
     public void initSeedChapters() {
-        if (chapterRepository.count() == 0) {
+        if (ATAChapterRepository.count() == 0) {
             try {
-                ChapterServiceModel[] chapterServiceModels =
-                        gson.fromJson(Files.readString(Path.of(chaptersInitFile.getURI())), ChapterServiceModel[].class);
+                ATAChapterServiceModel[] ATAChapterServiceModels =
+                        gson.fromJson(Files.readString(Path.of(chaptersInitFile.getURI())), ATAChapterServiceModel[].class);
 
                 Arrays
-                        .stream(chapterServiceModels)
+                        .stream(ATAChapterServiceModels)
                         .forEach(this::seedChaptersIfValidOrPrintError);
 
             } catch (IOException e) {
@@ -57,31 +57,31 @@ public class ChapterServiceImpl implements ChapterService {
         }
     }
 
-    private void seedChaptersIfValidOrPrintError(ChapterServiceModel chapterServiceModel) {
+    private void seedChaptersIfValidOrPrintError(ATAChapterServiceModel ATAChapterServiceModel) {
 
-        if (this.validationUtil.isValid(chapterServiceModel)) {
+        if (this.validationUtil.isValid(ATAChapterServiceModel)) {
 
             //chapterServiceModel is valid -> map it to real Chapter, seed to database
-            ATAChapterEntity chapter = this.modelMapper.map(chapterServiceModel, ATAChapterEntity.class);
-            this.chapterRepository.saveAndFlush(chapter);
+            ATAChapterEntity chapter = this.modelMapper.map(ATAChapterServiceModel, ATAChapterEntity.class);
+            this.ATAChapterRepository.saveAndFlush(chapter);
 
         } else {
             //chapterServiceModel is NOT valid -> print messages
             System.out.println(String.format("Chapter init seed errors from file 'init/chaptersInit.json' %n: "));
 
-            this.validationUtil.getViolations(chapterServiceModel)
+            this.validationUtil.getViolations(ATAChapterServiceModel)
                     .stream()
                     .map(ConstraintViolation::getMessage)
                     .forEach(System.out::println);
-            System.out.printf("For chapter '%s' - '%s' %n", chapterServiceModel.getAtaChapter(), chapterServiceModel.getName());
+            System.out.printf("For chapter '%s' - '%s' %n", ATAChapterServiceModel.getAtaChapter(), ATAChapterServiceModel.getName());
         }
     }
 
     @Override
-    public void addChapterToDB(ChapterServiceModel chapterServiceModel) {
+    public void addChapterToDB(ATAChapterServiceModel ataChapterServiceModel) {
 
-        ATAChapterEntity ATAChapterEntity = this.modelMapper.map(chapterServiceModel, ATAChapterEntity.class);
-        this.chapterRepository.saveAndFlush(ATAChapterEntity);
+        ATAChapterEntity ATAChapterEntity = this.modelMapper.map(ataChapterServiceModel, ATAChapterEntity.class);
+        this.ATAChapterRepository.saveAndFlush(ATAChapterEntity);
 
     }
 
@@ -89,7 +89,7 @@ public class ChapterServiceImpl implements ChapterService {
     public List<String> listAllChaptersAtaAndNameOrderByAtaDesc() {
 
         List<ATAChapterEntity> allChapters =
-                this.chapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataChapter")));
+                this.ATAChapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataChapter")));
 
         List<String> chaptersAtaAndNameExportList =
                 allChapters

@@ -4,14 +4,14 @@ import com.google.gson.annotations.Expose;
 
 import javax.validation.constraints.*;
 
-public class ChapterServiceModel extends BaseServiceModel{
+public class ATAChapterServiceModel extends BaseServiceModel{
 
     @Expose
     private Integer ataChapter;
     @Expose
     private String name;
 
-    public ChapterServiceModel() {
+    public ATAChapterServiceModel() {
     }
 
     @NotNull(message = "ATA code cannot be empty.")

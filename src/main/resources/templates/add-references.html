@@ -220,6 +220,7 @@
 
                     <!--3. Add Subchapter Tab-->
                     <div class="tab-pane fade my-3"
+                         th:object="${ataSubChapterAddBindingModel}"
                          th:classappend="${redirectFrom == 'add-subChapter-post' ? 'show active' : ''}"
                          id="subChapter"
                          role="tabpanel"
@@ -241,7 +242,11 @@
                                     <tr>
                                         <td>
                                             <div class="input-group input-group-sm">
-                                                <select class="form-select" aria-label="Select ATA Chapter">
+                                                <select
+                                                        id="ataChapterRef"
+                                                        name="ataChapterRef"
+                                                        class="form-select"
+                                                        aria-label="Select ATA Chapter">
                                                     <option selected>Select ATA Chapter...</option>
                                                     <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">
                                                         One
@@ -255,7 +260,9 @@
 
                                                         id="ataSubCode"
                                                         name="ataSubCode"
-                                                        type="number" class="form-control" placeholder="SubChapter ATA">
+                                                        type="number"
+                                                        class="form-control"
+                                                        placeholder="SubChapter ATA">
                                             </div>
 
                                         </td>
@@ -263,10 +270,10 @@
                                             <div class="input-group input-group-sm">
                                                 <input
 
-                                                        required minlength="3"
                                                         id="subchapterName"
                                                         name="subchapterName"
-                                                        type="number" class="form-control"
+                                                        type="text"
+                                                        class="form-control"
                                                         placeholder="SubChapter Name">
                                             </div>
                                         </td>
