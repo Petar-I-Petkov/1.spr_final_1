@@ -15,7 +15,7 @@ public class ATAChapterEntity extends BaseEntity {
 
     private Integer ataChapter;
     private String name;
-    private List<ATASectionEntity> ataSections;
+    private List<ATASubChapterEntity> ataSections;
 
     public ATAChapterEntity() {
     }
@@ -40,11 +40,11 @@ public class ATAChapterEntity extends BaseEntity {
     }
 
     @OneToMany
-    public List<ATASectionEntity> getSections() {
+    public List<ATASubChapterEntity> getSections() {
         return ataSections;
     }
 
-    public void setSections(List<ATASectionEntity> ataSections) {
+    public void setSections(List<ATASubChapterEntity> ataSections) {
         this.ataSections = ataSections;
     }
 }

@@ -34,10 +34,28 @@ public class DocumentController {
     }
 
 
-    @GetMapping("/add-chapter")
-    private String addChapter(Model model, HttpSession httpSession){
+    @GetMapping("/add-references")
+    private String addReference(Model model){
 
-        return "document-add";
+        if(!model.containsAttribute("redirectFrom")){
+            model.addAttribute("redirectFrom", "add-document-post");
+        }
+
+        return "add-references";
+    }
+
+    @GetMapping("/add-chapter")
+    private String addChapter(Model model){
+
+        if(!model.containsAttribute("redirectFrom")){
+            model.addAttribute("redirectFrom", "add-chapter-post");
+        }
+
+        if(!model.containsAttribute("seedOk")){
+            model.addAttribute("seedOk", "false");
+        }
+
+        return "add-references";
     }
 
     @PostMapping("/add-chapter")
@@ -45,15 +63,15 @@ public class DocumentController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
+        redirectAttributes.addFlashAttribute("redirectFrom", "add-chapter-post");
 
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("ataChapterAddBindingModel", ataChapterAddBindingModel);
             redirectAttributes
                     .addFlashAttribute("org.springframework.validation.BindingResult.ataChapterAddBindingModel", bindingResult);
 
-            return "redirect:add-chapter";
+            return "redirect:add-references";
         }
-
 
         //todo - addChapter - check if chapter exists and redirect to add-chapter page
         ChapterServiceModel chapterServiceModel = modelMapper.map(
@@ -62,8 +80,9 @@ public class DocumentController {
 
         chapterService.addChapterToDB(chapterServiceModel);
 
-        return "redirect:/home";
+        //todo addChapterConfirm - display success message and stay on tab using Model do pass data to addReference GetMapping
+        redirectAttributes.addFlashAttribute("seedOk", true);
+        return "redirect:add-references";
     }
-
 
 }

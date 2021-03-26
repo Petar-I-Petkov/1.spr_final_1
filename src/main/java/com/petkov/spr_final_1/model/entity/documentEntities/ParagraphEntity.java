@@ -10,17 +10,16 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "paragpraphs")
+@Table(name = "paragraphs")
 public class
 ParagraphEntity extends BaseEntity {
 
     private String title;
-    private String documentReference;
     private String documentRevision;
     private LocalDateTime documentDate;
     private String description;
-    // todo - add picture holders
-    private ATASectionEntity ataSection;
+    // todo - ParagraphEntity - add picture field
+    private ATASubChapterEntity ataSection;
     private DocumentEntity document;
 
     public ParagraphEntity() {
@@ -33,15 +32,6 @@ ParagraphEntity extends BaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Column(name = "document", unique = false, nullable = false)
-    public String getDocumentReference() {
-        return documentReference;
-    }
-
-    public void setDocumentReference(String documentReference) {
-        this.documentReference = documentReference;
     }
 
     @Column(name = "revision", unique = false, nullable = true)
@@ -72,11 +62,11 @@ ParagraphEntity extends BaseEntity {
     }
 
     @ManyToOne
-    public ATASectionEntity getAtaSection() {
+    public ATASubChapterEntity getAtaSection() {
         return ataSection;
     }
 
-    public void setAtaSection(ATASectionEntity ataSection) {
+    public void setAtaSection(ATASubChapterEntity ataSection) {
         this.ataSection = ataSection;
     }
 
