@@ -6,7 +6,7 @@ public interface ATASubchapterService {
 
     void seedATASubchapterToDb(ATASubChapterServiceModel ataSubChapterServiceModel);
 
-    boolean subChapterAtaCodeExists(Integer ataSubCode);
+    boolean subChapterCodeExists(Integer ataSubCode, String ataChapterRefInput);
 
 
 }

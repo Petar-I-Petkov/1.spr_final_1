@@ -42,8 +42,6 @@ public class UserController {
         attributes.addFlashAttribute("bad_credentials", true);
         attributes.addFlashAttribute("username", username);
 
-        System.out.println();
-
         return "redirect:/users/login";
     }
 

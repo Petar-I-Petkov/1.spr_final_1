@@ -26,7 +26,7 @@ public class ATASubChapterEntity extends BaseEntity {
         this.ataSubCode = ataSubCode;
     }
 
-    @Column(name = "subchapter_name", unique = true, nullable = false)
+    @Column(name = "subchapter_name", unique = false, nullable = false)
     public String getSubchapterName() {
         return subchapterName;
     }

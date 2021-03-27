@@ -38,11 +38,6 @@ public class ATASubchapterServiceImpl implements ATASubchapterService {
 //        ATASubChapterEntity ataSubChapterEntity =
 //                modelMapper.map(ataSubChapterServiceModel, ATASubChapterEntity.class);
 
-        //todo seedATASubchapterToDb debug point
-
-
-        //todo seedATASubchapterToDb debug point
-
         ATASubChapterEntity ataSubChapterEntity = new ATASubChapterEntity();
 
         ataSubChapterEntity.setAtaSubCode(ataSubChapterServiceModel.getAtaSubCode());
@@ -61,7 +56,13 @@ public class ATASubchapterServiceImpl implements ATASubchapterService {
     }
 
     @Override
-    public boolean subChapterAtaCodeExists(Integer ataSubCode) {
-        return ataSubChapterRepository.findByAtaSubCode(ataSubCode).isPresent();
+    @Transactional
+    public boolean subChapterCodeExists(Integer ataSubCode, String ataChapterRefInput) {
+
+        ATASubChapterEntity ataSubChapterEntity =
+                this.ataSubChapterRepository.findByAtaSubCode(ataSubCode).orElse(null);
+
+        return ataSubChapterEntity != null &&
+                ataSubChapterEntity.getAtaChapterRef().getAtaChapter() == Integer.parseInt(ataChapterRefInput.split(" ")[0]);
     }
 }
