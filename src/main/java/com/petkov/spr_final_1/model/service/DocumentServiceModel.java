@@ -9,20 +9,20 @@ import java.util.List;
 
 public class DocumentServiceModel {
 
-    private String name;
+    private String documentName;
     private List<ParagraphEntity> paragraphs = new ArrayList<>();
 
     public DocumentServiceModel() {
     }
 
-    @NotBlank(message = "Document name cannot be empty.")
-    @Size(min = 3, message = "Document name length must be at least 3 characters.")
-    public String getName() {
-        return name;
+    @NotBlank(message = "Cannot be empty. ")
+    @Size(min = 3, message = "Document name must be at least 3 characters. ")
+    public String getDocumentName() {
+        return documentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
     }
 
     public List<ParagraphEntity> getParagraphs() {

@@ -2,10 +2,13 @@ package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.ATAChapterAddBindingModel;
 import com.petkov.spr_final_1.model.binding.ATASubChapterAddBindingModel;
+import com.petkov.spr_final_1.model.binding.DocumentAddBindingModel;
 import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.service.ATASubChapterServiceModel;
+import com.petkov.spr_final_1.model.service.DocumentServiceModel;
 import com.petkov.spr_final_1.service.ATASubchapterService;
 import com.petkov.spr_final_1.service.ATAChapterService;
+import com.petkov.spr_final_1.service.DocumentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +25,17 @@ import javax.validation.Valid;
 @RequestMapping("/documents")
 public class DocumentController {
 
-    private final ATAChapterService ATAChapterService;
+    private final DocumentService documentService;
+    private final ATAChapterService ataChapterService;
     private final ATASubchapterService ataSubchapterService;
     private final ModelMapper modelMapper;
 
-    public DocumentController(ATAChapterService ATAChapterService, ATASubchapterService ataSubchapterService, ModelMapper modelMapper) {
-        this.ATAChapterService = ATAChapterService;
+    public DocumentController(DocumentService documentService,
+                              ATAChapterService ATAChapterService,
+                              ATASubchapterService ataSubchapterService,
+                              ModelMapper modelMapper) {
+        this.documentService = documentService;
+        this.ataChapterService = ATAChapterService;
         this.ataSubchapterService = ataSubchapterService;
         this.modelMapper = modelMapper;
     }
@@ -40,7 +48,7 @@ public class DocumentController {
             model.addAttribute("redirectFrom", "add-document-post");
         }
 
-        model.addAttribute("ataDBList", this.ATAChapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
+        model.addAttribute("ataDBList", this.ataChapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
 
         return "add-references";
     }
@@ -62,6 +70,10 @@ public class DocumentController {
             model.addAttribute("seedOk", "false");
         }
 
+        if (!model.containsAttribute("chapterExistsError")) {
+            model.addAttribute("chapterExistsError", false);
+        }
+
         return "add-references";
     }
 
@@ -80,12 +92,23 @@ public class DocumentController {
             return "redirect:add-references";
         }
 
-        //todo - addChapter - check if chapter exists and redirect to add-chapter page
+        if (ataChapterService.chapterAtaCodeExists(ataChapterAddBindingModel.getAtaChapter())) {
+
+            redirectAttributes.addFlashAttribute("ataChapterAddBindingModel", ataChapterAddBindingModel);
+
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.ataChapterAddBindingModel", bindingResult);
+
+            redirectAttributes.addFlashAttribute("chapterExistsError", true);
+
+            return "redirect:add-references";
+        }
+
         ATAChapterServiceModel ataChapterServiceModel = modelMapper.map(
                 ataChapterAddBindingModel,
                 ATAChapterServiceModel.class);
 
-        ATAChapterService.addChapterToDB(ataChapterServiceModel);
+        ataChapterService.addChapterToDB(ataChapterServiceModel);
 
         redirectAttributes.addFlashAttribute("seedOk", true);
         return "redirect:add-references";
@@ -130,20 +153,82 @@ public class DocumentController {
             return "redirect:add-references";
         }
 
-        //todo - addSubChapterConfirm - check if subChapter exists and redirect to add-subChapter page
-
         if (ataSubchapterService.subChapterAtaCodeExists(ataSubChapterAddBindingModel.getAtaSubCode())) {
 
             redirectAttributes.addFlashAttribute("ataSubChapterAddBindingModel", ataSubChapterAddBindingModel);
+
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.ataSubChapterAddBindingModel", bindingResult);
+
             redirectAttributes.addFlashAttribute("ataSubChapterExistsError", true);
 
-            return "redirect:/users/register";
+            return "redirect:add-references";
         }
+
         ATASubChapterServiceModel ataSubChapterServiceModel = modelMapper.map(
                 ataSubChapterAddBindingModel,
                 ATASubChapterServiceModel.class);
 
         ataSubchapterService.seedATASubchapterToDb(ataSubChapterServiceModel);
+
+        redirectAttributes.addFlashAttribute("seedOk", true);
+
+        return "redirect:add-references";
+    }
+
+
+    @ModelAttribute("documentAddBindingModel")
+    public DocumentAddBindingModel documentAddBindingModel() {
+        return new DocumentAddBindingModel();
+    }
+
+    @GetMapping("/add-document")
+    private String addDocument(Model model) {
+
+        if (!model.containsAttribute("redirectFrom")) {
+            model.addAttribute("redirectFrom", "add-document-post");
+        }
+
+        if (!model.containsAttribute("documentExistsError")) {
+            model.addAttribute("documentExistsError", false);
+        }
+
+        if (!model.containsAttribute("seedOk")) {
+            model.addAttribute("seedOk", false);
+        }
+
+        return "add-references";
+    }
+
+    @PostMapping("/add-document")
+    public String addDocumentConfirm(@Valid DocumentAddBindingModel documentAddBindingModel,
+                                       BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("redirectFrom", "add-document-post");
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("documentAddBindingModel", documentAddBindingModel);
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.documentAddBindingModel", bindingResult);
+
+            return "redirect:add-references";
+        }
+
+        if (documentService.documentExists(documentAddBindingModel.getDocumentName())) {
+
+            redirectAttributes.addFlashAttribute("documentAddBindingModel", documentAddBindingModel);
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.documentAddBindingModel", bindingResult);
+
+            redirectAttributes.addFlashAttribute("documentExistsError", true);
+
+            return "redirect:add-references";
+        }
+
+        DocumentServiceModel documentServiceModel = modelMapper.map(documentAddBindingModel, DocumentServiceModel.class);
+
+        documentService.seedDocumentToDb(documentServiceModel);
 
         redirectAttributes.addFlashAttribute("seedOk", true);
 

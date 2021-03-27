@@ -80,6 +80,7 @@
 
                     <!--1. Add Document Tab-->
                     <div class="tab-pane fade my-3 bg-light"
+                         th:object="${documentAddBindingModel}"
                          th:classappend="${redirectFrom == 'add-document-post' ? 'show active' : ''}"
                          id="document"
                          role="tabpanel"
@@ -103,9 +104,9 @@
                                         <td>
                                             <div class="input-group input-group-sm">
                                                 <input
-
+                                                        th:value="*{documentName}"
                                                         id="documentName"
-                                                        name="name"
+                                                        name="documentName"
                                                         type="text" class="form-control" placeholder="Document">
                                             </div>
                                         </td>
@@ -115,17 +116,20 @@
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
-                                            <a href="/documents/add-references"
-                                               class="btn btn-primary btn-sm">Cancel</a>
+                                            <a href="/documents/add-document" class="btn btn-primary btn-sm">Cancel</a>
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <td class="text-center small">
                                             <small
-
+                                                    th:each="e: ${#fields.errors('documentName')}"
+                                                    th:text="${e}"
                                                     id="nameError"
                                                     class="text-danger">
+                                            </small>
+                                            <small th:if="${documentExistsError}" id="documentExistsError"
+                                                   class="text-danger">Document already exists in DB!
                                             </small>
                                         </td>
                                         <td></td>
@@ -197,6 +201,9 @@
                                                     th:text="${e}"
                                                     id="ataChapterError"
                                                     class="text-danger">
+                                            </small>
+                                            <small th:if="${chapterExistsError}" id="chapterExistsError"
+                                                   class="text-danger">ATA Code already exists in DB!
                                             </small>
                                         </td>
                                         <td>

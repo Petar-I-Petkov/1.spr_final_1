@@ -14,4 +14,6 @@ public interface ATAChapterService {
     List<String> listAllChaptersAtaAndNameOrderByAtaDesc();
 
     ATAChapterEntity findAtaChapterByCode(Integer ataChapterCode);
+
+    boolean chapterAtaCodeExists(Integer ataChapter);
 }

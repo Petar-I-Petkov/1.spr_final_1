@@ -12,20 +12,22 @@ import java.util.List;
 @Table(name = "documents")
 public class DocumentEntity extends BaseEntity {
 
-    private String name;
+    private String documentName;
     private List<ParagraphEntity> paragraphs;
 
     public DocumentEntity() {
     }
 
     @Column(name = "document_name", unique = true, nullable = false)
-    public String getName() {
-        return name;
+    public String getDocumentName() {
+        return documentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
     }
+
+
 
     @OneToMany(mappedBy = "document", targetEntity = ParagraphEntity.class)
     public List<ParagraphEntity> getParagraphs() {

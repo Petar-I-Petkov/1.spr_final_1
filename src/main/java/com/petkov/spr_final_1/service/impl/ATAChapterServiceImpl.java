@@ -5,7 +5,7 @@ import com.petkov.spr_final_1.model.entity.documentEntities.ATAChapterEntity;
 import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
 import com.petkov.spr_final_1.repository.ATAChapterRepository;
 import com.petkov.spr_final_1.service.ATAChapterService;
-import com.petkov.spr_final_1.service.utils.ValidationUtil;
+import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -24,17 +24,17 @@ import java.util.stream.Collectors;
 public class ATAChapterServiceImpl implements ATAChapterService {
 
     private final ModelMapper modelMapper;
-    private final ATAChapterRepository ATAChapterRepository;
+    private final ATAChapterRepository ataChapterRepository;
     private final Gson gson;
     private final Resource chaptersInitFile;
     private final ValidationUtil validationUtil;
 
     public ATAChapterServiceImpl(ModelMapper modelMapper,
-                                 ATAChapterRepository ATAChapterRepository,
+                                 ATAChapterRepository ataChapterRepository,
                                  Gson gson,
                                  @Value("classpath:init/chaptersInit.json") Resource chaptersInitFile, ValidationUtil validationUtil) {
         this.modelMapper = modelMapper;
-        this.ATAChapterRepository = ATAChapterRepository;
+        this.ataChapterRepository = ataChapterRepository;
         this.gson = gson;
         this.chaptersInitFile = chaptersInitFile;
         this.validationUtil = validationUtil;
@@ -42,7 +42,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
 
     @Override
     public void initSeedChapters() {
-        if (ATAChapterRepository.count() == 0) {
+        if (ataChapterRepository.count() == 0) {
             try {
                 ATAChapterServiceModel[] ATAChapterServiceModels =
                         gson.fromJson(Files.readString(Path.of(chaptersInitFile.getURI())), ATAChapterServiceModel[].class);
@@ -63,7 +63,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
 
             //chapterServiceModel is valid -> map it to real Chapter, seed to database
             ATAChapterEntity chapter = this.modelMapper.map(ATAChapterServiceModel, ATAChapterEntity.class);
-            this.ATAChapterRepository.saveAndFlush(chapter);
+            this.ataChapterRepository.saveAndFlush(chapter);
 
         } else {
             //chapterServiceModel is NOT valid -> print messages
@@ -81,7 +81,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     public void addChapterToDB(ATAChapterServiceModel ataChapterServiceModel) {
 
         ATAChapterEntity ATAChapterEntity = this.modelMapper.map(ataChapterServiceModel, ATAChapterEntity.class);
-        this.ATAChapterRepository.saveAndFlush(ATAChapterEntity);
+        this.ataChapterRepository.saveAndFlush(ATAChapterEntity);
 
     }
 
@@ -89,7 +89,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     public List<String> listAllChaptersAtaAndNameOrderByAtaDesc() {
 
         List<ATAChapterEntity> allChapters =
-                this.ATAChapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataChapter")));
+                this.ataChapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataChapter")));
 
         List<String> chaptersAtaAndNameExportList =
                 allChapters
@@ -103,8 +103,13 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     @Override
     public ATAChapterEntity findAtaChapterByCode(Integer ataChapterCode) {
 
-       return this.ATAChapterRepository.findByAtaChapter(ataChapterCode)
+       return this.ataChapterRepository.findByAtaChapter(ataChapterCode)
                 .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
 
+    }
+
+    @Override
+    public boolean chapterAtaCodeExists(Integer ataChapter) {
+        return this.ataChapterRepository.findByAtaChapter(ataChapter).isPresent();
     }
 }

@@ -1,4 +1,4 @@
-package com.petkov.spr_final_1.service.utils;
+package com.petkov.spr_final_1.utils;
 
 import org.springframework.stereotype.Component;
 
