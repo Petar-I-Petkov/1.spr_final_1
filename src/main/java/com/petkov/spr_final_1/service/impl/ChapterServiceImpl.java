@@ -58,6 +58,7 @@ public class ChapterServiceImpl implements ChapterService {
         }
     }
 
+    @Override
     public List<ChapterServiceModel> findAllChaptersSortedByATA(){
         return chapterRepository
                 .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))

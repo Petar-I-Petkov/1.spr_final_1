@@ -3,6 +3,7 @@ package com.petkov.spr_final_1.model.view;
 import java.math.BigDecimal;
 
 public class ProductViewModel {
+
     private Long id;
     private String name;
     private BigDecimal price;

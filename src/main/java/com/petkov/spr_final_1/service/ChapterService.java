@@ -9,6 +9,8 @@ public interface ChapterService {
 
     void initSeedChaptersFromJson();
 
+    List<ChapterServiceModel> findAllChaptersSortedByATA();
+
     void addChapterToDB(ChapterServiceModel chapterServiceModel);
 
     List<String> listAllChaptersAtaAndNameOrderByAtaDesc();
