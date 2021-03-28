@@ -17,7 +17,7 @@ public class SubChapterEntity extends BaseEntity {
     public SubChapterEntity() {
     }
 
-    @Column(name = "ata_subcode", unique = true, nullable = false)
+    @Column(name = "ata_subcode", unique = false, nullable = false)
     public Integer getAtaSubCode() {
         return ataSubCode;
     }

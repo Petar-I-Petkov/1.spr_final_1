@@ -3,7 +3,7 @@ package com.petkov.spr_final_1.web;
 import com.petkov.spr_final_1.model.binding.SubChapterAddBindingModel;
 import com.petkov.spr_final_1.model.service.SubChapterServiceModel;
 import com.petkov.spr_final_1.service.ChapterService;
-import com.petkov.spr_final_1.service.ATASubchapterService;
+import com.petkov.spr_final_1.service.SubChapterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +18,14 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/subchapters")
-public class SubchapterController {
+public class SubChapterController {
 
-    private final ATASubchapterService ataSubchapterService;
+    private final SubChapterService subchapterService;
     private final ChapterService ataChapterService;
     private final ModelMapper modelMapper;
 
-    public SubchapterController(ATASubchapterService ataSubchapterService, ChapterService ataChapterService, ModelMapper modelMapper) {
-        this.ataSubchapterService = ataSubchapterService;
+    public SubChapterController(SubChapterService subchapterService, ChapterService ataChapterService, ModelMapper modelMapper) {
+        this.subchapterService = subchapterService;
         this.ataChapterService = ataChapterService;
         this.modelMapper = modelMapper;
     }
@@ -65,7 +65,7 @@ public class SubchapterController {
             return "redirect:/subchapters";
         }
 
-        if (ataSubchapterService
+        if (subchapterService
                 .subChapterCodeExists(
                         subChapterAddBindingModel.getAtaSubCode(),
                         subChapterAddBindingModel.getAtaChapterRefInput())) {
@@ -80,11 +80,14 @@ public class SubchapterController {
             return "redirect:/subchapters";
         }
 
+        subChapterAddBindingModel
+                .setAtaChapterRefInput(subChapterAddBindingModel.getAtaChapterRefInput().split(" ")[0]);
+
         SubChapterServiceModel subChapterServiceModel = modelMapper.map(
                 subChapterAddBindingModel,
                 SubChapterServiceModel.class);
 
-        ataSubchapterService.seedATASubchapterToDb(subChapterServiceModel);
+        subchapterService.seedATASubchapterToDb(subChapterServiceModel);
 
         redirectAttributes.addFlashAttribute("seedOk", true);
 

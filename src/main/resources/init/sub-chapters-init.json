@@ -1,0 +1,83 @@
+[
+  {
+    "ataChapterRefInput": "20",
+    "ataSubCode": "10",
+    "subchapterName": "Overview"
+  },
+  {
+    "ataChapterRefInput": "20",
+    "ataSubCode": "20",
+    "subchapterName": "Description"
+  },
+  {
+    "ataChapterRefInput": "20",
+    "ataSubCode": "30",
+    "subchapterName": "Ground Handling"
+  },
+  {
+    "ataChapterRefInput": "20",
+    "ataSubCode": "40",
+    "subchapterName": "Ground Clearance Diagram"
+  },
+  {
+    "ataChapterRefInput": "20",
+    "ataSubCode": "50",
+    "subchapterName": "Landing Geometry"
+  },
+  {
+    "ataChapterRefInput": "20",
+    "ataSubCode": "60",
+    "subchapterName": "Visual Ground Geometry"
+  },
+  {
+    "ataChapterRefInput": "21",
+    "ataSubCode": "10",
+    "subchapterName": "Air Conditioning"
+  },
+  {
+    "ataChapterRefInput": "21",
+    "ataSubCode": "20",
+    "subchapterName": "Pressurization"
+  },
+  {
+    "ataChapterRefInput": "21",
+    "ataSubCode": "30",
+    "subchapterName": "Ventilation"
+  },
+  {
+    "ataChapterRefInput": "21",
+    "ataSubCode": "40",
+    "subchapterName": "Cargo"
+  },
+  {
+    "ataChapterRefInput": "22",
+    "ataSubCode": "10",
+    "subchapterName": "Auto Flight - General"
+  },
+  {
+    "ataChapterRefInput": "22",
+    "ataSubCode": "20",
+    "subchapterName": "Auto Flight - Flight Management"
+  },
+  {
+    "ataChapterRefInput": "22",
+    "ataSubCode": "30",
+    "subchapterName": "Auto Flight - Flight Guidance"
+  },
+  {
+    "ataChapterRefInput": "22",
+    "ataSubCode": "40",
+    "subchapterName": "Auto Flight - Flight Augmentation"
+  },
+  {
+    "ataChapterRefInput": "22",
+    "ataSubCode": "45",
+    "subchapterName": "Auto Flight - AOC Functions"
+  },
+  {
+    "ataChapterRefInput": "22",
+    "ataSubCode": "46",
+    "subchapterName": "Auto Flight - Print Interface"
+  }
+
+]

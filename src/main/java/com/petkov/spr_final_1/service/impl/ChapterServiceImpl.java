@@ -32,7 +32,8 @@ public class ChapterServiceImpl implements ChapterService {
     public ChapterServiceImpl(ModelMapper modelMapper,
                               ChapterRepository chapterRepository,
                               Gson gson,
-                              @Value("classpath:init/chaptersInit.json") Resource chaptersInitFile, ValidationUtil validationUtil) {
+                              @Value("classpath:init/chapters-init.json") Resource chaptersInitFile,
+                              ValidationUtil validationUtil) {
         this.modelMapper = modelMapper;
         this.chapterRepository = chapterRepository;
         this.gson = gson;
@@ -52,7 +53,7 @@ public class ChapterServiceImpl implements ChapterService {
                         .forEach(this::seedChaptersIfValidOrPrintError);
 
             } catch (IOException e) {
-                throw new IllegalStateException("IO error from file 'init/chaptersInit.json'!");
+                throw new IllegalStateException("IO error from file 'init/chapters-init.json'!");
             }
         }
     }
@@ -67,7 +68,7 @@ public class ChapterServiceImpl implements ChapterService {
 
         } else {
             //chapterServiceModel is NOT valid -> print messages
-            System.out.println(String.format("Chapter init seed errors from file 'init/chaptersInit.json' %n: "));
+            System.out.println(String.format("Chapter init seed errors from file 'init/chapters-init.json' %n: "));
 
             this.validationUtil.getViolations(chapterServiceModel)
                     .stream()

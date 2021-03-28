@@ -1,11 +1,16 @@
 package com.petkov.spr_final_1.model.service;
 
+import com.google.gson.annotations.Expose;
+
 import javax.validation.constraints.*;
 
 public class SubChapterServiceModel {
 
+    @Expose
     private Integer ataSubCode;
+    @Expose
     private String subchapterName;
+    @Expose
     private String ataChapterRefInput;
 
     public SubChapterServiceModel() {
