@@ -7,14 +7,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "sub_chapters")
-public class ATASubChapterEntity extends BaseEntity {
+public class SubChapterEntity extends BaseEntity {
 
     private Integer ataSubCode;
     private String subchapterName;
     private List<ParagraphEntity> paragraphs;
-    private ATAChapterEntity ataChapterRef;
+    private ChapterEntity ataChapterRef;
 
-    public ATASubChapterEntity() {
+    public SubChapterEntity() {
     }
 
     @Column(name = "ata_subcode", unique = true, nullable = false)
@@ -47,11 +47,11 @@ public class ATASubChapterEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
-    public ATAChapterEntity getAtaChapterRef() {
+    public ChapterEntity getAtaChapterRef() {
         return ataChapterRef;
     }
 
-    public void setAtaChapterRef(ATAChapterEntity ataChapterRef) {
+    public void setAtaChapterRef(ChapterEntity ataChapterRef) {
         this.ataChapterRef = ataChapterRef;
     }
 }

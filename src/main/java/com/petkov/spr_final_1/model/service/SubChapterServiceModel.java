@@ -1,14 +1,14 @@
-package com.petkov.spr_final_1.model.binding;
+package com.petkov.spr_final_1.model.service;
 
 import javax.validation.constraints.*;
 
-public class ATASubChapterAddBindingModel {
+public class SubChapterServiceModel {
 
     private Integer ataSubCode;
     private String subchapterName;
     private String ataChapterRefInput;
 
-    public ATASubChapterAddBindingModel() {
+    public SubChapterServiceModel() {
     }
 
     @NotNull(message = "ATA code required.")

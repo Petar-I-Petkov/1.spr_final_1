@@ -1,10 +1,10 @@
 package com.petkov.spr_final_1.service;
 
-import com.petkov.spr_final_1.model.service.ATASubChapterServiceModel;
+import com.petkov.spr_final_1.model.service.SubChapterServiceModel;
 
 public interface ATASubchapterService {
 
-    void seedATASubchapterToDb(ATASubChapterServiceModel ataSubChapterServiceModel);
+    void seedATASubchapterToDb(SubChapterServiceModel subChapterServiceModel);
 
     boolean subChapterCodeExists(Integer ataSubCode, String ataChapterRefInput);
 

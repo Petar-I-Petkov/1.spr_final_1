@@ -1,15 +1,11 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.documentEntities.ATAChapterEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.entity.documentEntities.DocumentEntity;
-import com.petkov.spr_final_1.model.service.ATASubChapterServiceModel;
 import com.petkov.spr_final_1.model.service.DocumentServiceModel;
 import com.petkov.spr_final_1.repository.DocumentRepository;
 import com.petkov.spr_final_1.service.DocumentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {

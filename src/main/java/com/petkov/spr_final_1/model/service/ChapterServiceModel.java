@@ -4,27 +4,26 @@ import com.google.gson.annotations.Expose;
 
 import javax.validation.constraints.*;
 
-public class ATAChapterServiceModel extends BaseServiceModel{
+public class ChapterServiceModel extends BaseServiceModel {
 
     @Expose
-    private Integer ataChapter;
+    private Integer ataCode;
     @Expose
     private String name;
 
-    public ATAChapterServiceModel() {
+    public ChapterServiceModel() {
     }
 
     @NotNull(message = "ATA code cannot be empty.")
-    @Min(value = 0, message = "ATA chapter minimum is 00.")
-    @Max(value = 100,  message = "ATA chapter maximum is 100.")
-    public Integer getAtaChapter() {
-        return ataChapter;
+    @Min(value = 0, message = "ATA code minimum 00.")
+    @Max(value = 100, message = "ATA code maximum 100.")
+    public Integer getAtaCode() {
+        return ataCode;
     }
 
-    public void setAtaChapter(Integer ataChapter) {
-        this.ataChapter = ataChapter;
+    public void setAtaCode(Integer ataCode) {
+        this.ataCode = ataCode;
     }
-
 
     @NotBlank(message = "Chapter name cannot be empty.")
     @Size(min = 3, message = "Chapter name length must be at least 3 characters.")

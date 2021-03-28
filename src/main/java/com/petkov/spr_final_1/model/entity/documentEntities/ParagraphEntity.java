@@ -15,7 +15,7 @@ public class ParagraphEntity extends BaseEntity {
     private LocalDateTime documentDate;
     private String description;
     // todo - ParagraphEntity - add picture field
-    private ATASubChapterEntity ataSubChapter;
+    private SubChapterEntity ataSubChapter;
     private DocumentEntity document;
 
     public ParagraphEntity() {
@@ -59,11 +59,11 @@ public class ParagraphEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "ata_sub_chapter", referencedColumnName = "id")
-    public ATASubChapterEntity getAtaSubChapter() {
+    public SubChapterEntity getAtaSubChapter() {
         return ataSubChapter;
     }
 
-    public void setAtaSubChapter(ATASubChapterEntity ataSubChapter) {
+    public void setAtaSubChapter(SubChapterEntity ataSubChapter) {
         this.ataSubChapter = ataSubChapter;
     }
 

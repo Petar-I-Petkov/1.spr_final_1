@@ -74,7 +74,7 @@
 
                     <!--2. Add Chapter Tab-->
                     <div class="tab-pane fade my-3 bg-light show active"
-                         th:object="${ataChapterAddBindingModel}"
+                         th:object="${chapterAddBindingModel}"
                          id="chapter"
                          role="tabpanel"
                          aria-labelledby="chapter-tab">
@@ -94,10 +94,10 @@
                                     <tr>
                                         <td>
                                             <div class="input-group input-group-sm">
-                                                <input th:field="*{ataChapter}"
+                                                <input th:field="*{ataCode}"
                                                        th:errorclass="is-invalid"
-                                                       id="ataChapter"
-                                                       name="ataChapter"
+                                                       id="ataCode"
+                                                       name="ataCode"
                                                        type="number" class="form-control" placeholder="ATA Code">
                                             </div>
                                         </td>
@@ -123,9 +123,9 @@
                                     <tr>
                                         <td class="text-center small">
                                             <small
-                                                    th:each="e: ${#fields.errors('ataChapter')}"
+                                                    th:each="e: ${#fields.errors('ataCode')}"
                                                     th:text="${e}"
-                                                    id="ataChapterError"
+                                                    id="ataCodeError"
                                                     class="text-danger">
                                             </small>
                                             <small th:if="${chapterExistsError}" id="chapterExistsError"

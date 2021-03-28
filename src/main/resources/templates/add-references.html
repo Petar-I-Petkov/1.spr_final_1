@@ -146,7 +146,7 @@
 
                     <!--2. Add Chapter Tab-->
                     <div class="tab-pane fade my-3 bg-light"
-                         th:object="${ataChapterAddBindingModel}"
+                         th:object="${chapterAddBindingModel}"
                          th:classappend="${redirectFrom == 'add-chapter-post' ? 'show active' : ''}"
                          id="chapter"
                          role="tabpanel"
@@ -227,7 +227,7 @@
 
                     <!--3. Add Subchapter Tab-->
                     <div class="tab-pane fade my-3"
-                         th:object="${ataSubChapterAddBindingModel}"
+                         th:object="${subChapterAddBindingModel}"
                          th:classappend="${redirectFrom == 'add-subChapter-post' ? 'show active' : ''}"
                          id="subChapter"
                          role="tabpanel"

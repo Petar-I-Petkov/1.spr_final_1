@@ -1,26 +1,5 @@
 package com.petkov.spr_final_1.web.archive;
 
-import com.petkov.spr_final_1.model.binding.ATAChapterAddBindingModel;
-import com.petkov.spr_final_1.model.binding.ATASubChapterAddBindingModel;
-import com.petkov.spr_final_1.model.binding.DocumentAddBindingModel;
-import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
-import com.petkov.spr_final_1.model.service.ATASubChapterServiceModel;
-import com.petkov.spr_final_1.model.service.DocumentServiceModel;
-import com.petkov.spr_final_1.service.ATASubchapterService;
-import com.petkov.spr_final_1.service.ATAChapterService;
-import com.petkov.spr_final_1.service.DocumentService;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.validation.Valid;
-
 //
 //@Controller
 //@RequestMapping("/documents")

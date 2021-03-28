@@ -2,23 +2,23 @@ package com.petkov.spr_final_1.model.binding;
 
 import javax.validation.constraints.*;
 
-public class ATAChapterAddBindingModel {
+public class ChapterAddBindingModel {
 
-    private Integer ataChapter;
+    private Integer ataCode;
     private String name;
 
-    public ATAChapterAddBindingModel() {
+    public ChapterAddBindingModel() {
     }
 
     @NotNull(message = "ATA code cannot be empty.")
-    @Min(value = 0, message = "ATA chapter minimum is 00.")
-    @Max(value = 100,  message = "ATA chapter maximum is 100.")
-    public Integer getAtaChapter() {
-        return ataChapter;
+    @Min(value = 0, message = "ATA code minimum 00.")
+    @Max(value = 100, message = "ATA code maximum 100.")
+    public Integer getAtaCode() {
+        return ataCode;
     }
 
-    public void setAtaChapter(Integer ataChapter) {
-        this.ataChapter = ataChapter;
+    public void setAtaCode(Integer ataCode) {
+        this.ataCode = ataCode;
     }
 
     @NotBlank(message = "Chapter name cannot be empty.")

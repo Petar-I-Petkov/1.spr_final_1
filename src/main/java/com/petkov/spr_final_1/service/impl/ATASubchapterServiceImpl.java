@@ -1,10 +1,10 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.documentEntities.ATAChapterEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.ATASubChapterEntity;
-import com.petkov.spr_final_1.model.service.ATASubChapterServiceModel;
+import com.petkov.spr_final_1.model.entity.documentEntities.ChapterEntity;
+import com.petkov.spr_final_1.model.entity.documentEntities.SubChapterEntity;
+import com.petkov.spr_final_1.model.service.SubChapterServiceModel;
 import com.petkov.spr_final_1.repository.ATASubChapterRepository;
-import com.petkov.spr_final_1.service.ATAChapterService;
+import com.petkov.spr_final_1.service.ChapterService;
 import com.petkov.spr_final_1.service.ATASubchapterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ public class ATASubchapterServiceImpl implements ATASubchapterService {
 
     private final ModelMapper modelMapper;
     private final ATASubChapterRepository ataSubChapterRepository;
-    private final ATAChapterService ataChapterService;
+    private final ChapterService ataChapterService;
 
-    public ATASubchapterServiceImpl(ModelMapper modelMapper, ATASubChapterRepository ataSubChapterRepository, ATAChapterService ataChapterService) {
+    public ATASubchapterServiceImpl(ModelMapper modelMapper, ATASubChapterRepository ataSubChapterRepository, ChapterService ataChapterService) {
         this.modelMapper = modelMapper;
         this.ataSubChapterRepository = ataSubChapterRepository;
         this.ataChapterService = ataChapterService;
@@ -27,7 +27,7 @@ public class ATASubchapterServiceImpl implements ATASubchapterService {
 
     @Override
     @Transactional
-    public void seedATASubchapterToDb(ATASubChapterServiceModel ataSubChapterServiceModel) {
+    public void seedATASubchapterToDb(SubChapterServiceModel subChapterServiceModel) {
 
         //
 //        TypeMap<ATASubChapterServiceModel, ATASubChapterEntity> typeMap =
@@ -38,20 +38,20 @@ public class ATASubchapterServiceImpl implements ATASubchapterService {
 //        ATASubChapterEntity ataSubChapterEntity =
 //                modelMapper.map(ataSubChapterServiceModel, ATASubChapterEntity.class);
 
-        ATASubChapterEntity ataSubChapterEntity = new ATASubChapterEntity();
+        SubChapterEntity subChapterEntity = new SubChapterEntity();
 
-        ataSubChapterEntity.setAtaSubCode(ataSubChapterServiceModel.getAtaSubCode());
-        ataSubChapterEntity.setSubchapterName(ataSubChapterServiceModel.getSubchapterName());
+        subChapterEntity.setAtaSubCode(subChapterServiceModel.getAtaSubCode());
+        subChapterEntity.setSubchapterName(subChapterServiceModel.getSubchapterName());
 
-        int ataChapterCode = Integer.parseInt(ataSubChapterServiceModel.
+        int ataChapterCode = Integer.parseInt(subChapterServiceModel.
                 getAtaChapterRefInput().split(" ")[0]);
 
-        ATAChapterEntity ataChapterEntity =
-                this.ataChapterService.findAtaChapterByCode(ataChapterCode);
+        ChapterEntity chapterEntity =
+                this.ataChapterService.findChapterByAtaCode(ataChapterCode);
 
-        ataSubChapterEntity.setAtaChapterRef(ataChapterEntity);
+        subChapterEntity.setAtaChapterRef(chapterEntity);
 
-        this.ataSubChapterRepository.saveAndFlush(ataSubChapterEntity);
+        this.ataSubChapterRepository.saveAndFlush(subChapterEntity);
 
     }
 
@@ -59,10 +59,10 @@ public class ATASubchapterServiceImpl implements ATASubchapterService {
     @Transactional
     public boolean subChapterCodeExists(Integer ataSubCode, String ataChapterRefInput) {
 
-        ATASubChapterEntity ataSubChapterEntity =
+        SubChapterEntity subChapterEntity =
                 this.ataSubChapterRepository.findByAtaSubCode(ataSubCode).orElse(null);
 
-        return ataSubChapterEntity != null &&
-                ataSubChapterEntity.getAtaChapterRef().getAtaChapter() == Integer.parseInt(ataChapterRefInput.split(" ")[0]);
+        return subChapterEntity != null &&
+                subChapterEntity.getAtaChapterRef().getAtaCode() == Integer.parseInt(ataChapterRefInput.split(" ")[0]);
     }
 }

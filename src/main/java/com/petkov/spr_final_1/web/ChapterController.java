@@ -1,8 +1,8 @@
 package com.petkov.spr_final_1.web;
 
-import com.petkov.spr_final_1.model.binding.ATAChapterAddBindingModel;
-import com.petkov.spr_final_1.model.service.ATAChapterServiceModel;
-import com.petkov.spr_final_1.service.ATAChapterService;
+import com.petkov.spr_final_1.model.binding.ChapterAddBindingModel;
+import com.petkov.spr_final_1.model.service.ChapterServiceModel;
+import com.petkov.spr_final_1.service.ChapterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,20 +17,20 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/chapters")
-public class ATAChapterController {
+public class ChapterController {
 
-    private final ATAChapterService ataChapterService;
+    private final ChapterService chapterService;
     private final ModelMapper modelMapper;
 
-    public ATAChapterController(ATAChapterService ataChapterService, ModelMapper modelMapper) {
-        this.ataChapterService = ataChapterService;
+    public ChapterController(ChapterService chapterService, ModelMapper modelMapper) {
+        this.chapterService = chapterService;
         this.modelMapper = modelMapper;
     }
 
 
-    @ModelAttribute("ataChapterAddBindingModel")
-    public ATAChapterAddBindingModel ataChapterAddBindingModel() {
-        return new ATAChapterAddBindingModel();
+    @ModelAttribute("chapterAddBindingModel")
+    public ChapterAddBindingModel chapterAddBindingModel() {
+        return new ChapterAddBindingModel();
     }
 
     @GetMapping("")
@@ -48,35 +48,35 @@ public class ATAChapterController {
     }
 
     @PostMapping("")
-    public String addChapterConfirm(@Valid ATAChapterAddBindingModel ataChapterAddBindingModel,
+    public String addChapterConfirm(@Valid ChapterAddBindingModel chapterAddBindingModel,
                                     BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("ataChapterAddBindingModel", ataChapterAddBindingModel);
+            redirectAttributes.addFlashAttribute("chapterAddBindingModel", chapterAddBindingModel);
             redirectAttributes
-                    .addFlashAttribute("org.springframework.validation.BindingResult.ataChapterAddBindingModel", bindingResult);
+                    .addFlashAttribute("org.springframework.validation.BindingResult.chapterAddBindingModel", bindingResult);
 
             return "redirect:/chapters";
         }
 
-        if (ataChapterService.chapterAtaCodeExists(ataChapterAddBindingModel.getAtaChapter())) {
+        if (chapterService.chapterAtaCodeExists(chapterAddBindingModel.getAtaCode())) {
 
-            redirectAttributes.addFlashAttribute("ataChapterAddBindingModel", ataChapterAddBindingModel);
+            redirectAttributes.addFlashAttribute("chapterAddBindingModel", chapterAddBindingModel);
 
             redirectAttributes
-                    .addFlashAttribute("org.springframework.validation.BindingResult.ataChapterAddBindingModel", bindingResult);
+                    .addFlashAttribute("org.springframework.validation.BindingResult.chapterAddBindingModel", bindingResult);
 
             redirectAttributes.addFlashAttribute("chapterExistsError", true);
 
             return "redirect:/chapters";
         }
 
-        ATAChapterServiceModel ataChapterServiceModel = modelMapper.map(
-                ataChapterAddBindingModel,
-                ATAChapterServiceModel.class);
+        ChapterServiceModel chapterServiceModel = modelMapper.map(
+                chapterAddBindingModel,
+                ChapterServiceModel.class);
 
-        ataChapterService.addChapterToDB(ataChapterServiceModel);
+        chapterService.addChapterToDB(chapterServiceModel);
 
         redirectAttributes.addFlashAttribute("seedOk", true);
 

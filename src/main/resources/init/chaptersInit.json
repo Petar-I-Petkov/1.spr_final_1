@@ -1,98 +1,98 @@
 [
   {
-    "ataChapter": "20",
+    "ataCode": "20",
     "name": "Aircraft General"
   },
   {
-    "ataChapter": "21",
+    "ataCode": "21",
     "name": "Air Conditioning / Pressurization / Ventilation"
   },
   {
-    "ataChapter": "22",
+    "ataCode": "22",
     "name": "Auto Flight"
   },
   {
-    "ataChapter": "23",
+    "ataCode": "23",
     "name": "Communications"
   },
   {
-    "ataChapter": "24",
+    "ataCode": "24",
     "name": "Electrical"
   },
   {
-    "ataChapter": "25",
+    "ataCode": "25",
     "name": "Equipment"
   },
   {
-    "ataChapter": "26",
+    "ataCode": "26",
     "name": "Fire Protection"
   },
   {
-    "ataChapter": "27",
+    "ataCode": "27",
     "name": "Flight Controls"
   },
   {
-    "ataChapter": "28",
+    "ataCode": "28",
     "name": "Fuel"
   },
   {
-    "ataChapter": "29",
+    "ataCode": "29",
     "name": "Hydraulic"
   },
   {
-    "ataChapter": "30",
+    "ataCode": "30",
     "name": "Ice and Rain Protection"
   },
   {
-    "ataChapter": "31",
+    "ataCode": "31",
     "name": "Indicating/Recording Systems"
   },
   {
-    "ataChapter": "32",
+    "ataCode": "32",
     "name": "Landing Gear"
   },
   {
-    "ataChapter": "33",
+    "ataCode": "33",
     "name": "Lights"
   },
   {
-    "ataChapter": "34",
+    "ataCode": "34",
     "name": "Navigation"
   },
   {
-    "ataChapter": "35",
+    "ataCode": "35",
     "name": "Oxygen"
   },
   {
-    "ataChapter": "36",
+    "ataCode": "36",
     "name": "Pneumatic"
   },
   {
-    "ataChapter": "38",
+    "ataCode": "38",
     "name": "Water / Waste"
   },
   {
-    "ataChapter": "45",
+    "ataCode": "45",
     "name": "Maintenance System"
   },
   {
-    "ataChapter": "46",
+    "ataCode": "46",
     "name": "Information Systems"
   },
   {
-    "ataChapter": "49",
+    "ataCode": "49",
     "name": "APU"
   },
   {
-    "ataChapter": "52",
+    "ataCode": "52",
     "name": "Doors"
   },
   {
-    "ataChapter": "56",
+    "ataCode": "56",
     "name": "Cockpit Windows"
   },
   {
-    "ataChapter": "70",
+    "ataCode": "70",
     "name": "Engines"
   }
 ]

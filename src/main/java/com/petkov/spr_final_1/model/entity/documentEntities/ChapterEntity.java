@@ -11,24 +11,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "chapters")
-public class ATAChapterEntity extends BaseEntity {
+public class ChapterEntity extends BaseEntity {
 
-    private Integer ataChapter;
+    private Integer ataCode;
     private String name;
-    private List<ATASubChapterEntity> ataSections;
+    private List<SubChapterEntity> ataSections;
 
-    public ATAChapterEntity() {
+    public ChapterEntity() {
     }
 
-    @Column(name = "ata_chapter", unique = true, nullable = false)
-    public Integer getAtaChapter() {
-        return ataChapter;
+    @Column(name = "ata_code", unique = true, nullable = false)
+    public Integer getAtaCode() {
+        return ataCode;
     }
 
-    public void setAtaChapter(Integer ataChapter) {
-        this.ataChapter = ataChapter;
+    public void setAtaCode(Integer ataCode) {
+        this.ataCode = ataCode;
     }
-
 
     @Column(name = "chapter_name", unique = true, nullable = false)
     public String getName() {
@@ -39,12 +38,12 @@ public class ATAChapterEntity extends BaseEntity {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "ataChapterRef", targetEntity = ATASubChapterEntity.class)
-    public List<ATASubChapterEntity> getSections() {
+    @OneToMany(mappedBy = "ataChapterRef", targetEntity = SubChapterEntity.class)
+    public List<SubChapterEntity> getAtaSections() {
         return ataSections;
     }
 
-    public void setSections(List<ATASubChapterEntity> ataSections) {
+    public void setAtaSections(List<SubChapterEntity> ataSections) {
         this.ataSections = ataSections;
     }
 }
