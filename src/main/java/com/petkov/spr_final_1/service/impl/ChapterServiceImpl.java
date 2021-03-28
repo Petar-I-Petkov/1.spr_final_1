@@ -58,16 +58,23 @@ public class ChapterServiceImpl implements ChapterService {
         }
     }
 
+    public List<ChapterServiceModel> findAllChaptersSortedByATA(){
+        return chapterRepository
+                .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))
+                .stream()
+                .map(chapterEntity -> modelMapper.map(chapterEntity, ChapterServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
     private void seedChaptersIfValidOrPrintError(ChapterServiceModel chapterServiceModel) {
 
         if (this.validationUtil.isValid(chapterServiceModel)) {
 
-            //chapterServiceModel is valid -> map it to real Chapter, seed to database
             ChapterEntity chapter = modelMapper.map(chapterServiceModel, ChapterEntity.class);
             chapterRepository.saveAndFlush(chapter);
 
         } else {
-            //chapterServiceModel is NOT valid -> print messages
+            //todo seedChaptersIfValidOrPrintError - Log errors io printing
             System.out.println(String.format("Chapter init seed errors from file 'init/chapters-init.json' %n: "));
 
             validationUtil.getViolations(chapterServiceModel)
@@ -89,12 +96,10 @@ public class ChapterServiceImpl implements ChapterService {
     @Override
     public List<String> listAllChaptersAtaAndNameOrderByAtaDesc() {
 
-        //todo - extract this method and
-        List<ChapterEntity> allChapters =
-                chapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataCode")));
+        List<ChapterServiceModel> allChaptersSortedByATA = findAllChaptersSortedByATA();
 
         List<String> chaptersAtaAndNameExportList =
-                allChapters
+                allChaptersSortedByATA
                         .stream()
                         .map(chapter -> String.format("%02d - %s ", chapter.getAtaCode(), chapter.getName()))
                         .collect(Collectors.toList());
