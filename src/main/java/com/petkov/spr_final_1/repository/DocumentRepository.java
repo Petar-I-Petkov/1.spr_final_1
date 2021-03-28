@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DocumentRepository extends JpaRepository<DocumentEntity, Long> {
+public interface DocumentRepository extends JpaRepository<DocumentEntity, String> {
 
     Optional<DocumentEntity> findByDocumentName(String documentName);
 

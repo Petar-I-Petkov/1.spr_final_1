@@ -63,14 +63,14 @@ public class ChapterServiceImpl implements ChapterService {
         if (this.validationUtil.isValid(chapterServiceModel)) {
 
             //chapterServiceModel is valid -> map it to real Chapter, seed to database
-            ChapterEntity chapter = this.modelMapper.map(chapterServiceModel, ChapterEntity.class);
-            this.chapterRepository.saveAndFlush(chapter);
+            ChapterEntity chapter = modelMapper.map(chapterServiceModel, ChapterEntity.class);
+            chapterRepository.saveAndFlush(chapter);
 
         } else {
             //chapterServiceModel is NOT valid -> print messages
             System.out.println(String.format("Chapter init seed errors from file 'init/chapters-init.json' %n: "));
 
-            this.validationUtil.getViolations(chapterServiceModel)
+            validationUtil.getViolations(chapterServiceModel)
                     .stream()
                     .map(ConstraintViolation::getMessage)
                     .forEach(System.out::println);
@@ -82,15 +82,16 @@ public class ChapterServiceImpl implements ChapterService {
     public void addChapterToDB(ChapterServiceModel chapterServiceModel) {
 
         ChapterEntity chapterEntity = this.modelMapper.map(chapterServiceModel, ChapterEntity.class);
-        this.chapterRepository.saveAndFlush(chapterEntity);
+        chapterRepository.saveAndFlush(chapterEntity);
 
     }
 
     @Override
     public List<String> listAllChaptersAtaAndNameOrderByAtaDesc() {
 
+        //todo - extract this method and
         List<ChapterEntity> allChapters =
-                this.chapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataCode")));
+                chapterRepository.findAll((Sort.by(Sort.Direction.ASC, "ataCode")));
 
         List<String> chaptersAtaAndNameExportList =
                 allChapters
@@ -104,13 +105,13 @@ public class ChapterServiceImpl implements ChapterService {
     @Override
     public ChapterEntity findChapterByAtaCode(Integer ataCode) {
 
-       return this.chapterRepository.findByAtaCode(ataCode)
+       return chapterRepository.findByAtaCode(ataCode)
                 .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
 
     }
 
     @Override
     public boolean chapterAtaCodeExists(Integer ataCode) {
-        return this.chapterRepository.findByAtaCode(ataCode).isPresent();
+        return chapterRepository.findByAtaCode(ataCode).isPresent();
     }
 }

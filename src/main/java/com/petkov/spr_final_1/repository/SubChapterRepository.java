@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SubChapterRepository extends JpaRepository<SubChapterEntity, Long> {
+public interface SubChapterRepository extends JpaRepository<SubChapterEntity, String> {
 
     Optional<SubChapterEntity> findByAtaSubCode(Integer ataSubCode);
 }
