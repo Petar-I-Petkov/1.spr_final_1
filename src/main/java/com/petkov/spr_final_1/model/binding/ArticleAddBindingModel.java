@@ -2,7 +2,7 @@ package com.petkov.spr_final_1.model.binding;
 
 import java.time.LocalDateTime;
 
-public class ArticleBindingModel {
+public class ArticleAddBindingModel {
 
     private String title;
     private String articleText;
@@ -16,7 +16,7 @@ public class ArticleBindingModel {
     private String documentRevision;
     private LocalDateTime documentDate;
 
-    public ArticleBindingModel() {
+    public ArticleAddBindingModel() {
     }
 
     //todo - ArticleBindingModel add validations

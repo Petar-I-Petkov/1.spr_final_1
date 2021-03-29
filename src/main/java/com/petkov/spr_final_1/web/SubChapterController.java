@@ -21,12 +21,12 @@ import javax.validation.Valid;
 public class SubChapterController {
 
     private final SubChapterService subchapterService;
-    private final ChapterService ataChapterService;
+    private final ChapterService chapterService;
     private final ModelMapper modelMapper;
 
-    public SubChapterController(SubChapterService subchapterService, ChapterService ataChapterService, ModelMapper modelMapper) {
+    public SubChapterController(SubChapterService subchapterService, ChapterService chapterService, ModelMapper modelMapper) {
         this.subchapterService = subchapterService;
-        this.ataChapterService = ataChapterService;
+        this.chapterService = chapterService;
         this.modelMapper = modelMapper;
     }
 
@@ -46,7 +46,7 @@ public class SubChapterController {
             model.addAttribute("seedOk", false);
         }
 
-        model.addAttribute("ataDBList", this.ataChapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
+        model.addAttribute("ataDBList", chapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
 
 
         return "subchapters";

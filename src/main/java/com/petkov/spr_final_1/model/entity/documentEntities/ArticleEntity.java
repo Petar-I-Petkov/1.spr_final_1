@@ -62,7 +62,7 @@ public class ArticleEntity extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ata_chapter", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
     public ChapterEntity getChapter() {
         return chapter;
     }
@@ -72,7 +72,7 @@ public class ArticleEntity extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ata_sub_chapter", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "ata_sub_chapter", referencedColumnName = "id")
     public SubChapterEntity getAtaSubChapter() {
         return ataSubChapter;
     }
@@ -82,7 +82,7 @@ public class ArticleEntity extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "document", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "document", referencedColumnName = "id")
     public DocumentEntity getDocument() {
         return document;
     }

@@ -59,50 +59,73 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <a th:href="@{/subchapters}" type="button" class="btn nav-link">
+                            Add ATA SubChapter
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+
                         <button class="nav-link active"
                                 id="subChapter-tab" data-bs-toggle="tab" data-bs-target="#subChapter"
                                 type="button" role="tab" aria-controls="subChapter" aria-selected="false">
-                            Add ATA SubChapter
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a th:href="@{/articles}" type="button" class="btn nav-link">
                             Add Article
-                        </a>
+                        </button>
                     </li>
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
 
-                    <!--3. Add Subchapter Tab-->
+                    <!--4. Add Article Tab-->
                     <div class="tab-pane fade my-3 show active"
-                         th:object="${subChapterAddBindingModel}"
+                         th:object="${articleAddBindingModel}"
                          id="subChapter"
                          role="tabpanel"
                          aria-labelledby="subChapter-tab">
 
                         <div class="mx-5">
                             <form method="POST"
-                                  th:action="@{/subchapters}">
+                                  th:action="@{/articles}">
 
                                 <table class="table table-borderless">
                                     <tbody>
                                     <tr>
-                                        <td class="text-left small">ATA Chapter (Required)</td>
-                                        <td class="text-left small">SubChapter ATA code</td>
-                                        <td class="text-left small">SubChapter Name</td>
+                                        <td class="text-left small">Title (Required)</td>
                                         <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="input-group input-group-sm">
+                                                <input
+                                                        th:value="*{title}"
+                                                        id="title"
+                                                        name="title"
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="Title">
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="text-left small">ATA Chapter (Optional)</td>
+                                        <td class="text-left small">SubChapter ATA code (Optional)</td>
+                                        <td class="text-left small">Document (Optional)</td>
                                     </tr>
 
                                     <tr>
                                         <td>
                                             <div class="input-group input-group-sm">
                                                 <select
-                                                        id="ataChapterRefInput"
-                                                        name="ataChapterRefInput"
+                                                        id="chapterRef"
+                                                        name="chapterRef"
                                                         class="form-select"
                                                         aria-label="Select ATA Chapter">
-                                                    <option selected th:text="*{ataChapterRefInput}">Select...</option>
+                                                    <option selected th:text="*{chapterRef}">Select...</option>
                                                     <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">
                                                         One
                                                     </option>
@@ -111,31 +134,34 @@
                                         </td>
                                         <td>
                                             <div class="input-group input-group-sm">
-                                                <input
-                                                        th:value="*{ataSubCode}"
-                                                        id="ataSubCode"
-                                                        name="ataSubCode"
-                                                        type="number"
-                                                        class="form-control"
-                                                        placeholder="SubChapter ATA">
+                                                <select
+                                                        id="ataSubChapterRef"
+                                                        name="ataSubChapterRef"
+                                                        class="form-select"
+                                                        aria-label="Select ATA Sub Chapter">
+                                                    <option selected th:text="*{ataSubChapterRef}">Select...</option>
+<!--                                                    <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">-->
+<!--                                                        One-->
+<!--                                                    </option>-->
+                                                </select>
                                             </div>
 
                                         </td>
+
                                         <td>
                                             <div class="input-group input-group-sm">
-                                                <input
-                                                        th:value="*{subchapterName}"
-                                                        id="subchapterName"
-                                                        name="subchapterName"
-                                                        type="text"
-                                                        class="form-control"
-                                                        placeholder="SubChapter Name">
+                                                <select
+                                                        id="documentRef"
+                                                        name="documentRef"
+                                                        class="form-select"
+                                                        aria-label="Select Document">
+                                                    <option selected th:text="*{documentRef}">Select...</option>
+                                                    <!--  <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">-->
+                                                    <!--  One-->
+                                                    <!--  </option>-->
+                                                </select>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
-                                            <a th:href="@{/subchapters}"
-                                               class="btn btn-primary btn-sm">Cancel</a>
+
                                         </td>
 
                                     </tr>
@@ -143,7 +169,7 @@
                                     <tr>
                                         <td class="text-center small">
                                             <small
-                                                    th:each="e: ${#fields.errors('ataChapterRefInput')}"
+                                                    th:each="e: ${#fields.errors('chapterRef')}"
                                                     th:text="${e}"
                                                     id="ataChapterRefError"
                                                     class="text-danger">
@@ -151,22 +177,15 @@
                                         </td>
                                         <td class="text-center small">
                                             <small
-                                                    th:each="e: ${#fields.errors('ataSubCode')}"
+                                                    th:each="e: ${#fields.errors('ataSubChapterRef')}"
                                                     th:text="${e}"
                                                     id="ataSubCodeError"
                                                     class="text-danger">
                                             </small>
-                                            <small th:if="${ataSubChapterExistsError}" id="ataSubChapterExistsError"
+                                            <small th:if="${articleExistsError}" id="ataSubChapterExistsError"
                                                    class="text-danger">SubChapter already exists in DB!</small>
                                         </td>
-                                        <td class="text-center small">
-                                            <small
-                                                    th:each="e: ${#fields.errors('subchapterName')}"
-                                                    th:text="${e}"
-                                                    id="subchapterNameError"
-                                                    class="text-danger">
-                                            </small>
-                                        </td>
+
                                         <td></td>
                                     </tr>
                                     </tbody>
@@ -175,7 +194,7 @@
                         </div>
 
                     </div>
-                    <!--3. EO Add Subchapter Tab-->
+                    <!--3. EO Add Article Tab-->
 
                 </div>
             </div>

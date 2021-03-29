@@ -6,13 +6,17 @@ import com.petkov.spr_final_1.model.entity.documentEntities.SubChapterEntity;
 
 import java.time.LocalDateTime;
 
-public class ArticleServiceModel extends BaseServiceModel{
+public class ArticleServiceModel extends BaseServiceModel {
 
     private String title;
     private String articleText;
     private String imageUrl;
     private String fullReferencePath;
 
+    private String chapterRef;
+    private String ataSubChapterRef;
+
+    private String documentRef;
     private String documentRevision;
     private LocalDateTime documentDate;
 
@@ -51,6 +55,30 @@ public class ArticleServiceModel extends BaseServiceModel{
 
     public void setFullReferencePath(String fullReferencePath) {
         this.fullReferencePath = fullReferencePath;
+    }
+
+    public String getChapterRef() {
+        return chapterRef;
+    }
+
+    public void setChapterRef(String chapterRef) {
+        this.chapterRef = chapterRef;
+    }
+
+    public String getAtaSubChapterRef() {
+        return ataSubChapterRef;
+    }
+
+    public void setAtaSubChapterRef(String ataSubChapterRef) {
+        this.ataSubChapterRef = ataSubChapterRef;
+    }
+
+    public String getDocumentRef() {
+        return documentRef;
+    }
+
+    public void setDocumentRef(String documentRef) {
+        this.documentRef = documentRef;
     }
 
     public String getDocumentRevision() {
