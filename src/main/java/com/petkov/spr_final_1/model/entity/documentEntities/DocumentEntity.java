@@ -13,7 +13,7 @@ import java.util.List;
 public class DocumentEntity extends BaseEntity {
 
     private String documentName;
-    private List<ParagraphEntity> paragraphs;
+    private List<ArticleEntity> articles;
 
     public DocumentEntity() {
     }
@@ -27,14 +27,12 @@ public class DocumentEntity extends BaseEntity {
         this.documentName = documentName;
     }
 
-
-
-    @OneToMany(mappedBy = "document", targetEntity = ParagraphEntity.class)
-    public List<ParagraphEntity> getParagraphs() {
-        return paragraphs;
+    @OneToMany(mappedBy = "document", targetEntity = ArticleEntity.class)
+    public List<ArticleEntity> getArticles() {
+        return articles;
     }
 
-    public void setParagraphs(List<ParagraphEntity> paragraphs) {
-        this.paragraphs = paragraphs;
+    public void setArticles(List<ArticleEntity> articles) {
+        this.articles = articles;
     }
 }

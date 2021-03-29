@@ -11,7 +11,7 @@ public class SubChapterEntity extends BaseEntity {
 
     private Integer ataSubCode;
     private String subchapterName;
-    private List<ParagraphEntity> paragraphs;
+    private List<ArticleEntity> articles;
     private ChapterEntity ataChapterRef;
 
     public SubChapterEntity() {
@@ -35,15 +35,14 @@ public class SubChapterEntity extends BaseEntity {
         this.subchapterName = subchapterName;
     }
 
-    @OneToMany(mappedBy = "ataSubChapter", targetEntity = ParagraphEntity.class)
-    public List<ParagraphEntity> getParagraphs() {
-        return paragraphs;
+    @OneToMany(mappedBy = "ataSubChapter", targetEntity = ArticleEntity.class)
+    public List<ArticleEntity> getArticles() {
+        return articles;
     }
 
-    public void setParagraphs(List<ParagraphEntity> paragraphs) {
-        this.paragraphs = paragraphs;
+    public void setArticles(List<ArticleEntity> articles) {
+        this.articles = articles;
     }
-
 
     @ManyToOne
     @JoinColumn(name = "ata_chapter", referencedColumnName = "id")

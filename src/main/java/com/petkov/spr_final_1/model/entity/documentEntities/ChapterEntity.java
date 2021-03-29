@@ -16,6 +16,7 @@ public class ChapterEntity extends BaseEntity {
     private Integer ataCode;
     private String name;
     private List<SubChapterEntity> ataSections;
+    private List<ArticleEntity> articles;
 
     public ChapterEntity() {
     }
@@ -45,5 +46,14 @@ public class ChapterEntity extends BaseEntity {
 
     public void setAtaSections(List<SubChapterEntity> ataSections) {
         this.ataSections = ataSections;
+    }
+
+    @OneToMany(mappedBy = "chapter", targetEntity = ArticleEntity.class)
+    public List<ArticleEntity> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<ArticleEntity> articles) {
+        this.articles = articles;
     }
 }

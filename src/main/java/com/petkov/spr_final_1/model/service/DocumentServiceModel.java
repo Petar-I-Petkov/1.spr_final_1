@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.model.service;
 
-import com.petkov.spr_final_1.model.entity.documentEntities.ParagraphEntity;
+import com.petkov.spr_final_1.model.entity.documentEntities.ArticleEntity;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -10,7 +10,7 @@ import java.util.List;
 public class DocumentServiceModel {
 
     private String documentName;
-    private List<ParagraphEntity> paragraphs = new ArrayList<>();
+    private List<ArticleEntity> paragraphs = new ArrayList<>();
 
     public DocumentServiceModel() {
     }
@@ -25,11 +25,11 @@ public class DocumentServiceModel {
         this.documentName = documentName;
     }
 
-    public List<ParagraphEntity> getParagraphs() {
+    public List<ArticleEntity> getParagraphs() {
         return paragraphs;
     }
 
-    public void setParagraphs(List<ParagraphEntity> paragraphs) {
+    public void setParagraphs(List<ArticleEntity> paragraphs) {
         this.paragraphs = paragraphs;
     }
 }
