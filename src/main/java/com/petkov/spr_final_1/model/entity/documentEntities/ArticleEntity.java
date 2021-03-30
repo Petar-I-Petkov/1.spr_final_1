@@ -4,6 +4,7 @@ package com.petkov.spr_final_1.model.entity.documentEntities;
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +21,7 @@ public class ArticleEntity extends BaseEntity {
 
     private DocumentEntity document;
     private String documentRevision;
-    private LocalDateTime documentDate;
+    private LocalDate documentDate;
 
     public ArticleEntity() {
     }
@@ -101,11 +102,11 @@ public class ArticleEntity extends BaseEntity {
     }
 
     @Column(name = "document_date", unique = false, nullable = true)
-    public LocalDateTime getDocumentDate() {
+    public LocalDate getDocumentDate() {
         return documentDate;
     }
 
-    public void setDocumentDate(LocalDateTime documentDate) {
+    public void setDocumentDate(LocalDate documentDate) {
         this.documentDate = documentDate;
     }
 

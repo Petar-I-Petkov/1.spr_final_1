@@ -45,3 +45,7 @@ html {
     text-decoration: none;
 }
 
+.form-control, .form-select{
+    height: 30px;
+}
+

@@ -3,14 +3,19 @@ package com.petkov.spr_final_1.model.service;
 import com.petkov.spr_final_1.model.entity.documentEntities.ChapterEntity;
 import com.petkov.spr_final_1.model.entity.documentEntities.DocumentEntity;
 import com.petkov.spr_final_1.model.entity.documentEntities.SubChapterEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ArticleServiceModel extends BaseServiceModel {
 
     private String title;
     private String articleText;
-    private String imageUrl;
+    private MultipartFile image;
     private String fullReferencePath;
 
     private String chapterRef;
@@ -18,13 +23,14 @@ public class ArticleServiceModel extends BaseServiceModel {
 
     private String documentRef;
     private String documentRevision;
-    private LocalDateTime documentDate;
+    private LocalDate documentDate;
 
-    //todo - ArticleServiceModel - add Validations and Expose Annotations
 
     public ArticleServiceModel() {
     }
 
+    @NotNull(message = "Article title is required.")
+    @Size(min = 3, message = "Article title should be min 3 characters.")
     public String getTitle() {
         return title;
     }
@@ -33,6 +39,9 @@ public class ArticleServiceModel extends BaseServiceModel {
         this.title = title;
     }
 
+
+    @NotNull(message = "Article text is required.")
+    @Size(min = 200, message = "Article text should be min 200 characters.")
     public String getArticleText() {
         return articleText;
     }
@@ -41,12 +50,13 @@ public class ArticleServiceModel extends BaseServiceModel {
         this.articleText = articleText;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public String getFullReferencePath() {
@@ -89,11 +99,12 @@ public class ArticleServiceModel extends BaseServiceModel {
         this.documentRevision = documentRevision;
     }
 
-    public LocalDateTime getDocumentDate() {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getDocumentDate() {
         return documentDate;
     }
 
-    public void setDocumentDate(LocalDateTime documentDate) {
+    public void setDocumentDate(LocalDate documentDate) {
         this.documentDate = documentDate;
     }
 }
