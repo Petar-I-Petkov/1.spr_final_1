@@ -99,7 +99,7 @@
                                         <div th:each="e: ${#fields.errors('title')}"
                                              th:text="${e}"
                                              id="titleError"
-                                             class="form-text">
+                                             class="text-danger small">
                                             Error
                                         </div>
                                     </div>
@@ -138,7 +138,7 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                         <div th:each="e: ${#fields.errors('articleText')}"
                                              th:text="${e}"
                                              id="articleTextInputError"
-                                             class="form-text">
+                                             class="text-danger small">
                                             Error
                                         </div>
                                     </div>
@@ -147,11 +147,20 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
 
                                 <!-- row 3. Image select-->
                                 <div class="row my-3">
-                                    <div class="col-lg-11">
-                                        <label for="image" class="form-label text-start small">Schematic (Optional)</label>
+                                    <div class="col-sm-6">
+                                        <label for="image" class="form-label text-start small">Upper Schematic
+                                            (Optional)</label>
                                         <input class="form-control form-control-sm"
                                                id="image"
                                                name="image"
+                                               type="file">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="bottomImage" class="form-label text-start small">Bottom Schematic
+                                            (Optional)</label>
+                                        <input class="form-control form-control-sm"
+                                               id="bottomImage"
+                                               name="bottomImage"
                                                type="file">
                                     </div>
                                 </div>
@@ -288,6 +297,7 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
 </body>
 
 <script src="/js/sidebar-link-highlight.js"></script>
+
 
 
 </html>

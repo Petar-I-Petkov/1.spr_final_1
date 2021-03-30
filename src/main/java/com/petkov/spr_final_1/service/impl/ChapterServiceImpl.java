@@ -59,7 +59,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public List<ChapterServiceModel> findAllChaptersSortedByATA(){
+    public List<ChapterServiceModel> findAllChaptersSortedByATA() {
         return chapterRepository
                 .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))
                 .stream()
@@ -109,10 +109,13 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public ChapterEntity findChapterByAtaCode(Integer ataCode) {
+    public ChapterServiceModel findChapterByAtaCode(Integer ataCode) {
 
-       return chapterRepository.findByAtaCode(ataCode)
-                .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
+        ChapterEntity chapterEntity =
+                chapterRepository.findByAtaCode(ataCode)
+                        .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
+
+        return modelMapper.map(chapterEntity, ChapterServiceModel.class);
 
     }
 

@@ -3,6 +3,7 @@ package com.petkov.spr_final_1.service.impl;
 import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.documentEntities.ChapterEntity;
 import com.petkov.spr_final_1.model.entity.documentEntities.SubChapterEntity;
+import com.petkov.spr_final_1.model.service.ChapterServiceModel;
 import com.petkov.spr_final_1.model.service.SubChapterServiceModel;
 import com.petkov.spr_final_1.repository.SubChapterRepository;
 import com.petkov.spr_final_1.service.ChapterService;
@@ -68,7 +69,8 @@ public class SubChapterServiceImpl implements SubChapterService {
                 getAtaChapterRefInput());
 
         ChapterEntity chapterEntity =
-                this.chapterService.findChapterByAtaCode(ataChapterCode);
+                modelMapper.map(this.chapterService
+                        .findChapterByAtaCode(ataChapterCode), ChapterEntity.class);
 
         subChapterEntity.setAtaChapterRef(chapterEntity);
 
@@ -78,13 +80,12 @@ public class SubChapterServiceImpl implements SubChapterService {
 
     @Override
     @Transactional
-    public boolean subChapterCodeExists(Integer ataSubCode, String ataChapterRefInput) {
+    public boolean subChapterCodeExists(int ataSubCode, int chapterRef) {
 
-        SubChapterEntity subChapterEntity =
-                this.subChapterRepository.findByAtaSubCode(ataSubCode).orElse(null);
+        ChapterEntity chapter
+                = modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ChapterEntity.class);
 
-        return subChapterEntity != null &&
-                subChapterEntity.getAtaChapterRef().getAtaCode() == Integer.parseInt(ataChapterRefInput.split(" ")[0]);
+        return  subChapterRepository.findByAtaChapterRefAndAtaSubCode(chapter, ataSubCode).isPresent();
     }
 
     @Override
@@ -103,6 +104,19 @@ public class SubChapterServiceImpl implements SubChapterService {
                 throw new IllegalStateException("IO error from file 'init/sub-chapters-init.json'!");
             }
         }
+    }
+
+    @Override
+    public SubChapterServiceModel findByChapterAndSubchapterAta(int chapterRef, int ataSubCode) {
+
+        ChapterEntity chapter =
+                modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ChapterEntity.class);
+
+        SubChapterEntity subChapterEntity = subChapterRepository
+                .findByAtaChapterRefAndAtaSubCode(chapter, ataSubCode)
+                .orElseThrow(() -> new IllegalArgumentException("SubChapter could not be found in DB"));
+
+        return modelMapper.map(subChapterEntity, SubChapterServiceModel.class);
     }
 
     private void seedSubChaptersIfValidOrPrintError(SubChapterServiceModel subChapterServiceModel) {

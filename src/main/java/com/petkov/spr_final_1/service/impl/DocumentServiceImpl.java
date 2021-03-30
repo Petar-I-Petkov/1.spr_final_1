@@ -35,5 +35,14 @@ public class DocumentServiceImpl implements DocumentService {
 
     }
 
+    @Override
+    public DocumentServiceModel findDocumentByName(String documentRef) {
+        DocumentEntity documentEntity = documentRepository
+                .findByDocumentName(documentRef)
+                .orElseThrow(() -> new IllegalArgumentException("Document could not be found in DB"));
+
+        return modelMapper.map(documentEntity, DocumentServiceModel.class);
+    }
+
 
 }

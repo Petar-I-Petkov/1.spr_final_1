@@ -7,4 +7,6 @@ public interface DocumentService {
     boolean documentExists(String documentName);
 
     void seedDocumentToDb(DocumentServiceModel documentServiceModel);
+
+    DocumentServiceModel findDocumentByName(String documentRef);
 }

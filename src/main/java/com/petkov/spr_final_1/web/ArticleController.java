@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/articles")
@@ -45,11 +46,6 @@ public class ArticleController {
             model.addAttribute("articleExistsError", false);
         }
 
-
-        if (!model.containsAttribute("articleAddBindingModel")) {
-            model.addAttribute("articleAddBindingModel", false);
-        }
-
         if (!model.containsAttribute("seedOk")) {
             model.addAttribute("seedOk", false);
         }
@@ -63,7 +59,7 @@ public class ArticleController {
     @PostMapping("")
     public String addArticleConfirm(@Valid ArticleAddBindingModel articleAddBindingModel,
                                     BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes) {
+                                    RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("articleAddBindingModel", articleAddBindingModel);
@@ -95,6 +91,7 @@ public class ArticleController {
         ArticleServiceModel articleServiceModel = modelMapper.map(
                 articleAddBindingModel,
                 ArticleServiceModel.class);
+
 
         articleService.seedArticleToDb(articleServiceModel);
 

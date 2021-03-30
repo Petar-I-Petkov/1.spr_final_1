@@ -68,7 +68,7 @@ public class SubChapterController {
         if (subchapterService
                 .subChapterCodeExists(
                         subChapterAddBindingModel.getAtaSubCode(),
-                        subChapterAddBindingModel.getAtaChapterRefInput())) {
+                        Integer.parseInt(subChapterAddBindingModel.getAtaChapterRefInput()))) {
 
             redirectAttributes.addFlashAttribute("subChapterAddBindingModel", subChapterAddBindingModel);
 
