@@ -3,6 +3,7 @@ package com.petkov.spr_final_1.model.entity;
 import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,8 +12,8 @@ import java.util.List;
 public class TestEntity extends BaseEntity{
 
     private String name;
-    private LocalDateTime dateCreated;
-    private LocalDateTime dueDate;
+    private LocalDate dateCreated;
+    private LocalDate dueDate;
     private UserEntity createdBy;
     private TestStatusEnum testStatusEnum;
     private List<QuestionEntity> questionEntities;
@@ -34,20 +35,20 @@ public class TestEntity extends BaseEntity{
     }
 
     @Column(name = "date_created", unique = false, nullable = false)
-    public LocalDateTime getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public void setDateCreated(LocalDate dateCreated) {
         this.dateCreated = dateCreated;
     }
 
     @Column(name = "due_date", unique = false, nullable = false)
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -69,7 +70,7 @@ public class TestEntity extends BaseEntity{
         this.testStatusEnum = testStatusEnum;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "tests_questions",
             joinColumns = @JoinColumn(name = "test_id", referencedColumnName = "id"),

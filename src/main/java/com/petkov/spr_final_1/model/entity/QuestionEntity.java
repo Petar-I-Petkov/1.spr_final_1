@@ -1,5 +1,7 @@
 package com.petkov.spr_final_1.model.entity;
 
+import com.petkov.spr_final_1.model.entity.documentEntities.ArticleEntity;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +18,7 @@ public class QuestionEntity extends BaseEntity{
     private String altAnswer3;
     private String altAnswer4;
     private List<TestEntity> tests;
+    private ArticleEntity article;
 
     public QuestionEntity() {
     }
@@ -95,5 +98,15 @@ public class QuestionEntity extends BaseEntity{
 
     public void setTests(List<TestEntity> tests) {
         this.tests = tests;
+    }
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    public ArticleEntity getArticle() {
+        return article;
+    }
+
+    public void setArticle(ArticleEntity article) {
+        this.article = article;
     }
 }

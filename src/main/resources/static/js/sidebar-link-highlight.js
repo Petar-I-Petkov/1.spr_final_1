@@ -10,8 +10,9 @@ function highlightLink(){
 
     let currentPath = window.location.pathname;
 
-    // let targetPath = currentPath.split('-')[0];
-    let correspondingLink = document.getElementById(currentPath);
+    let targetPath = currentPath.split('/')[1];
+
+    let correspondingLink = document.getElementById(targetPath);
 
     if(correspondingLink){
         correspondingLink.classList.remove('link-muted');

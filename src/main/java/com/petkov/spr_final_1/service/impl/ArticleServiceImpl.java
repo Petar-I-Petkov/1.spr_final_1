@@ -91,5 +91,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         //todo seedArticleToDb debug point
         System.out.println();
+
+        articleRepository.saveAndFlush(articleEntity);
     }
 }
