@@ -1,11 +1,9 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.documentEntities.ArticleEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.ChapterEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.DocumentEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.SubChapterEntity;
-import com.petkov.spr_final_1.model.service.ArticleServiceModel;
-import com.petkov.spr_final_1.model.service.SubChapterServiceModel;
+import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
+import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
+import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
+import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
 import com.petkov.spr_final_1.repository.ArticleRepository;
 import com.petkov.spr_final_1.service.*;
 import org.modelmapper.ModelMapper;
@@ -21,15 +19,15 @@ public class ArticleServiceImpl implements ArticleService {
     private final ModelMapper modelMapper;
     private final CloudinaryService cloudinaryService;
 
-    private final ChapterService chapterService;
-    private final SubChapterService subChapterService;
+    private final ATAChapterService chapterService;
+    private final ATASubChapterService subChapterService;
     private final DocumentService documentService;
 
     public ArticleServiceImpl(ArticleRepository articleRepository,
                               ModelMapper modelMapper,
                               CloudinaryService cloudinaryService,
-                              ChapterService chapterService,
-                              SubChapterService subChapterService,
+                              ATAChapterService chapterService,
+                              ATASubChapterService subChapterService,
                               DocumentService documentService) {
         this.articleRepository = articleRepository;
         this.modelMapper = modelMapper;
@@ -59,33 +57,35 @@ public class ArticleServiceImpl implements ArticleService {
         if (!articleServiceModel.getAtaSubChapterRef().isEmpty() && !articleServiceModel.getChapterRef().isEmpty()) {
 
             int chapterRef = Integer.parseInt(articleServiceModel.getChapterRef().split(" ")[0]);
-            ChapterEntity chapterEntity =
-                    modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ChapterEntity.class);
+            ATAChapterEntity chapterEntity =
+                    modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
             int subChapterRef = Integer.parseInt(articleServiceModel.getAtaSubChapterRef().split(" ")[0]);
-            SubChapterEntity subChapterEntity =
+            ATASubChapterEntity subChapterEntity =
                     modelMapper.map(subChapterService
-                            .findByChapterAndSubchapterAta(chapterRef, subChapterRef), SubChapterEntity.class);
+                            .findByChapterAndSubchapterAta(chapterRef, subChapterRef), ATASubChapterEntity.class);
 
             articleEntity.setChapter(chapterEntity);
             articleEntity.setAtaSubChapter(subChapterEntity);
 
         } else if (!articleServiceModel.getChapterRef().isEmpty()) {
             int chapterRef = Integer.parseInt(articleServiceModel.getChapterRef().split(" ")[0]);
-            ChapterEntity chapterEntity =
-                    modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ChapterEntity.class);
+            ATAChapterEntity chapterEntity =
+                    modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
             articleEntity.setChapter(chapterEntity);
 
         }
 
-        if (!articleServiceModel.getDocumentRef().isEmpty()) {
-            String documentRef = articleServiceModel.getDocumentRef();
-            DocumentEntity documentEntity =
-                    modelMapper.map(documentService.findDocumentByName(documentRef), DocumentEntity.class);
-
-            articleEntity.setDocument(documentEntity);
-        }
+        //todo - refactor articleEntity.setDocument(documentEntity) to
+        // articleEntity.setDocumentSubchapter(documentSubchapterEntity)
+//        if (!articleServiceModel.getDocumentRef().isEmpty()) {
+//            String documentRef = articleServiceModel.getDocumentRef();
+//            DocumentEntity documentEntity =
+//                    modelMapper.map(documentService.findDocumentByName(documentRef), DocumentEntity.class);
+//
+//            articleEntity.setDocument(documentEntity);
+//        }
 
 
 

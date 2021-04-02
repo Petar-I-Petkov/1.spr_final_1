@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.TestEntity;
+import com.petkov.spr_final_1.model.entity.test.TestEntity;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 import com.petkov.spr_final_1.model.view.ActiveTestViewModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
@@ -13,8 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

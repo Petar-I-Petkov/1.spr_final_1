@@ -1,9 +1,9 @@
 package com.petkov.spr_final_1.DEVTools;
 
 import com.petkov.spr_final_1.constants.Paths;
-import com.petkov.spr_final_1.model.entity.QuestionEntity;
-import com.petkov.spr_final_1.model.entity.TestEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.ArticleEntity;
+import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
+import com.petkov.spr_final_1.model.entity.test.TestEntity;
+import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
 import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
 import com.petkov.spr_final_1.repository.ArticleRepository;
 import com.petkov.spr_final_1.repository.TestRepository;

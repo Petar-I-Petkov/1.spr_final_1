@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.init;
 
-import com.petkov.spr_final_1.service.ChapterService;
-import com.petkov.spr_final_1.service.SubChapterService;
+import com.petkov.spr_final_1.service.ATAChapterService;
+import com.petkov.spr_final_1.service.ATASubChapterService;
 import com.petkov.spr_final_1.service.TestService;
 import com.petkov.spr_final_1.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 public class DBInit implements CommandLineRunner {
 
     private final UserService userService;
-    private final ChapterService chapterService;
-    private final SubChapterService subchapterService;
+    private final ATAChapterService chapterService;
+    private final ATASubChapterService subchapterService;
     private final TestService testService;
 
     public DBInit(UserService userService,
-                  ChapterService chapterService,
-                  SubChapterService subchapterService,
+                  ATAChapterService chapterService,
+                  ATASubChapterService subchapterService,
                   TestService testService) {
         this.userService = userService;
         this.chapterService = chapterService;

@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.web;
 
-import com.petkov.spr_final_1.model.binding.ActiveTestTransporter;
+import com.petkov.spr_final_1.utils.ActiveTestTransporter;
 import com.petkov.spr_final_1.model.binding.SubmitTestBindingModel;
 import com.petkov.spr_final_1.model.view.ActiveTestViewModel;
 import com.petkov.spr_final_1.service.TestService;
@@ -35,8 +35,7 @@ public class TestController {
 
 
     @GetMapping("/active/{id}")
-    public String activeTestShow(@PathVariable String id, Model model,
-                                 RedirectAttributes redirectAttributes) {
+    public String activeTestShow(@PathVariable String id, Model model) {
 
         ActiveTestViewModel activeTestViewModel = testService.getActiveTestById(id);
 

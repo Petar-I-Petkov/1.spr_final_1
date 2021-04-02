@@ -1,9 +1,9 @@
 package com.petkov.spr_final_1.web;
 
-import com.petkov.spr_final_1.model.binding.ArticleAddBindingModel;
-import com.petkov.spr_final_1.model.service.ArticleServiceModel;
+import com.petkov.spr_final_1.model.binding.document.ArticleAddBindingModel;
+import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
 import com.petkov.spr_final_1.service.ArticleService;
-import com.petkov.spr_final_1.service.ChapterService;
+import com.petkov.spr_final_1.service.ATAChapterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +22,10 @@ import java.io.IOException;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final ChapterService chapterService;
+    private final ATAChapterService chapterService;
     private final ModelMapper modelMapper;
 
-    public ArticleController(ArticleService articleService, ChapterService chapterService, ModelMapper modelMapper) {
+    public ArticleController(ArticleService articleService, ATAChapterService chapterService, ModelMapper modelMapper) {
         this.articleService = articleService;
         this.chapterService = chapterService;
         this.modelMapper = modelMapper;

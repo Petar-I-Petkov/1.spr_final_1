@@ -1,11 +1,16 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.documentEntities.DocumentEntity;
-import com.petkov.spr_final_1.model.service.DocumentServiceModel;
+import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
+import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
+import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.DocumentRepository;
 import com.petkov.spr_final_1.service.DocumentService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -43,6 +48,19 @@ public class DocumentServiceImpl implements DocumentService {
 
         return modelMapper.map(documentEntity, DocumentServiceModel.class);
     }
+
+    @Override
+    public List<DocumentViewModel> getAllDocumentsSortedAlphabeticallyDesc() {
+
+        return documentRepository
+                .findAll(Sort.by(Sort.Direction.DESC, "documentName"))
+                .stream()
+                .map(documentEntity -> modelMapper.map(documentEntity, DocumentViewModel.class))
+                .collect(Collectors.toList());
+
+    }
+
+
 
 
 }

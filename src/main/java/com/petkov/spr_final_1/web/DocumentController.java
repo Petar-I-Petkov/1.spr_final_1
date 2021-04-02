@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.web;
 
-import com.petkov.spr_final_1.model.binding.DocumentAddBindingModel;
-import com.petkov.spr_final_1.model.service.DocumentServiceModel;
+import com.petkov.spr_final_1.model.binding.document.DocumentAddBindingModel;
+import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
 import com.petkov.spr_final_1.service.DocumentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;

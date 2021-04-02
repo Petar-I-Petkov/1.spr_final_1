@@ -52,11 +52,9 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active "
-                                id="document-tab" data-bs-toggle="tab"
-                                data-bs-target="#document"
-                                type="button" role="tab" aria-controls="document" aria-selected="true">Add Document
-                        </button>
+                            <a th:href="@{/documents}" type="button" class="btn nav-link">
+                            Add Document
+                        </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a th:href="@{/document-subchapters}" type="button" class="btn nav-link">
@@ -64,9 +62,10 @@
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a th:href="@{/ata-chapters}" type="button" class="btn nav-link">
-                            Add ATA Chapter
-                        </a>
+                        <button class="nav-link active"
+                                id="chapter-tab" data-bs-toggle="tab" data-bs-target="#chapter"
+                                type="button" role="tab" aria-controls="chapter" aria-selected="true">Add ATA Chapter
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a th:href="@{/ata-subchapters}" type="button" class="btn nav-link">
@@ -82,22 +81,22 @@
 
                 <div class="tab-content" id="myTabContent">
 
-                    <!--1. Add Document Tab-->
-                    <div class="tab-pane fade my-3 bg-light  show active"
-                         th:object="${documentAddBindingModel}"
-                         id="document"
+
+                    <!--2. Add Chapter Tab-->
+                    <div class="tab-pane fade my-3 bg-light show active"
+                         th:object="${chapterAddBindingModel}"
+                         id="chapter"
                          role="tabpanel"
-                         aria-labelledby="document-tab">
+                         aria-labelledby="chapter-tab">
 
                         <div class="mx-5">
-                            <form method="POST"
-                                  th:action="@{/documents}">
+                            <form method="POST" th:action="@{/ata-chapters}">
 
                                 <table class="table table-borderless">
                                     <tbody>
                                     <tr>
-                                        <td class="text-left small">Document Name</td>
-                                        <td></td>
+                                        <td class="text-left small">ATA Code</td>
+                                        <td class="text-left small">Chapter Name</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -105,62 +104,87 @@
                                     <tr>
                                         <td>
                                             <div class="input-group input-group-sm">
-                                                <input
-                                                        th:value="*{documentName}"
-                                                        id="documentName"
-                                                        name="documentName"
-                                                        type="text" class="form-control" placeholder="Document">
+                                                <input th:field="*{ataCode}"
+                                                       th:errorclass="is-invalid"
+                                                       id="ataCode"
+                                                       name="ataCode"
+                                                       type="number" class="form-control" placeholder="ATA Code">
                                             </div>
                                         </td>
                                         <td>
+                                            <div class="input-group input-group-sm">
+                                                <input th:field="*{name}"
+                                                       th:errorclass="is-invalid"
+                                                       required minlength="3"
+                                                       id="chapterName"
+                                                       name="name"
+                                                       type="text" class="form-control" placeholder="Chapter Name">
+                                            </div>
+
                                         </td>
                                         <td>
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
-                                            <a th:href="@{/documents}" class="btn btn-primary btn-sm">Cancel</a>
+                                            <a th:href="@{/chapters}" class="btn btn-primary btn-sm">Cancel</a>
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <td class="text-center small">
                                             <small
-                                                    th:each="e: ${#fields.errors('documentName')}"
+                                                    th:each="e: ${#fields.errors('ataCode')}"
                                                     th:text="${e}"
-                                                    id="nameError"
+                                                    id="ataCodeError"
                                                     class="text-danger">
                                             </small>
-                                            <small th:if="${documentExistsError}" id="documentExistsError"
-                                                   class="text-danger">Document already exists in DB!
+                                            <small th:if="${chapterExistsError}" id="chapterExistsError"
+                                                   class="text-danger">ATA Code already exists in DB!
                                             </small>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <small
+                                                    th:each="e: ${#fields.errors('name')}"
+                                                    th:text="${e}"
+                                                    id="ataNameError"
+                                                    class="text-danger">
+                                            </small>
+                                        </td>
                                         <td></td>
                                         <td></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </form>
+
+                            <div class="mt-3 mx-1">
+                                <h4>Available ATA Chapters: </h4>
+                            </div>
+
                         </div>
 
-                    </div>
-                    <!--1. EO Add Document Tab-->
 
-                    <!--2. Add Chapter Tab-->
-                    <div class="tab-pane fade my-3 bg-light"
-                         id="chapter"
-                         role="tabpanel"
-                         aria-labelledby="chapter-tab">
                     </div>
                     <!--2. EO Add Chapter Tab-->
 
-                    <!--3. Add Subchapter Tab-->
-                    <div class="tab-pane fade my-3"
-                         id="subChapter"
-                         role="tabpanel"
-                         aria-labelledby="subChapter-tab">
+
+                    <!-- All Chapters Table uses the chapters/api-->
+                    <div class="mx-5">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ATA</th>
+                                <th scope="col">Chapter Name</th>
+                            </tr>
+                            </thead>
+                            <tbody id="chapters-container">
+
+                            </tbody>
+                        </table>
                     </div>
-                    <!--3. EO Add Subchapter Tab-->
+                    <!-- EO All Chapters Table-->
+
 
                 </div>
             </div>
@@ -204,5 +228,6 @@
 </body>
 
 <script src="/js/sidebar-link-highlight.js"></script>
+<script src="/js/render-ata-chapters.js"></script>
 
 </html>

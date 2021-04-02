@@ -1,8 +1,5 @@
 package com.petkov.spr_final_1.model.view;
 
-import com.petkov.spr_final_1.model.entity.TestEntity;
-import com.petkov.spr_final_1.model.entity.documentEntities.ArticleEntity;
-
 import java.util.List;
 
 public class ActiveQuestionViewModel {

@@ -2,7 +2,7 @@ package com.petkov.spr_final_1.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.petkov.spr_final_1.model.binding.ActiveTestTransporter;
+import com.petkov.spr_final_1.utils.ActiveTestTransporter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
