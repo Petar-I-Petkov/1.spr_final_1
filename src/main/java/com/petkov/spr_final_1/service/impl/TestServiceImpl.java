@@ -13,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,32 +38,54 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional
-    public ActiveTestViewModel getActiveTestFromStored(String id) {
+    public ActiveTestViewModel getActiveTestById(String id) {
 
         TestEntity testEntity =
                 testRepository.findById(id)
                         .orElseThrow(() ->
                                 new IllegalArgumentException(String.format("Test with id '%s' not found", id)));
 
+        ActiveTestViewModel activeTestViewModel
+                = modelMapper.map(testEntity, ActiveTestViewModel.class);
+
+        int[] index = new int[]{0};
+
         List<ActiveQuestionViewModel> activeQuestionViewModels =
                 testEntity.getQuestions()
                         .stream()
                         .map(questionEntity -> {
+
                             ActiveQuestionViewModel activeQuestionViewModel =
                                     modelMapper.map(questionEntity, ActiveQuestionViewModel.class);
 
+                            //set article
                             ArticleViewModel articleViewModel =
                                     modelMapper.map(questionEntity.getArticle(), ArticleViewModel.class);
 
                             activeQuestionViewModel.setArticleViewModel(articleViewModel);
+
+                            //set answers
+                            List<String> answers = List.of(
+                                    questionEntity.getCorrectAnswer(),
+                                    questionEntity.getAltAnswer1(),
+                                    questionEntity.getAltAnswer2(),
+                                    questionEntity.getAltAnswer3(),
+                                    questionEntity.getAltAnswer4()
+                            );
+
+                            activeQuestionViewModel.setAnswers(answers);
+
+                            //populate the correct/given answer matrices
+                            activeTestViewModel.getCorrectAnswerMatrix().put(index[0], questionEntity.getCorrectAnswer());
+                            activeTestViewModel.getGivenAnswerMatrix().put(index[0],"not answered");
+                            index[0]++;
 
                             return activeQuestionViewModel;
                         })
                         .collect(Collectors.toList());
 
 
-        ActiveTestViewModel activeTestViewModel
-                = modelMapper.map(testEntity, ActiveTestViewModel.class);
+
 
         activeTestViewModel.setQuestionEntities(activeQuestionViewModels);
 
@@ -82,6 +106,7 @@ public class TestServiceImpl implements TestService {
                             modelMapper.map(testEntity, TestThumbnailViewModel.class);
 
                     testThumbnailViewModel.setNumberOfQuestions(testEntity.getQuestions().size());
+
 
                     return testThumbnailViewModel;
                 })

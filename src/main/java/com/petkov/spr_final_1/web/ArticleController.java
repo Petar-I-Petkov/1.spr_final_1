@@ -1,9 +1,7 @@
 package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.ArticleAddBindingModel;
-import com.petkov.spr_final_1.model.binding.SubChapterAddBindingModel;
 import com.petkov.spr_final_1.model.service.ArticleServiceModel;
-import com.petkov.spr_final_1.model.service.SubChapterServiceModel;
 import com.petkov.spr_final_1.service.ArticleService;
 import com.petkov.spr_final_1.service.ChapterService;
 import org.modelmapper.ModelMapper;
@@ -50,7 +48,7 @@ public class ArticleController {
             model.addAttribute("seedOk", false);
         }
 
-        model.addAttribute("ataDBList", chapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
+        model.addAttribute("ataDBList", chapterService.getAllChaptersSortedByAtaDesc());
 
 
         return "articles";

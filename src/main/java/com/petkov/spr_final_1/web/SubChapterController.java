@@ -46,8 +46,7 @@ public class SubChapterController {
             model.addAttribute("seedOk", false);
         }
 
-        model.addAttribute("ataDBList", chapterService.listAllChaptersAtaAndNameOrderByAtaDesc());
-
+        model.addAttribute("ataDBList", chapterService.getAllChaptersSortedByAtaDesc());
 
         return "subchapters";
     }
@@ -68,7 +67,7 @@ public class SubChapterController {
         if (subchapterService
                 .subChapterCodeExists(
                         subChapterAddBindingModel.getAtaSubCode(),
-                        Integer.parseInt(subChapterAddBindingModel.getAtaChapterRefInput()))) {
+                        Integer.parseInt(subChapterAddBindingModel.getAtaChapterRefInput().split(" - ")[0]))) {
 
             redirectAttributes.addFlashAttribute("subChapterAddBindingModel", subChapterAddBindingModel);
 

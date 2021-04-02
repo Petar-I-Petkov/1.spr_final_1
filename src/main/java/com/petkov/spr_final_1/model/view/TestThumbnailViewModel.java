@@ -6,6 +6,7 @@ public class TestThumbnailViewModel {
 
     private String id;
     private String name;
+    private LocalDate dueDate;
     private int numberOfQuestions;
 
     public TestThumbnailViewModel() {
@@ -25,6 +26,14 @@ public class TestThumbnailViewModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public int getNumberOfQuestions() {

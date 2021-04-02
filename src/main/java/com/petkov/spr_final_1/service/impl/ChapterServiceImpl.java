@@ -3,6 +3,7 @@ package com.petkov.spr_final_1.service.impl;
 import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.documentEntities.ChapterEntity;
 import com.petkov.spr_final_1.model.service.ChapterServiceModel;
+import com.petkov.spr_final_1.model.view.ChapterViewModel;
 import com.petkov.spr_final_1.repository.ChapterRepository;
 import com.petkov.spr_final_1.service.ChapterService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
@@ -59,11 +60,11 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public List<ChapterServiceModel> findAllChaptersSortedByATA() {
+    public List<ChapterViewModel> getAllChaptersSortedByAtaDesc() {
         return chapterRepository
                 .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))
                 .stream()
-                .map(chapterEntity -> modelMapper.map(chapterEntity, ChapterServiceModel.class))
+                .map(chapterEntity -> modelMapper.map(chapterEntity, ChapterViewModel.class))
                 .collect(Collectors.toList());
     }
 
@@ -94,19 +95,6 @@ public class ChapterServiceImpl implements ChapterService {
 
     }
 
-    @Override
-    public List<String> listAllChaptersAtaAndNameOrderByAtaDesc() {
-
-        List<ChapterServiceModel> allChaptersSortedByATA = findAllChaptersSortedByATA();
-
-        List<String> chaptersAtaAndNameExportList =
-                allChaptersSortedByATA
-                        .stream()
-                        .map(chapter -> String.format("%02d - %s ", chapter.getAtaCode(), chapter.getName()))
-                        .collect(Collectors.toList());
-
-        return chaptersAtaAndNameExportList;
-    }
 
     @Override
     public ChapterServiceModel findChapterByAtaCode(Integer ataCode) {

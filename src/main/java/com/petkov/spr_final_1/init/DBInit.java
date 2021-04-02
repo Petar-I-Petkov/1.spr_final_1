@@ -33,8 +33,7 @@ public class DBInit implements CommandLineRunner {
         chapterService.initSeedChaptersFromJson();
         subchapterService.initSeedSubchaptersFromJson();
 
-        //todo ActiveTestViewModel - remove test call
-        testService.getActiveTestFromStored("34d68e92-f83e-456c-9a4e-f3a522fd9fe8");
+
 
 
 

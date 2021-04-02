@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TestService {
 
-    ActiveTestViewModel getActiveTestFromStored(String id);
+    ActiveTestViewModel getActiveTestById(String id);
 
     List<TestThumbnailViewModel> getAllUpcomingTestsView();
 }

@@ -55,32 +55,44 @@
                     </div>
                 </div>
 
-                <ul class="list-group list-group-numbered">
-                    <div class="row"
-                         th:each="t : ${upcomingTests}"
-                         th:object="${t}">
+                <div class="row" th:object="${activeTestViewModel}">
 
-                        <li class="list-group-item d-flex align-items-start">
+                    <form method="POST"
+                          th:action="@{/tests/active/{id}(id = ${activeTestViewModel.id})}">
 
-                            <div class="col-lg-4">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold" th:text="*{name}">Test</div>
-                                    <div th:text="|Due date: *{dueDate}|">Due date:</div>
+                        <ul class="list-group list-group-numbered">
+
+                            <li th:each="q , iterStat : ${activeTestViewModel.questionEntities}"
+                                class="list-group-item">
+
+                                <div th:text="${q.question}"></div>
+
+                                <div th:each="a: ${q.answers}"
+                                     class="form-check">
+                                    <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            id="flexRadioDefault1"
+                                            th:field="${activeTestViewModel.givenAnswerMatrix[__${iterStat.index}__]}"
+                                            th:value="${a}">
+                                    <label th:text="${a}"
+                                           class="form-check-label"
+                                           for="flexRadioDefault1">
+                                        answer
+                                    </label>
                                 </div>
-                                <span class="badge bg-primary rounded-pill"
-                                      th:text="|Questions: *{numberOfQuestions}|">
-                                      Questions: 2
-                                </span>
-                            </div>
-                            <div class="col-lg-2">
-                                <a th:href="@{/tests/active/{id}(id = *{id})}" type="button" class="btn btn-success">Start
-                                    Test</a>
-                            </div>
 
 
-                        </li>
-                    </div>
-                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="">
+                            <button type="submit" class="btn btn-success">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
 

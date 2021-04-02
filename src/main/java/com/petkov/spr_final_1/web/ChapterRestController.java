@@ -30,7 +30,7 @@ public class ChapterRestController {
         return ResponseEntity
                 .ok()
                 .body(chapterService
-                        .findAllChaptersSortedByATA()
+                        .getAllChaptersSortedByAtaDesc()
                         .stream()
                         .map(chapterServiceModel -> 
                                 modelMapper.map(

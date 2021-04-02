@@ -103,7 +103,9 @@
                                                         class="form-select"
                                                         aria-label="Select ATA Chapter">
                                                     <option selected th:text="*{ataChapterRefInput}">Select...</option>
-                                                    <option th:each="a : ${ataDBList}" th:value="${a}" th:text="${a}">
+                                                    <option
+                                                            th:each="a : ${ataDBList}"
+                                                            th:text="|${a.ataCode} - ${a.name}|">
                                                         One
                                                     </option>
                                                 </select>

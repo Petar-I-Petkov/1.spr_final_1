@@ -23,7 +23,7 @@ public class QuestionEntity extends BaseEntity{
     public QuestionEntity() {
     }
 
-    @Column(name = "question", unique = false, nullable = false)
+    @Column(name = "question", unique = true, nullable = false)
     public String getQuestion() {
         return question;
     }
