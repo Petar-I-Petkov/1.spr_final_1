@@ -1,13 +1,12 @@
 package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.utils.ActiveTestTransporter;
-import com.petkov.spr_final_1.model.binding.SubmitTestBindingModel;
+import com.petkov.spr_final_1.model.binding.test.SubmitTestBindingModel;
 import com.petkov.spr_final_1.model.view.ActiveTestViewModel;
 import com.petkov.spr_final_1.service.TestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/tests")
@@ -30,7 +29,7 @@ public class TestController {
         //todo - make getAllUpcomingTestsView return Upcoming tests, not all tests
         model.addAttribute("upcomingTests", testService.getAllUpcomingTestsView());
 
-        return "tests";
+        return "tests-upcomming";
     }
 
 

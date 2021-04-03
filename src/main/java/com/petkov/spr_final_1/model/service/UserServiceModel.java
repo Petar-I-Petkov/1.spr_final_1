@@ -10,6 +10,8 @@ public class UserServiceModel extends BaseServiceModel{
     private String password;
     private String email;
 
+    //todo - UserServiceModel - check the usage of the class!
+
     public UserServiceModel(String username, String password, String email) {
         this.username = username;
         this.password = password;
@@ -19,6 +21,7 @@ public class UserServiceModel extends BaseServiceModel{
     public UserServiceModel() {
     }
 
+    @NotBlank(message = "Username cannot be blank!")
     @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters!")
     public String getUsername() {
         return username;
@@ -28,6 +31,7 @@ public class UserServiceModel extends BaseServiceModel{
         this.username = username;
     }
 
+    @NotBlank(message = "Password cannot be blank!")
     @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
     public String getPassword() {
         return password;

@@ -1,4 +1,4 @@
-package com.petkov.spr_final_1.model.binding;
+package com.petkov.spr_final_1.model.binding.test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

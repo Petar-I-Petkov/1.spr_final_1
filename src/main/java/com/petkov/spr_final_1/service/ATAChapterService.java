@@ -13,7 +13,7 @@ public interface ATAChapterService {
 
     List<ATAChapterViewModel> getAllChaptersSortedByAtaDesc();
 
-    ATAChapterServiceModel findChapterByAtaCode(Integer ataCode);
+    ATAChapterServiceModel findChapterByAtaCode(Integer ataCode) throws IllegalArgumentException;
 
     boolean chapterAtaCodeExists(Integer ataCode);
 }

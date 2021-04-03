@@ -87,9 +87,6 @@ public class DocumentSubChapterController {
             return "redirect:/document-subchapters";
         }
 
-        documentSubchapterAddBindingModel
-                .setDocumentRef(documentSubchapterAddBindingModel.getDocumentRef());
-
         DocumentSubchapterServiceModel documentSubchapterServiceModel = modelMapper.map(
                 documentSubchapterAddBindingModel,
                 DocumentSubchapterServiceModel.class);

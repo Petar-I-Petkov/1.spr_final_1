@@ -97,7 +97,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
 
 
     @Override
-    public ATAChapterServiceModel findChapterByAtaCode(Integer ataCode) {
+    public ATAChapterServiceModel findChapterByAtaCode(Integer ataCode) throws IllegalArgumentException {
 
         ATAChapterEntity chapterEntity =
                 chapterRepository.findByAtaCode(ataCode)

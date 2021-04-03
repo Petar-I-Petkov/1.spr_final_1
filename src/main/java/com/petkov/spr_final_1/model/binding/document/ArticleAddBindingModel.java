@@ -3,6 +3,7 @@ package com.petkov.spr_final_1.model.binding.document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class ArticleAddBindingModel {
     public ArticleAddBindingModel() {
     }
 
-    @NotNull(message = "Article title is required.")
+    @NotBlank(message = "Article title is required.")
     @Size(min = 3, message = "Article title should be min 3 characters.")
     public String getTitle() {
         return title;
@@ -34,7 +35,7 @@ public class ArticleAddBindingModel {
         this.title = title;
     }
 
-    @NotNull(message = "Article text is required.")
+    @NotBlank(message = "Article text is required.")
     @Size(min = 200, message = "Article text should be min 200 characters.")
     public String getArticleText() {
         return articleText;

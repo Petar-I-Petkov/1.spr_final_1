@@ -1,30 +1,41 @@
-package com.petkov.spr_final_1.model.entity.test;
+package com.petkov.spr_final_1.model.binding.test;
 
-import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
+import com.petkov.spr_final_1.model.entity.test.TestEntity;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
-@Entity
-@Table(name = "questions")
-public class QuestionEntity extends BaseEntity {
+public class QuestionAddBindingModel {
 
+    private String id;
     private String name;
-    private String question;
     private String fullReferencePath;
+
+    private String question;
     private String correctAnswer;
     private String altAnswer1;
     private String altAnswer2;
     private String altAnswer3;
     private String altAnswer4;
-    private List<TestEntity> tests;
-    private ArticleEntity article;
+    private String articleRef;
 
-    public QuestionEntity() {
+    public QuestionAddBindingModel() {
     }
 
-    @Column(name = "name", unique = true, nullable = false)
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @NotBlank(message = "Question title is required.")
+    @Size(min = 3, message = "Question title should be min 3 characters.")
     public String getName() {
         return name;
     }
@@ -33,7 +44,8 @@ public class QuestionEntity extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "question", unique = true, nullable = false)
+    @NotBlank(message = "Question text is required.")
+    @Size(min = 50, message = "Question text should be min 50 characters.")
     public String getQuestion() {
         return question;
     }
@@ -42,7 +54,6 @@ public class QuestionEntity extends BaseEntity {
         this.question = question;
     }
 
-    @Column(name = "full_reference_path", unique = false, nullable = true)
     public String getFullReferencePath() {
         return fullReferencePath;
     }
@@ -51,7 +62,8 @@ public class QuestionEntity extends BaseEntity {
         this.fullReferencePath = fullReferencePath;
     }
 
-    @Column(name = "correct_answer", unique = false, nullable = false)
+    @NotBlank(message = "Correct Answer is required.")
+    @Size(min = 2, message = "Correct Answer should be min 2 characters.")
     public String getCorrectAnswer() {
         return correctAnswer;
     }
@@ -60,7 +72,8 @@ public class QuestionEntity extends BaseEntity {
         this.correctAnswer = correctAnswer;
     }
 
-    @Column(name = "alt_answer_1", unique = false, nullable = false)
+    @NotBlank(message = "Alternate answer 1 is required.")
+    @Size(min = 2, message = "Alternate answer 1 should be min 2 characters.")
     public String getAltAnswer1() {
         return altAnswer1;
     }
@@ -69,7 +82,8 @@ public class QuestionEntity extends BaseEntity {
         this.altAnswer1 = altAnswer1;
     }
 
-    @Column(name = "alt_answer_2", unique = false, nullable = false)
+    @NotBlank(message = "Alternate answer 2 is required.")
+    @Size(min = 2, message = "Alternate answer 2 should be min 2 characters.")
     public String getAltAnswer2() {
         return altAnswer2;
     }
@@ -78,7 +92,6 @@ public class QuestionEntity extends BaseEntity {
         this.altAnswer2 = altAnswer2;
     }
 
-    @Column(name = "alt_answer_3", unique = false, nullable = true)
     public String getAltAnswer3() {
         return altAnswer3;
     }
@@ -87,7 +100,6 @@ public class QuestionEntity extends BaseEntity {
         this.altAnswer3 = altAnswer3;
     }
 
-    @Column(name = "alt_answer_4", unique = false, nullable = true)
     public String getAltAnswer4() {
         return altAnswer4;
     }
@@ -96,27 +108,11 @@ public class QuestionEntity extends BaseEntity {
         this.altAnswer4 = altAnswer4;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "tests_questions",
-            joinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "test_id", referencedColumnName = "id")
-    )
-    public List<TestEntity> getTests() {
-        return tests;
+    public String getArticleRef() {
+        return articleRef;
     }
 
-    public void setTests(List<TestEntity> tests) {
-        this.tests = tests;
-    }
-
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    public ArticleEntity getArticle() {
-        return article;
-    }
-
-    public void setArticle(ArticleEntity article) {
-        this.article = article;
+    public void setArticleRef(String articleRef) {
+        this.articleRef = articleRef;
     }
 }

@@ -45,7 +45,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void seedArticleToDb(ArticleServiceModel articleServiceModel) throws IOException {
 
-
         ArticleEntity articleEntity = modelMapper.map(articleServiceModel, ArticleEntity.class);
 
         if (!articleServiceModel.getImage().isEmpty()) {
@@ -57,6 +56,8 @@ public class ArticleServiceImpl implements ArticleService {
         if (!articleServiceModel.getAtaSubChapterRef().isEmpty() && !articleServiceModel.getChapterRef().isEmpty()) {
 
             int chapterRef = Integer.parseInt(articleServiceModel.getChapterRef().split(" ")[0]);
+
+            // todo seedArticleToDb - add try catch
             ATAChapterEntity chapterEntity =
                     modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
@@ -88,10 +89,19 @@ public class ArticleServiceImpl implements ArticleService {
 //        }
 
 
-
         //todo seedArticleToDb debug point
         System.out.println();
 
         articleRepository.saveAndFlush(articleEntity);
+    }
+
+    @Override
+    public ArticleServiceModel getArticleByTitle(String title) throws IllegalArgumentException {
+
+        ArticleEntity articleEntity = articleRepository
+                .findByTitle(title)
+                .orElseThrow(() -> new IllegalArgumentException("Article not found in DB"));
+
+        return modelMapper.map(articleEntity, ArticleServiceModel.class);
     }
 }
