@@ -38,7 +38,7 @@ public class TestController {
 
         ActiveTestViewModel activeTestViewModel = testService.getActiveTestById(id);
 
-        model.addAttribute("activeTestViewModel",activeTestViewModel );
+        model.addAttribute("activeTestViewModel", activeTestViewModel);
 
         activeTestTransporter.setActiveTestViewModel(activeTestViewModel);
 
@@ -56,6 +56,13 @@ public class TestController {
         System.out.println();
 
         return "redirect:tests-result";
+    }
+
+    @GetMapping("/add")
+    public String addTest() {
+
+
+        return "tests-add";
     }
 
 }

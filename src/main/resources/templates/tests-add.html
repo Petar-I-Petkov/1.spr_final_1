@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+
+    <!-- Bootstrap Css -->
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"-->
+    <!--          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">-->
+
+    <!--    <link rel="stylesheet" href="style.css">-->
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+
+    <title>AD - Add Test</title>
+
+</head>
+
+<body>
+
+<!-- Navbar-Main -->
+<th:block th:include="~{fragments/nav-main-fragment}"></th:block>
+<!-- Navbar-Main -->
+
+<!-- Container - Main -->
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- SideNav -->
+        <th:block th:include="~{fragments/side-nav-fragment}"></th:block>
+        <!-- End SideNav -->
+
+        <!-- Main -->
+
+        <!-- left Side-->
+        <div class="col-4 bg-light border border-1" id="add-test-pane">
+
+            <div class="bg-light border border-1 p-3 mt-1">
+
+                <h5 class="text-muted">Test:</h5>
+
+                <!-- Add Test Tab-->
+                <div class="row">
+
+
+                </div>
+                <!-- EO Add Test Tab-->
+            </div>
+
+        </div>
+        <!-- EO left Side-->
+        <!-- right Side-->
+        <div class="col-5 bg-light border border-1" id="questions-select-pane">
+
+            <!-- Search container-->
+            <div class="bg-light border border-1 p-2 mt-1">
+
+                <!-- ATA Tab-->
+                <div class="row mt-2">
+
+                    <div class="col shadow rounded mx-2 mt-0 p-2 bg-light ">
+                        <div class="row ">
+
+                            <div class="col-sm-6">
+                                <label for="ataChapterRefInput" class="form-label text-start small">
+                                    ATA Chapter:
+                                </label>
+                                <div class="input-group input-group-sm">
+                                    <select
+                                            id="ataChapterRefInput"
+                                            name="ataChapterRefInput"
+                                            class="form-select"
+                                            aria-label="Select ATA Chapter">
+                                        <option>
+                                            <!--                                            selected th:text="*{ataChapterRefInput}"-->
+                                            Select...
+                                        </option>
+                                        <option>
+                                            <!--                                        th:each="a : ${ataDBList}"-->
+                                            <!--                                        th:text="|${a.ataCode} - ${a.name}|">-->
+                                            One
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="ataSubChapterRef" class="form-label text-start small">
+                                    ATA Sub Chapter:
+                                </label>
+                                <div class="input-group input-group-sm">
+                                    <select
+                                            id="ataSubChapterRef"
+                                            name="ataSubChapterRef"
+                                            class="form-select"
+                                            aria-label="Select ATA Sub Chapter">
+                                        <option>
+                                            <!--                                            selected th:text="*{ataChapterRefInput}"-->
+                                            Select...
+                                        </option>
+                                        <option>
+                                            <!--                                        th:each="a : ${ataDBList}"-->
+                                            <!--                                        th:text="|${a.ataCode} - ${a.name}|">-->
+                                            One
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- EO ATA Tab-->
+
+                <!-- Document Tab-->
+                <div class="row">
+                    <div class="col shadow rounded mx-2 mt-2 p-2 bg-light ">
+                        <div class="row ">
+
+                            <div class="col-sm-6">
+                                <label for="document" class="form-label text-start small">
+                                    Document:
+                                </label>
+                                <div class="input-group input-group-sm">
+                                    <select
+                                            id="document"
+                                            name="document"
+                                            class="form-select"
+                                            aria-label="Select document">
+                                        <option>
+                                            <!--                                            selected th:text="*{ataChapterRefInput}"-->
+                                            Select...
+                                        </option>
+                                        <option>
+                                            <!--                                        th:each="a : ${ataDBList}"-->
+                                            <!--                                        th:text="|${a.ataCode} - ${a.name}|">-->
+                                            One
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="documentSubchapter" class="form-label text-start small">
+                                    Document Subchapter:
+                                </label>
+                                <div class="input-group input-group-sm">
+                                    <select
+                                            id="documentSubchapter"
+                                            name="documentSubchapter"
+                                            class="form-select"
+                                            aria-label="Select Document Subchapter">
+                                        <option>
+                                            <!--                                            selected th:text="*{ataChapterRefInput}"-->
+                                            Select...
+                                        </option>
+                                        <option>
+                                            <!--                                        th:each="a : ${ataDBList}"-->
+                                            <!--                                        th:text="|${a.ataCode} - ${a.name}|">-->
+                                            One
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- EO Document Tab-->
+                <!-- Search Tab-->
+                <div class="row">
+                    <div class="col shadow rounded mx-2 mt-2 p-2 bg-light ">
+
+                        <div class="row">
+
+                            <div class="col-sm-3">
+                                <div class="d-inline float-end">
+                                    Search Bar
+                                </div>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <div class="">
+                                    <div class="input-group-sm">
+                                        <input type="text" class="form-control" aria-label="Search input" style="width: 100%">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- EO Search Tab-->
+
+
+            </div>
+            <!-- EO Search container-->
+
+
+
+        </div>
+
+    </div>
+    <!-- EO right Side-->
+
+
+    <!-- End Main -->
+
+    <!-- Success message display-->
+    <div class="toast" id="seed-ok" style="position: fixed; top: 15em; left: 50em;">
+
+        <div class="toast-header" style="background-color: lightcyan">
+            <strong class="me-auto">AvioDesk says:</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+
+        <div class="toast-body " style="background-color: lightcyan">
+            Successfully added!
+        </div>
+    </div>
+
+    <script th:if="${seedOk}">
+        $(document).ready(function () {
+            $('.toast').toast('show');
+        });
+    </script>
+    <!-- EO Success message display-->
+</div>
+
+
+</div>
+
+<!-- Optional JavaScript-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"-->
+<!--        integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"-->
+<!--        integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"-->
+<!--        crossorigin="anonymous"></script>-->
+
+</body>
+
+<script src="/js/sidebar-link-highlight.js"></script>
+
+
+</html>
