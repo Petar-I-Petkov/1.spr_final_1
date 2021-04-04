@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -19,6 +21,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,12 +65,18 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     }
 
     @Override
-    public List<ATAChapterViewModel> getAllChaptersSortedByAtaDesc() {
-        return chapterRepository
-                .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))
-                .stream()
-                .map(chapterEntity -> modelMapper.map(chapterEntity, ATAChapterViewModel.class))
-                .collect(Collectors.toList());
+    @Async
+    public CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDesc() {
+
+        return CompletableFuture
+                .supplyAsync(() ->
+                        chapterRepository
+                                .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))
+                                .stream()
+                                .map(chapterEntity -> modelMapper.map(chapterEntity, ATAChapterViewModel.class))
+                                .collect(Collectors.toList()))
+                .orTimeout(30, TimeUnit.SECONDS);
+
     }
 
     private void seedChaptersIfValidOrPrintError(ATAChapterServiceModel chapterServiceModel) {
