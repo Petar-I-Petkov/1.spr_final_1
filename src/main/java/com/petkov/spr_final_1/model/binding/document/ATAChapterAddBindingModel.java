@@ -10,7 +10,7 @@ public class ATAChapterAddBindingModel {
     public ATAChapterAddBindingModel() {
     }
 
-    @NotBlank(message = "ATA code cannot be empty.")
+    @NotNull(message = "ATA code cannot be empty.")
     @Min(value = 0, message = "ATA code minimum 00.")
     @Max(value = 100, message = "ATA code maximum 100.")
     public Integer getAtaCode() {

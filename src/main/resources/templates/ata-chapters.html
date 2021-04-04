@@ -14,6 +14,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
 
     <link rel="stylesheet" href="/css/reset-css.css"/>
@@ -204,10 +206,25 @@
 
             <script th:if="${seedOk}">
                 $(document).ready(function () {
-                    $('.toast').toast('show');
+                    $('#seed-ok').toast('show');
                 });
             </script>
             <!-- EO Success message display-->
+
+            <!--  wrong edit info display-->
+            <div class="toast" id="wrong-input" style="position: fixed; top: 15em; left: 50em;">
+
+                <div class="toast-header" style="background-color: lightcoral">
+                    <strong class="me-auto">AvioDesk says:</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+
+                <div class="toast-body" id="error-message" style="background-color: lightcoral">
+
+                </div>
+            </div>
+            <!--  EO wrong edit info display-->
+
 
 
         </div>
