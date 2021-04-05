@@ -3,11 +3,19 @@ package com.petkov.spr_final_1.service.impl;
 import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
 import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
 import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
+import com.petkov.spr_final_1.model.view.ArticleViewModel;
+import com.petkov.spr_final_1.model.view.QuestionViewModel;
 import com.petkov.spr_final_1.repository.QuestionRepository;
 import com.petkov.spr_final_1.service.ArticleService;
 import com.petkov.spr_final_1.service.QuestionService;
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -57,4 +65,18 @@ public class QuestionServiceImpl implements QuestionService {
         System.out.println();
         questionRepository.saveAndFlush(questionEntity);
     }
+
+    @Override
+    @Async
+    public CompletableFuture<List<QuestionViewModel>> getAllQuestionsSortedByATA() {
+
+        return CompletableFuture
+                .supplyAsync(() -> questionRepository.findAll()
+                        .stream()
+                        .map(questionEntity -> modelMapper.map(questionEntity, QuestionViewModel.class))
+                        .collect(Collectors.toList()))
+                .orTimeout(30, TimeUnit.SECONDS);
+    }
+
+
 }

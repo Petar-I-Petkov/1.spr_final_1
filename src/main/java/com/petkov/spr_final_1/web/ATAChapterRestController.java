@@ -1,21 +1,21 @@
 package com.petkov.spr_final_1.web;
 
 
+import com.petkov.spr_final_1.model.api.ATAChapterEditErrorsViewModel;
 import com.petkov.spr_final_1.model.binding.document.ATAChapterAddBindingModel;
+import com.petkov.spr_final_1.model.service.document.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.service.ATAChapterService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
-import org.springframework.web.servlet.function.ServerRequest;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestMapping("/ata-chapters/api")
 @RestController
@@ -32,20 +32,19 @@ public class ATAChapterRestController {
     }
 
     //todo - add Aspect and/or EventListener to log at different place
-    @GetMapping("")
+    @GetMapping(value = "", produces = "application/json")
     public DeferredResult<ResponseEntity<List<ATAChapterViewModel>>> getAllChaptersSortedByATA() {
+
         LOGGER.info("Received async-deferred request at </ata-chapters>");
 
         DeferredResult<ResponseEntity<List<ATAChapterViewModel>>> deferredResult = new DeferredResult<>();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
 
         chapterService
                 .getAllChaptersSortedByAtaDesc()
                 .thenApply(ataChapterViewModels ->
                         deferredResult.setResult(ResponseEntity
                                 .ok()
-                                .headers(httpHeaders)
                                 .body(ataChapterViewModels))
                 )
                 .exceptionally(ex ->
@@ -58,11 +57,38 @@ public class ATAChapterRestController {
         return deferredResult;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<ATAChapterViewModel> editById(@PathVariable String id,
-                                                        @RequestBody ATAChapterAddBindingModel ataChapterAddBindingModel){
+    public ResponseEntity<? extends ATAChapterViewModel> editById(@PathVariable String id,
+                                                        @Valid @RequestBody ATAChapterAddBindingModel ataChapterAddBindingModel,
+                                                        BindingResult bindingResult){
 
-        return ResponseEntity.noContent().build();
+
+
+        if(bindingResult.hasErrors()){
+
+            ATAChapterEditErrorsViewModel ataChapterEditErrors =
+                    modelMapper.map(ataChapterAddBindingModel, ATAChapterEditErrorsViewModel.class);
+
+            bindingResult.getAllErrors()
+                    .forEach(objectError ->
+                            ataChapterEditErrors.getBindingErrors().add(objectError.getDefaultMessage()));
+
+            return ResponseEntity
+                    .unprocessableEntity()
+                    .body(ataChapterEditErrors);
+
+        } else {
+
+            ATAChapterServiceModel ataChapterServiceModel =
+                    chapterService.findChapterById(id);
+
+            ataChapterServiceModel.setName(ataChapterAddBindingModel.getName());
+
+            return ResponseEntity
+                    .ok()
+                    .body(modelMapper.map(chapterService.addChapterToDB(ataChapterServiceModel), ATAChapterViewModel.class));
+        }
+
     }
 }

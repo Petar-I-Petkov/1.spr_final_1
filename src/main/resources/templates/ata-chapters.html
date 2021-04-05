@@ -54,7 +54,7 @@
 
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                            <a th:href="@{/documents}" type="button" class="btn nav-link">
+                        <a th:href="@{/documents}" type="button" class="btn nav-link">
                             Add Document
                         </a>
                     </li>
@@ -128,7 +128,7 @@
                                         </td>
                                         <td>
                                             <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
-                                            <a th:href="@{/chapters}" class="btn btn-primary btn-sm">Cancel</a>
+                                            <a th:href="@{/ata-chapters}" class="btn btn-primary btn-sm">Cancel</a>
                                         </td>
 
                                     </tr>
@@ -150,6 +150,9 @@
                                                     th:text="${e}"
                                                     id="ataNameError"
                                                     class="text-danger">
+                                            </small>
+                                            <small th:if="${chapterNameExistsError}" id="chapterNameExistsError"
+                                                   class="text-danger">ATA Name already taken!
                                             </small>
                                         </td>
                                         <td></td>
@@ -192,14 +195,18 @@
             </div>
 
             <!-- Success message display-->
-            <div class="toast" id="seed-ok" style="position: fixed; top: 15em; left: 50em;">
+            <div class="toast" id="seed-ok" style="position: fixed; top: 20em; left: 50em;"
+                 th:object="${chapterAddBindingModel}">
 
                 <div class="toast-header" style="background-color: lightcyan">
                     <strong class="me-auto">AvioDesk says:</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
 
-                <div class="toast-body " style="background-color: lightcyan">
+                <div class="toast-body"
+                     id="success-message"
+                     style="background-color: lightcyan"
+                     th:text="|Successfully added *{ataCode} - *{name}!|">
                     Successfully added!
                 </div>
             </div>
@@ -212,7 +219,7 @@
             <!-- EO Success message display-->
 
             <!--  wrong edit info display-->
-            <div class="toast" id="wrong-input" style="position: fixed; top: 15em; left: 50em;">
+            <div class="toast" id="wrong-input" style="position: fixed; top: 20em; left: 50em;">
 
                 <div class="toast-header" style="background-color: lightcoral">
                     <strong class="me-auto">AvioDesk says:</strong>
@@ -224,7 +231,6 @@
                 </div>
             </div>
             <!--  EO wrong edit info display-->
-
 
 
         </div>
@@ -245,7 +251,7 @@
 </body>
 
 <script src="/js/sidebar-link-highlight.js"></script>
-<script src="/js/api-consume.js"></script>
+<script src="/js/ata-chapters.js"></script>
 <script>renderAllChapters()</script>
 
 

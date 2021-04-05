@@ -12,11 +12,15 @@ public interface ATAChapterService {
 
     void initSeedChaptersFromJson();
 
-    void addChapterToDB(ATAChapterServiceModel chapterServiceModel);
+    ATAChapterServiceModel addChapterToDB(ATAChapterServiceModel chapterServiceModel);
 
     CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDesc();
 
     ATAChapterServiceModel findChapterByAtaCode(Integer ataCode) throws IllegalArgumentException;
 
+    ATAChapterServiceModel findChapterById(String id) throws IllegalArgumentException;
+
     boolean chapterAtaCodeExists(Integer ataCode);
+
+    boolean chapterAtaNameExists(String name);
 }

@@ -1,6 +1,9 @@
 package com.petkov.spr_final_1.service;
 
 import com.petkov.spr_final_1.model.service.document.ATASubChapterServiceModel;
+import com.petkov.spr_final_1.model.view.ATASubChapterViewModel;
+
+import java.util.List;
 
 public interface ATASubChapterService {
 
@@ -11,4 +14,6 @@ public interface ATASubChapterService {
     void initSeedSubchaptersFromJson();
 
     ATASubChapterServiceModel findByChapterAndSubchapterAta(int chapterRef, int ataSubCode);
+
+    List<ATASubChapterViewModel> getAllSortedByATA();
 }

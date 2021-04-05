@@ -12,4 +12,6 @@ public interface ATAChapterRepository extends JpaRepository<ATAChapterEntity, St
 
     Optional<ATAChapterEntity> findByAtaCode(Integer ataCode);
 
+    Optional<ATAChapterEntity> findByName(String name);
+
 }

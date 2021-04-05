@@ -175,21 +175,14 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                 <div class="row my-3">
 
                                     <div class="col-sm-3">
-                                        <label for="chapterRef" class="form-label text-start small">Chapter
-                                            (Optional)</label>
-                                        <div class="input-group input-group-sm">
-                                            <select
-                                                    id="chapterRef"
-                                                    name="chapterRef"
-                                                    class="form-select"
-                                                    aria-label="Select ATA Chapter">
-                                                <option th:text="*{chapterRef}">VALUE></option>
-                                                <option th:each="a : ${ataDBList}" th:text="${a}"> OPTIONS</option>
-                                            </select>
-                                        </div>
+
                                     </div>
 
                                     <div class="col-sm-3">
+
+                                    </div>
+
+                                    <div class="col-sm-6">
                                         <label for="ataSubChapterRef" class="form-label text-start small">Sub Chapter
                                             (Optional)</label>
                                         <div class="input-group input-group-sm">
@@ -198,41 +191,41 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                                     name="ataSubChapterRef"
                                                     class="form-select"
                                                     aria-label="Select ATA Sub Chapter">
-                                                <option th:text="*{ataSubChapterRef}">VALUE></option>
-                                                <!--  <option th:each="a : ${ataDBList}" th:text="${a}"> OPTIONS</option>-->
+                                                <option th:text="*{documentSubchapterRef}">VALUE></option>
+                                                <option th:each="a : ${ataSubChaptersDBList}"
+                                                        th:text="|${a.ataChapter}-${a.ataSubCode} - ${a.subchapterName}|">
+                                                    OPTIONS
+                                                </option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <label for="documentRef" class="form-label text-start small">Document
-                                            (Optional)</label>
-                                        <div class="input-group input-group-sm">
-                                            <select
-                                                    id="documentRef"
-                                                    name="documentRef"
-                                                    class="form-select"
-                                                    aria-label="Select ATA Sub Chapter">
-                                                <option th:text="*{documentRef}">VALUE></option>
-                                                <!-- <option th:each="a : ${ataDBList}" th:text="${a}"> OPTIONS</option>-->
-                                            </select>
-                                            <span class="input-group-text">Rev.</span>
-                                            <input th:value="*{documentRevision}"
-                                                   id="documentRevision"
-                                                   name="documentRevision"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="N/A"
-                                                   aria-label="Revision">
-                                            <span class="input-group-text">Date</span>
-                                            <input th:value="*{documentDate}"
-                                                   id="documentDate"
-                                                   name="documentDate"
-                                                   type="date"
-                                                   class="form-control"
-                                                   placeholder="01/06/2020"
-                                                   aria-label="Date">
-                                        </div>
+<!--                                        <label for="documentSubchapterRef" class="form-label text-start small">Document SubChapter-->
+<!--                                            (Optional)</label>-->
+<!--                                        <div class="input-group input-group-sm">-->
+<!--                                            <select-->
+<!--                                                    id="documentSubchapterRef"-->
+<!--                                                    name="documentSubchapterRef"-->
+<!--                                                    class="form-select"-->
+<!--                                                    aria-label="Select ATA Sub Chapter">-->
+<!--                                                <option th:text="*{documentSubchapterRef}">VALUE></option>-->
+<!--                                                <option th:each="a : ${ataSubChaptersDBList}" th:text="|${a}|"> OPTIONS</option>-->
+<!--                                            </select>-->
+<!--                                            <span class="input-group-text">Rev.</span>-->
+<!--                                            <input th:value="*{documentRevision}"-->
+<!--                                                   id="documentRevision"-->
+<!--                                                   name="documentRevision"-->
+<!--                                                   type="text"-->
+<!--                                                   class="form-control"-->
+<!--                                                   placeholder="N/A"-->
+<!--                                                   aria-label="Revision">-->
+<!--                                            <span class="input-group-text">Date</span>-->
+<!--                                            <input th:value="*{documentDate}"-->
+<!--                                                   id="documentDate"-->
+<!--                                                   name="documentDate"-->
+<!--                                                   type="date"-->
+<!--                                                   class="form-control"-->
+<!--                                                   placeholder="01/06/2020"-->
+<!--                                                   aria-label="Date">-->
+<!--                                        </div>-->
                                     </div>
 
                                 </div>

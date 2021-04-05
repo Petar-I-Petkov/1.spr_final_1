@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ATASubChapterServiceModel;
+import com.petkov.spr_final_1.model.view.ATASubChapterViewModel;
 import com.petkov.spr_final_1.repository.ATASubChapterRepository;
 import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.service.ATASubChapterService;
@@ -19,6 +20,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ATASubChapterServiceImpl implements ATASubChapterService {
@@ -84,7 +88,7 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
         ATAChapterEntity chapter
                 = modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
-        return  subChapterRepository.findByAtaChapterRefAndAtaSubCode(chapter, ataSubCode).isPresent();
+        return subChapterRepository.findByAtaChapterRefAndAtaSubCode(chapter, ataSubCode).isPresent();
     }
 
     @Override
@@ -116,6 +120,19 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
                 .orElseThrow(() -> new IllegalArgumentException("SubChapter could not be found in DB"));
 
         return modelMapper.map(subChapterEntity, ATASubChapterServiceModel.class);
+    }
+
+    @Override
+    public List<ATASubChapterViewModel> getAllSortedByATA() {
+
+        return subChapterRepository.findAll()
+                .stream()
+                .map(ataSubChapterEntity ->
+                        modelMapper.map(ataSubChapterEntity, ATASubChapterViewModel.class))
+                .sorted(Comparator
+                        .comparing(ATASubChapterViewModel::getAtaChapter)
+                        .thenComparing(ATASubChapterViewModel::getAtaSubCode))
+                .collect(Collectors.toList());
     }
 
     private void seedSubChaptersIfValidOrPrintError(ATASubChapterServiceModel subChapterServiceModel) {

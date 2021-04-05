@@ -44,6 +44,10 @@ public class ATAChapterController {
             model.addAttribute("chapterExistsError", false);
         }
 
+        if (!model.containsAttribute("chapterExistsError")) {
+            model.addAttribute("chapterNameExistsError", false);
+        }
+
         return "ata-chapters";
     }
 
@@ -68,6 +72,18 @@ public class ATAChapterController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.chapterAddBindingModel", bindingResult);
 
             redirectAttributes.addFlashAttribute("chapterExistsError", true);
+
+            return "redirect:/ata-chapters";
+        }
+
+        if (chapterService.chapterAtaNameExists(chapterAddBindingModel.getName())) {
+
+            redirectAttributes.addFlashAttribute("chapterAddBindingModel", chapterAddBindingModel);
+
+            redirectAttributes
+                    .addFlashAttribute("org.springframework.validation.BindingResult.chapterAddBindingModel", bindingResult);
+
+            redirectAttributes.addFlashAttribute("chapterNameExistsError", true);
 
             return "redirect:/ata-chapters";
         }

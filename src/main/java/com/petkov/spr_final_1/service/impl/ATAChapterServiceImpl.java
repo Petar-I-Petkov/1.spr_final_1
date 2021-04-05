@@ -99,11 +99,12 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     }
 
     @Override
-    public void addChapterToDB(ATAChapterServiceModel chapterServiceModel) {
+    public ATAChapterServiceModel addChapterToDB(ATAChapterServiceModel chapterServiceModel) {
 
         ATAChapterEntity chapterEntity = this.modelMapper.map(chapterServiceModel, ATAChapterEntity.class);
-        chapterRepository.saveAndFlush(chapterEntity);
 
+        return modelMapper
+                .map(chapterRepository.saveAndFlush(chapterEntity), ATAChapterServiceModel.class);
     }
 
 
@@ -119,7 +120,21 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     }
 
     @Override
+    public ATAChapterServiceModel findChapterById(String id) throws IllegalArgumentException {
+
+        ATAChapterEntity chapterEntity =
+                chapterRepository.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
+
+        return modelMapper.map(chapterEntity, ATAChapterServiceModel.class);    }
+
+    @Override
     public boolean chapterAtaCodeExists(Integer ataCode) {
         return chapterRepository.findByAtaCode(ataCode).isPresent();
+    }
+
+    @Override
+    public boolean chapterAtaNameExists(String name) {
+        return chapterRepository.findByName(name).isPresent();
     }
 }
