@@ -1,5 +1,6 @@
 package com.petkov.spr_final_1.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.petkov.spr_final_1.utils.ActiveTestTransporter;
@@ -31,6 +32,11 @@ public class ApplicationBeanConfiguration {
                 excludeFieldsWithoutExposeAnnotation().
                 create();
     }
+
+//    @Bean
+//    public ObjectMapper objectMapper(){
+//        return new ObjectMapper();
+//    }
 
     //todo - ActiveTestTransporter Bean - change the scope/make prototype?
     //todo - ActiveTestTransporter -  move somewhere else?

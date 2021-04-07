@@ -11,7 +11,6 @@ import java.util.List;
 
 public class QuestionAddBindingModel {
 
-    private String id;
     private String name;
     private String fullReferencePath;
 
@@ -26,13 +25,6 @@ public class QuestionAddBindingModel {
     public QuestionAddBindingModel() {
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     @NotBlank(message = "Question title is required.")
     @Size(min = 3, message = "Question title should be min 3 characters.")

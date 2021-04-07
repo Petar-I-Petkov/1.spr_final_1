@@ -1,14 +1,15 @@
-package com.petkov.spr_final_1.model.api;
+package com.petkov.spr_final_1.model.rest;
 
-import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
+import com.petkov.spr_final_1.model.view.TestThumbnailViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ATAChapterEditErrorsViewModel extends ATAChapterViewModel {
+public class TestAddErrorsViewModel extends TestThumbnailViewModel {
+
     private List<String> bindingErrors = new ArrayList<>();
 
-    public ATAChapterEditErrorsViewModel() {
+    public TestAddErrorsViewModel() {
     }
 
     public List<String> getBindingErrors() {

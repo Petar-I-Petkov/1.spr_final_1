@@ -13,7 +13,7 @@ public class ArticleViewModel {
     private String chapter;
     private String ataSubChapter;
 
-    private String document;
+    private String documentSubchapterRef;
     private String documentRevision;
     private LocalDate documentDate;
 
@@ -76,12 +76,12 @@ public class ArticleViewModel {
         this.ataSubChapter = ataSubChapter;
     }
 
-    public String getDocument() {
-        return document;
+    public String getDocumentSubchapterRef() {
+        return documentSubchapterRef;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setDocumentSubchapterRef(String documentSubchapterRef) {
+        this.documentSubchapterRef = documentSubchapterRef;
     }
 
     public String getDocumentRevision() {

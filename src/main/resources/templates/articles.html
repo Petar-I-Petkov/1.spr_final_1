@@ -193,7 +193,7 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                                     aria-label="Select ATA Sub Chapter">
                                                 <option th:text="*{documentSubchapterRef}">VALUE></option>
                                                 <option th:each="a : ${ataSubChaptersDBList}"
-                                                        th:text="|${a.ataChapter}-${a.ataSubCode} - ${a.subchapterName}|">
+                                                        th:text="|${a.ataChapter}-${a.ataSubCode}  ${a.subchapterName}|">
                                                     OPTIONS
                                                 </option>
                                             </select>

@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.web;
 
 
-import com.petkov.spr_final_1.model.api.ATAChapterEditErrorsViewModel;
+import com.petkov.spr_final_1.model.rest.ATAChapterEditErrorsViewModel;
 import com.petkov.spr_final_1.model.binding.document.ATAChapterAddBindingModel;
 import com.petkov.spr_final_1.model.service.document.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
@@ -87,7 +87,8 @@ public class ATAChapterRestController {
 
             return ResponseEntity
                     .ok()
-                    .body(modelMapper.map(chapterService.addChapterToDB(ataChapterServiceModel), ATAChapterViewModel.class));
+                    .body(modelMapper
+                            .map(chapterService.addChapterToDB(ataChapterServiceModel), ATAChapterViewModel.class));
         }
 
     }
