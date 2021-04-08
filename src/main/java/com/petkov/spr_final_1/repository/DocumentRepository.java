@@ -12,5 +12,4 @@ public interface DocumentRepository extends JpaRepository<DocumentEntity, String
 
     Optional<DocumentEntity> findByDocumentName(String documentName);
 
-
 }

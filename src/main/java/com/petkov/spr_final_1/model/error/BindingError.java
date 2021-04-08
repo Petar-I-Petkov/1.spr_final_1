@@ -1,15 +1,15 @@
 package com.petkov.spr_final_1.model.error;
 
-public class ErrorMap {
+public class BindingError {
 
     private String fieldName;
     private Object rejectedValue;
     private String messageError;
 
-    public ErrorMap() {
+    public BindingError() {
     }
 
-    public ErrorMap(String fieldName, Object rejectedValue, String messageError) {
+    public BindingError(String fieldName, Object rejectedValue, String messageError) {
         this.fieldName = fieldName;
         this.rejectedValue = rejectedValue;
         this.messageError = messageError;

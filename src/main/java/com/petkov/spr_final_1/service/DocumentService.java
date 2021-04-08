@@ -5,15 +5,20 @@ import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface DocumentService {
 
     boolean documentExists(String documentName);
 
-    void seedDocumentToDb(DocumentServiceModel documentServiceModel);
+    DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel);
 
     DocumentServiceModel findDocumentByName(String documentRef);
 
     List<DocumentViewModel> getAllDocumentsSortedAlphabeticallyDesc();
+
+    DocumentServiceModel findDocumentById(String id);
+
+    CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDesc();
 
 }

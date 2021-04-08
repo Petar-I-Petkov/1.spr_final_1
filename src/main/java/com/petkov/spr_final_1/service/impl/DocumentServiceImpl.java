@@ -2,14 +2,18 @@ package com.petkov.spr_final_1.service.impl;
 
 import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
+import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.DocumentRepository;
 import com.petkov.spr_final_1.service.DocumentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,13 +34,13 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public void seedDocumentToDb(DocumentServiceModel documentServiceModel) {
+    public DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel) {
 
         DocumentEntity documentEntity = this.modelMapper.map(documentServiceModel, DocumentEntity.class);
 
         documentEntity.setDocumentName(documentEntity.getDocumentName().toLowerCase().trim());
 
-        this.documentRepository.saveAndFlush(documentEntity);
+        return modelMapper.map(documentRepository.saveAndFlush(documentEntity), DocumentServiceModel.class);
 
     }
 
@@ -60,7 +64,29 @@ public class DocumentServiceImpl implements DocumentService {
 
     }
 
+    @Override
+    public DocumentServiceModel findDocumentById(String id) {
+        DocumentEntity documentEntity = documentRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Document could not be found in DB"));
 
+        return modelMapper.map(documentEntity, DocumentServiceModel.class);
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDesc() {
+
+        return CompletableFuture
+                .supplyAsync(() ->
+                        documentRepository
+                                .findAll((Sort.by(Sort.Direction.ASC, "documentName")))
+                                .stream()
+                                .map(documentEntity -> modelMapper.map(documentEntity, DocumentViewModel.class))
+                                .collect(Collectors.toList()))
+                .orTimeout(30, TimeUnit.SECONDS);
+
+    }
 
 
 }

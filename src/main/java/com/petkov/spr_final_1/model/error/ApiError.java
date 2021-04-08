@@ -11,7 +11,7 @@ public class ApiError {
     private LocalDateTime timestamp;
     private String message;
   //  private String debugMessage;
-    private List<ErrorMap> subErrors;
+    private List<BindingError> errors;
 
     private ApiError() {
         timestamp = LocalDateTime.now();
@@ -60,12 +60,11 @@ public class ApiError {
         this.message = message;
     }
 
-    public List<ErrorMap> getSubErrors() {
-        return subErrors;
+    public List<BindingError> getErrors() {
+        return errors;
     }
 
-    public void setSubErrors(List<ErrorMap> subErrors) {
-        this.subErrors = subErrors;
+    public void setErrors(List<BindingError> errors) {
+        this.errors = errors;
     }
-
 }

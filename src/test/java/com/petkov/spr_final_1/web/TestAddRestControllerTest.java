@@ -1,8 +1,7 @@
-package com.petkov.spr_fund_exprep2.web;
+package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.service.TestService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
-import com.petkov.spr_final_1.web.TestRestController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;

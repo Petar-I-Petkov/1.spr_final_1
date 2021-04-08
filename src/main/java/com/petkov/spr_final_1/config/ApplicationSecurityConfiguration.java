@@ -30,10 +30,13 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         cookieCsrfTokenRepository.setCookieHttpOnly(false);
 
         http
+                .csrf()
+                .csrfTokenRepository(cookieCsrfTokenRepository)
+                .and()
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**", "/img/**").permitAll()
                 .antMatchers("/", "/users/login", "/users/register").permitAll()
-                .antMatchers("/**").authenticated() // todo - ApplicationSecurityConfiguration - set .authenticated()
+                .antMatchers("/**").permitAll() // todo - ApplicationSecurityConfiguration - set .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/users/login")

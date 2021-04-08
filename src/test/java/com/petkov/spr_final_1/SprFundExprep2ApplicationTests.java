@@ -1,4 +1,4 @@
-package com.petkov.spr_fund_exprep2;
+package com.petkov.spr_final_1;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

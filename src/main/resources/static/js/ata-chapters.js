@@ -199,3 +199,5 @@ function renderAllChapters() {
     }
 }
 
+renderAllChapters();
+

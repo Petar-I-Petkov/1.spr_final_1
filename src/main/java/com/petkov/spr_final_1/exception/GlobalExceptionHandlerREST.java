@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.exception;
 
 import com.petkov.spr_final_1.model.error.ApiError;
-import com.petkov.spr_final_1.model.error.ErrorMap;
+import com.petkov.spr_final_1.model.error.BindingError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +30,14 @@ public class GlobalExceptionHandlerREST extends ResponseEntityExceptionHandler {
             WebRequest request
     ) {
 
-        List<ErrorMap> errorMap = exception.getBindingResult().getFieldErrors()
+        List<BindingError> bindingError = exception.getBindingResult().getFieldErrors()
                 .stream()
-                .map(err -> new ErrorMap(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
+                .map(err -> new BindingError(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
                 .distinct()
                 .collect(Collectors.toList());
 
         ApiError apiError = new ApiError(status, "Binding Validation Error", exception);
-        apiError.setSubErrors(errorMap);
+        apiError.setErrors(bindingError);
 
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)

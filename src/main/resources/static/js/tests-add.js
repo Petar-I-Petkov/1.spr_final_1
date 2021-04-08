@@ -166,14 +166,14 @@ function postTestAndHandleErrors() {
             })
             .then(data => {
                 console.log(data)
-                if (data['bindingErrors']) {
+                if (data['errors']) {
 
                     let errors = {};
 
-                    data['bindingErrors'].forEach(error => {
+                    data['errors'].forEach(error => {
 
-                        let field = error.split(' - ')[0].replace('@', '');
-                        let errMsg = error.split(' - ')[1];
+                        let field = error['fieldName']
+                        let errMsg = error['messageError'];
 
                         errors[field]
                             ? errors[field].push(errMsg)
