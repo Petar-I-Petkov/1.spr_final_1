@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
+import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.ATAChapterRepository;
 import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
@@ -66,7 +67,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
 
     @Override
     @Async
-    public CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDesc() {
+    public CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDescAsync() {
 
         return CompletableFuture
                 .supplyAsync(() ->
@@ -105,6 +106,15 @@ public class ATAChapterServiceImpl implements ATAChapterService {
 
         return modelMapper
                 .map(chapterRepository.saveAndFlush(chapterEntity), ATAChapterServiceModel.class);
+    }
+
+    @Override
+    public List<ATAChapterViewModel> getAllChaptersSortedByATADesc() {
+        return chapterRepository
+                .findAll(Sort.by(Sort.Direction.DESC, "ataCode"))
+                .stream()
+                .map(chapterEntity -> modelMapper.map(chapterEntity, ATAChapterViewModel.class))
+                .collect(Collectors.toList());
     }
 
 

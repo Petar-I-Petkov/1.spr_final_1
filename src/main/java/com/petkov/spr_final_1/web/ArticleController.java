@@ -2,8 +2,7 @@ package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.document.ArticleAddBindingModel;
 import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
-import com.petkov.spr_final_1.service.ATASubChapterService;
-import com.petkov.spr_final_1.service.ArticleService;
+import com.petkov.spr_final_1.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +22,17 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final ATASubChapterService ataSubChapterService;
+    private final ATAChapterService ataChapterService;
+    private final DocumentService documentService;
+    private final DocumentSubChapterService documentSubChapterService;
     private final ModelMapper modelMapper;
 
-    public ArticleController(ArticleService articleService, ATASubChapterService ataSubChapterService, ModelMapper modelMapper) {
+    public ArticleController(ArticleService articleService, ATASubChapterService ataSubChapterService, ATAChapterService ataChapterService, DocumentService documentService, DocumentSubChapterService documentSubChapterService, ModelMapper modelMapper) {
         this.articleService = articleService;
         this.ataSubChapterService = ataSubChapterService;
+        this.ataChapterService = ataChapterService;
+        this.documentService = documentService;
+        this.documentSubChapterService = documentSubChapterService;
         this.modelMapper = modelMapper;
     }
 
@@ -48,7 +53,9 @@ public class ArticleController {
             model.addAttribute("seedOk", false);
         }
 
-        model.addAttribute("ataSubChaptersDBList", ataSubChapterService.getAllSortedByATA());
+        model.addAttribute("documentDbList", documentService.getAllDocumentsSortedByNameDesc());
+        model.addAttribute("chapterDBList", ataChapterService.getAllChaptersSortedByATADesc());
+
 
         return "articles";
     }

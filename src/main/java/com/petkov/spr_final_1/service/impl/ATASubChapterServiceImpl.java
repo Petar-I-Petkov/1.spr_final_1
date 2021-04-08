@@ -123,7 +123,7 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
     }
 
     @Override
-    public List<ATASubChapterViewModel> getAllSortedByATA() {
+    public List<ATASubChapterViewModel> getAllSortedByATADesc() {
 
         return subChapterRepository.findAll()
                 .stream()

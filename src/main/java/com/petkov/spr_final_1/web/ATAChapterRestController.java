@@ -41,7 +41,7 @@ public class ATAChapterRestController {
 
 
         chapterService
-                .getAllChaptersSortedByAtaDesc()
+                .getAllChaptersSortedByAtaDescAsync()
                 .thenApply(ataChapterViewModels ->
                         deferredResult.setResult(ResponseEntity
                                 .ok()

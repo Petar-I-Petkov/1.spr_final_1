@@ -2,19 +2,13 @@ package com.petkov.spr_final_1.web;
 
 
 import com.petkov.spr_final_1.model.binding.document.DocumentAddBindingModel;
-import com.petkov.spr_final_1.model.rest.ATAChapterEditErrorsViewModel;
-import com.petkov.spr_final_1.model.binding.document.ATAChapterAddBindingModel;
-import com.petkov.spr_final_1.model.service.document.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
-import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
-import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.service.DocumentService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -43,7 +37,7 @@ public class DocumentRestController {
         DeferredResult<ResponseEntity<List<DocumentViewModel>>> deferredResult = new DeferredResult<>();
 
         documentService
-                .getAllDocumentsSortedByNameDesc()
+                .getAllDocumentsSortedByNameDescAsync()
                 .thenApply(documentViewModels ->
                         deferredResult.setResult(ResponseEntity
                                 .ok()

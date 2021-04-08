@@ -15,5 +15,5 @@ public interface ATASubChapterService {
 
     ATASubChapterServiceModel findByChapterAndSubchapterAta(int chapterRef, int ataSubCode);
 
-    List<ATASubChapterViewModel> getAllSortedByATA();
+    List<ATASubChapterViewModel> getAllSortedByATADesc();
 }

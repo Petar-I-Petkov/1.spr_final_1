@@ -15,10 +15,10 @@ public interface DocumentService {
 
     DocumentServiceModel findDocumentByName(String documentRef);
 
-    List<DocumentViewModel> getAllDocumentsSortedAlphabeticallyDesc();
+    List<DocumentViewModel> getAllDocumentsSortedByNameDesc();
 
     DocumentServiceModel findDocumentById(String id);
 
-    CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDesc();
+    CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDescAsync();
 
 }

@@ -1,10 +1,15 @@
 package com.petkov.spr_final_1.service;
 
 import com.petkov.spr_final_1.model.service.document.DocumentSubchapterServiceModel;
+import com.petkov.spr_final_1.model.view.DocumentSubchapterViewModel;
+
+import java.util.List;
 
 public interface DocumentSubChapterService {
 
     boolean subChapterExistsInDocument(String documentRef, String docSubchapterName);
 
     void seedDocumentSubchapterToDb(DocumentSubchapterServiceModel documentSubchapterServiceModel);
+
+    List<DocumentSubchapterViewModel> getAllSortedByNameDesc();
 }

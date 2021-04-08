@@ -4,11 +4,17 @@ import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
 import com.petkov.spr_final_1.model.entity.document.DocumentSubchapterEntity;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
 import com.petkov.spr_final_1.model.service.document.DocumentSubchapterServiceModel;
+import com.petkov.spr_final_1.model.view.DocumentSubchapterViewModel;
+import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.DocumentSubchapterRepository;
 import com.petkov.spr_final_1.service.DocumentService;
 import com.petkov.spr_final_1.service.DocumentSubChapterService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentSubChapterServiceImpl implements DocumentSubChapterService {
@@ -53,5 +59,15 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
 
         documentSubchapterRepository.saveAndFlush(documentSubchapterEntity);
 
+    }
+
+    @Override
+    public List<DocumentSubchapterViewModel> getAllSortedByNameDesc() {
+        return documentSubchapterRepository
+                .findAll(Sort.by(Sort.Direction.DESC, "docSubchapterName"))
+                .stream()
+                .map(documentSubchapterEntity ->
+                        modelMapper.map(documentSubchapterEntity, DocumentSubchapterViewModel.class))
+                .collect(Collectors.toList());
     }
 }

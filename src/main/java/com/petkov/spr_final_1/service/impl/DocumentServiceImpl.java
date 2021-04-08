@@ -1,6 +1,7 @@
 package com.petkov.spr_final_1.service.impl;
 
 import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
+import com.petkov.spr_final_1.model.entity.document.DocumentSubchapterEntity;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
 import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,9 +36,16 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    @Transactional
     public DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel) {
 
         DocumentEntity documentEntity = this.modelMapper.map(documentServiceModel, DocumentEntity.class);
+
+        DocumentSubchapterEntity defaultSubchapter = new DocumentSubchapterEntity();
+        defaultSubchapter.setDocSubchapterName("other...");
+
+        documentEntity.setDocSubchapters(List.of(defaultSubchapter));
+        defaultSubchapter.setDocument(documentEntity);
 
         documentEntity.setDocumentName(documentEntity.getDocumentName().toLowerCase().trim());
 
@@ -54,13 +63,13 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<DocumentViewModel> getAllDocumentsSortedAlphabeticallyDesc() {
+    public List<DocumentViewModel> getAllDocumentsSortedByNameDesc() {
 
-        return documentRepository
-                .findAll(Sort.by(Sort.Direction.DESC, "documentName"))
-                .stream()
-                .map(documentEntity -> modelMapper.map(documentEntity, DocumentViewModel.class))
-                .collect(Collectors.toList());
+            return documentRepository
+                    .findAll(Sort.by(Sort.Direction.DESC, "documentName"))
+                    .stream()
+                    .map(documentEntity -> modelMapper.map(documentEntity, DocumentViewModel.class))
+                    .collect(Collectors.toList());
 
     }
 
@@ -75,7 +84,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     @Async
-    public CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDesc() {
+    public CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDescAsync() {
 
         return CompletableFuture
                 .supplyAsync(() ->

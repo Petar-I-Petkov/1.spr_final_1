@@ -19,6 +19,7 @@ public class ArticleEntity extends BaseEntity {
     private ATASubChapterEntity ataSubChapter;
 
     private DocumentSubchapterEntity documentSubchapter;
+    private DocumentEntity document;
     private String documentRevision;
     private LocalDate documentDate;
 
@@ -90,6 +91,17 @@ public class ArticleEntity extends BaseEntity {
     public void setDocumentSubchapter(DocumentSubchapterEntity documentSubchapter) {
         this.documentSubchapter = documentSubchapter;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "document", referencedColumnName = "id")
+    public DocumentEntity getDocument() {
+        return document;
+    }
+
+    public void setDocument(DocumentEntity document) {
+        this.document = document;
+    }
+
 
 
     @Column(name = "ducument_revision", unique = false, nullable = true)

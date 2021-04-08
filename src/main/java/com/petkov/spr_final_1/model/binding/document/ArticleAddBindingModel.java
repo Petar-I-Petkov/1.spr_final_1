@@ -19,6 +19,7 @@ public class ArticleAddBindingModel {
     private String ataSubChapterRef;
 
     private String documentSubchapterRef;
+    private String documentRef;
     private String documentRevision;
     private LocalDate documentDate;
 
@@ -83,6 +84,15 @@ public class ArticleAddBindingModel {
 
     public void setDocumentSubchapterRef(String documentSubchapterRef) {
         this.documentSubchapterRef = documentSubchapterRef;
+    }
+
+    @NotBlank(message = "Document reference is required.")
+    public String getDocumentRef() {
+        return documentRef;
+    }
+
+    public void setDocumentRef(String documentRef) {
+        this.documentRef = documentRef;
     }
 
     public String getDocumentRevision() {

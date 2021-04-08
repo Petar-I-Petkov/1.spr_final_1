@@ -16,7 +16,7 @@ public class DocumentSubchapterEntity extends BaseEntity {
     public DocumentSubchapterEntity() {
     }
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", unique = false, nullable = false)
     public String getDocSubchapterName() {
         return docSubchapterName;
     }
@@ -25,7 +25,7 @@ public class DocumentSubchapterEntity extends BaseEntity {
         this.docSubchapterName = docSubchapterName;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "document", referencedColumnName = "id")
     public DocumentEntity getDocument() {
         return document;

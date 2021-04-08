@@ -11,6 +11,7 @@ public class DocumentEntity extends BaseEntity {
 
     private String documentName;
     private List<DocumentSubchapterEntity> docSubchapters;
+    private List<ArticleEntity> articles;
 
     public DocumentEntity() {
     }
@@ -24,12 +25,21 @@ public class DocumentEntity extends BaseEntity {
         this.documentName = documentName;
     }
 
-    @OneToMany(mappedBy = "document", targetEntity = DocumentSubchapterEntity.class)
+    @OneToMany(mappedBy = "document", targetEntity = DocumentSubchapterEntity.class, cascade = CascadeType.ALL)
     public List<DocumentSubchapterEntity> getDocSubchapters() {
         return docSubchapters;
     }
 
     public void setDocSubchapters(List<DocumentSubchapterEntity> docSubchapters) {
         this.docSubchapters = docSubchapters;
+    }
+
+    @OneToMany(mappedBy = "document", targetEntity = ArticleEntity.class, cascade = CascadeType.ALL)
+    public List<ArticleEntity> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<ArticleEntity> articles) {
+        this.articles = articles;
     }
 }

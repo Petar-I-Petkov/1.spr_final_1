@@ -48,7 +48,7 @@ public class DocumentSubChapterController {
         }
 
         model.addAttribute("documentDBList",
-                documentService.getAllDocumentsSortedAlphabeticallyDesc());
+                documentService.getAllDocumentsSortedByNameDesc());
 
         return "document-subchapters";
     }

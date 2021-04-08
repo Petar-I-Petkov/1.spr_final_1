@@ -14,7 +14,9 @@ public interface ATAChapterService {
 
     ATAChapterServiceModel addChapterToDB(ATAChapterServiceModel chapterServiceModel);
 
-    CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDesc();
+    List<ATAChapterViewModel> getAllChaptersSortedByATADesc();
+
+    CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDescAsync();
 
     ATAChapterServiceModel findChapterByAtaCode(Integer ataCode) throws IllegalArgumentException;
 
