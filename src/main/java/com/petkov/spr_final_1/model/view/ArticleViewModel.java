@@ -1,5 +1,7 @@
 package com.petkov.spr_final_1.model.view;
 
+import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
+
 import java.time.LocalDate;
 
 public class ArticleViewModel {
@@ -10,10 +12,11 @@ public class ArticleViewModel {
     private String imageUrl;
     private String fullReferencePath;
 
-    private String chapter;
-    private String ataSubChapter;
+    private ATAChapterViewModel chapter;
+    private ATASubChapterViewModel ataSubChapter;
 
     private String documentSubchapterRef;
+    private DocumentViewModel document;
     private String documentRevision;
     private LocalDate documentDate;
 
@@ -60,19 +63,19 @@ public class ArticleViewModel {
         this.fullReferencePath = fullReferencePath;
     }
 
-    public String getChapter() {
+    public ATAChapterViewModel getChapter() {
         return chapter;
     }
 
-    public void setChapter(String chapter) {
+    public void setChapter(ATAChapterViewModel chapter) {
         this.chapter = chapter;
     }
 
-    public String getAtaSubChapter() {
+    public ATASubChapterViewModel getAtaSubChapter() {
         return ataSubChapter;
     }
 
-    public void setAtaSubChapter(String ataSubChapter) {
+    public void setAtaSubChapter(ATASubChapterViewModel ataSubChapter) {
         this.ataSubChapter = ataSubChapter;
     }
 
@@ -82,6 +85,14 @@ public class ArticleViewModel {
 
     public void setDocumentSubchapterRef(String documentSubchapterRef) {
         this.documentSubchapterRef = documentSubchapterRef;
+    }
+
+    public DocumentViewModel getDocument() {
+        return document;
+    }
+
+    public void setDocument(DocumentViewModel document) {
+        this.document = document;
     }
 
     public String getDocumentRevision() {

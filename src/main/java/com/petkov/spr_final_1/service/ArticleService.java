@@ -1,8 +1,12 @@
 package com.petkov.spr_final_1.service;
 
 import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
+import com.petkov.spr_final_1.model.view.ArticleViewModel;
+import com.petkov.spr_final_1.model.view.DocumentSubchapterViewModel;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface ArticleService {
 
@@ -11,4 +15,8 @@ public interface ArticleService {
     void seedArticleToDb(ArticleServiceModel articleServiceModel) throws IOException;
 
     ArticleServiceModel getArticleByTitle(String title) throws IllegalArgumentException;
+
+    List<ArticleViewModel> getAllSortedByNameDesc();
+
+    CompletableFuture<List<ArticleViewModel>> getAllSortedByNameDescAsync();
 }

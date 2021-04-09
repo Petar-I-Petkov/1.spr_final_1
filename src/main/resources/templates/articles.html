@@ -176,9 +176,9 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                 <!-- row 4.Document, DocumentSubChapter , ATA, ATASubChapter Input-->
                                 <div class="row my-3">
 
-                                    <div class="col-sm-2">
-                                        <label for="documentRef" class="form-label text-start small">Document
-                                            (Required)</label>
+                                    <div class="col-sm-3">
+                                        <label for="documentRef" class="form-label text-start small mb-3">
+                                            Document (Required)</label>
                                         <div class="input-group input-group-sm">
                                             <select
                                                     id="documentRef"
@@ -202,9 +202,9 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
 
                                     </div>
 
-                                    <div class="col-sm-2">
-                                        <label for="documentSubchapterRef" class="form-label text-start small">
-                                            Document Subchapter (Required)
+                                    <div class="col-sm-3">
+                                        <label for="documentSubchapterRef" class="form-label text-start small mb-3">
+                                            Subchapter (Required)
                                         </label>
                                         <div class="input-group input-group-sm">
                                             <select
@@ -212,7 +212,7 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                                     name="documentSubchapterRef"
                                                     class="form-select"
                                                     aria-label="Select ATA Sub Chapter">
-
+                                                <option th:text="*{ataSubChapterRef}">VALUE></option>
                                             </select>
                                         </div>
 
@@ -224,8 +224,9 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-2">
-                                        <label for="chapterRef" class="form-label text-start small">
+
+                                    <div class="col-sm-3">
+                                        <label for="chapterRef" class="form-label text-start small mb-3">
                                             ATA Chapter (Required)
                                         </label>
                                         <div class="input-group input-group-sm">
@@ -251,8 +252,8 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
 
                                     </div>
 
-                                    <div class="col-sm-2">
-                                        <label for="ataSubChapterRef" class="form-label text-start small">
+                                    <div class="col-sm-3"   >
+                                        <label for="ataSubChapterRef" class="form-label text-start small mb-3">
                                             ATA Sub Chapter (Optional)
                                         </label>
                                         <div class="input-group input-group-sm">
@@ -261,7 +262,7 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                                     name="ataSubChapterRef"
                                                     class="form-select"
                                                     aria-label="Select ATA Sub Chapter">
-
+                                                <option th:text="*{ataSubChapterRef}">VALUE></option>
                                             </select>
                                         </div>
 
@@ -270,7 +271,7 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
                                 </div>
                                 <!-- row 4. EO Document, DocumentSubChapter , ATA, ATASubChapter Input-->
 
-                                <div class="row my-3">
+                                <div class="row my-5">
                                     <div class="col-sm-3">
 
                                     </div>
@@ -278,13 +279,16 @@ Pilots use sidesticks to fly the aircraft in pitch and............."
 
                                     </div>
                                     <div class="col-sm-3">
-                                        <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
+                                        <button type="submit" class="btn btn-primary btn-sm" style="width: 100%">
+                                            Add Article
+                                        </button>
                                     </div>
                                     <div class="col-sm-3">
-                                        <a th:href="@{/articles}" class="btn btn-primary btn-sm">Cancel</a>
+                                        <a th:href="@{/articles}" class="btn btn-primary btn-sm" style="width: 100%">
+                                            Cancel
+                                        </a>
                                     </div>
                                 </div>
-
 
                             </form>
                         </div>

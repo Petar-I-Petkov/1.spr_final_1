@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.model.entity.test;
 
 import com.petkov.spr_final_1.model.entity.BaseEntity;
-import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
+import com.petkov.spr_final_1.model.entity.document.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,8 +18,15 @@ public class QuestionEntity extends BaseEntity {
     private String altAnswer2;
     private String altAnswer3;
     private String altAnswer4;
+
     private List<TestEntity> tests;
     private ArticleEntity article;
+
+    private ATAChapterEntity chapter;
+    private ATASubChapterEntity ataSubChapter;
+
+    private DocumentEntity document;
+    private DocumentSubchapterEntity documentSubchapter;
 
     public QuestionEntity() {
     }
@@ -118,5 +125,45 @@ public class QuestionEntity extends BaseEntity {
 
     public void setArticle(ArticleEntity article) {
         this.article = article;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
+    public ATAChapterEntity getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(ATAChapterEntity chapter) {
+        this.chapter = chapter;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ata_subchapter", referencedColumnName = "id")
+    public ATASubChapterEntity getAtaSubChapter() {
+        return ataSubChapter;
+    }
+
+    public void setAtaSubChapter(ATASubChapterEntity ataSubChapter) {
+        this.ataSubChapter = ataSubChapter;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "document", referencedColumnName = "id")
+    public DocumentEntity getDocument() {
+        return document;
+    }
+
+    public void setDocument(DocumentEntity document) {
+        this.document = document;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ducument_subchapter", referencedColumnName = "id")
+    public DocumentSubchapterEntity getDocumentSubchapter() {
+        return documentSubchapter;
+    }
+
+    public void setDocumentSubchapter(DocumentSubchapterEntity documentSubchapter) {
+        this.documentSubchapter = documentSubchapter;
     }
 }

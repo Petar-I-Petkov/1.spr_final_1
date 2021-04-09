@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -70,14 +71,8 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     public CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDescAsync() {
 
         return CompletableFuture
-                .supplyAsync(() ->
-                        chapterRepository
-                                .findAll((Sort.by(Sort.Direction.ASC, "ataCode")))
-                                .stream()
-                                .map(chapterEntity -> modelMapper.map(chapterEntity, ATAChapterViewModel.class))
-                                .collect(Collectors.toList()))
+                .supplyAsync(this::getAllChaptersSortedByATADesc)
                 .orTimeout(30, TimeUnit.SECONDS);
-
     }
 
     private void seedChaptersIfValidOrPrintError(ATAChapterServiceModel chapterServiceModel) {
@@ -111,9 +106,10 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     @Override
     public List<ATAChapterViewModel> getAllChaptersSortedByATADesc() {
         return chapterRepository
-                .findAll(Sort.by(Sort.Direction.DESC, "ataCode"))
+                .findAll()
                 .stream()
                 .map(chapterEntity -> modelMapper.map(chapterEntity, ATAChapterViewModel.class))
+                .sorted(Comparator.comparing(ATAChapterViewModel::getAtaCode))
                 .collect(Collectors.toList());
     }
 
@@ -136,7 +132,8 @@ public class ATAChapterServiceImpl implements ATAChapterService {
                 chapterRepository.findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Chapter could not be found in DB"));
 
-        return modelMapper.map(chapterEntity, ATAChapterServiceModel.class);    }
+        return modelMapper.map(chapterEntity, ATAChapterServiceModel.class);
+    }
 
     @Override
     public boolean chapterAtaCodeExists(Integer ataCode) {

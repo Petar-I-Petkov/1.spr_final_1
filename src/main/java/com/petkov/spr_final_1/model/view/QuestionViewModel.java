@@ -11,7 +11,14 @@ public class QuestionViewModel {
     private String question;
     private String fullReferencePath;
     private String correctAnswer;
+
     private ArticleViewModel article;
+
+    private ATAChapterViewModel chapter;
+    private ATASubChapterViewModel ataSubChapter;
+
+    private DocumentViewModel document;
+    private DocumentSubchapterViewModel documentSubchapter;
 
     public QuestionViewModel() {
     }
@@ -54,5 +61,37 @@ public class QuestionViewModel {
 
     public void setArticle(ArticleViewModel article) {
         this.article = article;
+    }
+
+    public ATAChapterViewModel getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(ATAChapterViewModel chapter) {
+        this.chapter = chapter;
+    }
+
+    public ATASubChapterViewModel getAtaSubChapter() {
+        return ataSubChapter;
+    }
+
+    public void setAtaSubChapter(ATASubChapterViewModel ataSubChapter) {
+        this.ataSubChapter = ataSubChapter;
+    }
+
+    public DocumentViewModel getDocument() {
+        return document;
+    }
+
+    public void setDocument(DocumentViewModel document) {
+        this.document = document;
+    }
+
+    public DocumentSubchapterViewModel getDocumentSubchapter() {
+        return documentSubchapter;
+    }
+
+    public void setDocumentSubchapter(DocumentSubchapterViewModel documentSubchapter) {
+        this.documentSubchapter = documentSubchapter;
     }
 }

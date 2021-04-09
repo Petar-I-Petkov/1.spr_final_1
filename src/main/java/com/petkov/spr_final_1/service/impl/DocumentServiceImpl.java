@@ -85,14 +85,8 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Async
     public CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDescAsync() {
-
         return CompletableFuture
-                .supplyAsync(() ->
-                        documentRepository
-                                .findAll((Sort.by(Sort.Direction.ASC, "documentName")))
-                                .stream()
-                                .map(documentEntity -> modelMapper.map(documentEntity, DocumentViewModel.class))
-                                .collect(Collectors.toList()))
+                .supplyAsync(this::getAllDocumentsSortedByNameDesc)
                 .orTimeout(30, TimeUnit.SECONDS);
 
     }

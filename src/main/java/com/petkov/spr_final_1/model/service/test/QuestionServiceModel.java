@@ -17,7 +17,14 @@ public class QuestionServiceModel extends BaseServiceModel {
     private String altAnswer2;
     private String altAnswer3;
     private String altAnswer4;
-    private String articleRef;
+
+    private String article;
+
+    private String chapter;
+    private String ataSubChapter;
+
+    private String document;
+    private String documentSubchapter;
 
     public QuestionServiceModel() {
     }
@@ -96,11 +103,49 @@ public class QuestionServiceModel extends BaseServiceModel {
         this.altAnswer4 = altAnswer4;
     }
 
-    public String getArticleRef() {
-        return articleRef;
+    public String getArticle() {
+        return article;
     }
 
-    public void setArticleRef(String articleRef) {
-        this.articleRef = articleRef;
+    public void setArticle(String article) {
+        this.article = article;
+    }
+
+    @NotBlank(message = "ATA Chapter is required.")
+    @Size(min = 3, message = "ATA Chapter be min 3 characters.")
+    public String getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(String chapter) {
+        this.chapter = chapter;
+    }
+
+    public String getAtaSubChapter() {
+        return ataSubChapter;
+    }
+
+    public void setAtaSubChapter(String ataSubChapter) {
+        this.ataSubChapter = ataSubChapter;
+    }
+
+    @NotBlank(message = "Document is required.")
+    @Size(min = 3, message = "Document name should be min 3 characters.")
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    @NotBlank(message = "Document Subchapter is required.")
+    @Size(min = 3, message = "Document Subchapter name should be min 3 characters.")
+    public String getDocumentSubchapter() {
+        return documentSubchapter;
+    }
+
+    public void setDocumentSubchapter(String documentSubchapter) {
+        this.documentSubchapter = documentSubchapter;
     }
 }

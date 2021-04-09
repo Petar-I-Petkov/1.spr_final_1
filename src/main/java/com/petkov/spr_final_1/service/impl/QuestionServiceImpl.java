@@ -51,13 +51,15 @@ public class QuestionServiceImpl implements QuestionService {
         QuestionEntity questionEntity =
                 modelMapper.map(questionServiceModel, QuestionEntity.class);
 
-        if (!questionServiceModel.getArticleRef().isBlank()) {
-            try {
+        if (!questionServiceModel.getArticle().isBlank()) {
+
                 ArticleEntity articleEntity = modelMapper
-                        .map(articleService.getArticleByTitle(questionServiceModel.getArticleRef()), ArticleEntity.class);
+                        .map(articleService.getArticleByTitle(questionServiceModel.getArticle()), ArticleEntity.class);
+
+                if(articleEntity != null){
                 questionEntity.setArticle(articleEntity);
-            } catch (IllegalArgumentException ignored) {
-            }
+                }
+
         }
 
 

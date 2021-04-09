@@ -5,6 +5,7 @@ import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ATASubChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATASubChapterViewModel;
+import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.ATASubChapterRepository;
 import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.service.ATASubChapterService;
@@ -12,6 +13,8 @@ import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,8 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -133,6 +138,14 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
                         .comparing(ATASubChapterViewModel::getAtaChapter)
                         .thenComparing(ATASubChapterViewModel::getAtaSubCode))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<List<ATASubChapterViewModel>> getAllSortedByATAAsync() {
+        return CompletableFuture
+                .supplyAsync(this::getAllSortedByATADesc)
+                .orTimeout(30, TimeUnit.SECONDS);
     }
 
     private void seedSubChaptersIfValidOrPrintError(ATASubChapterServiceModel subChapterServiceModel) {

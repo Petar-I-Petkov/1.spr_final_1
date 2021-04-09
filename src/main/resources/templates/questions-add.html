@@ -114,7 +114,7 @@
                                                   name="question"
                                                   rows="2"
                                                   placeholder="ex: Specify the wind limits for automatic landing on the A321 CEO aircraft"
-                                                  th:value="*{question}"></textarea>
+                                                  th:text="*{question}"></textarea>
 
                                         <div th:each="e: ${#fields.errors('question')}"
                                              th:text="${e}"
@@ -128,48 +128,144 @@
                                 </div>
                                 <!-- EO row 2. Question-->
 
-                                <!-- row 2.1. References-->
+                                <!-- row 2.1.Document, DocumentSubChapter , ATA, ATASubChapter Input-->
+                                <div class="row my-3">
+
+                                    <div class="col-sm-3">
+                                        <label for="document" class="form-label text-start small mb-3">
+                                            Document (Required)</label>
+                                        <div class="input-group input-group-sm">
+                                            <select
+                                                    id="document"
+                                                    name="document"
+                                                    class="form-select"
+                                                    aria-label="Select ATA Sub Chapter">
+                                                <option th:text="*{document}">VALUE></option>
+                                                <option th:each="d : ${documentDbList}"
+                                                        th:text="|${d.documentName}|">
+                                                    OPTIONS
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div th:each="e: ${#fields.errors('document')}"
+                                             th:text="${e}"
+                                             id="documentRefError"
+                                             class="text-danger small">
+                                            Error
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label for="documentSubchapter" class="form-label text-start small mb-3">
+                                            Subchapter (Required)
+                                        </label>
+                                        <div class="input-group input-group-sm">
+                                            <select
+                                                    id="documentSubchapter"
+                                                    name="documentSubchapter"
+                                                    class="form-select"
+                                                    aria-label="Select ATA Sub Chapter">
+                                                <option th:text="*{documentSubchapter}">VALUE></option>
+                                            </select>
+                                        </div>
+
+                                        <div th:each="e: ${#fields.errors('documentSubchapter')}"
+                                             th:text="${e}"
+                                             id="documentSubchapterRefError"
+                                             class="text-danger small">
+                                            Error
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <label for="chapter" class="form-label text-start small mb-3">
+                                            ATA Chapter (Required)
+                                        </label>
+                                        <div class="input-group input-group-sm">
+                                            <select
+                                                    id="chapter"
+                                                    name="chapter"
+                                                    class="form-select"
+                                                    aria-label="Select ATA Sub Chapter">
+                                                <option th:text="*{chapter}">VALUE></option>
+                                                <option th:each="c : ${chapterDBList}"
+                                                        th:text="|${c.ataCode} - ${c.name}|">
+                                                    OPTIONS
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div th:each="e: ${#fields.errors('chapter')}"
+                                             th:text="${e}"
+                                             id="chapterRefError"
+                                             class="text-danger small">
+                                            Error
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3"   >
+                                        <label for="ataSubChapter" class="form-label text-start small mb-3">
+                                            ATA Sub Chapter (Optional)
+                                        </label>
+                                        <div class="input-group input-group-sm">
+                                            <select
+                                                    id="ataSubChapter"
+                                                    name="ataSubChapter"
+                                                    class="form-select"
+                                                    aria-label="Select ATA Sub Chapter">
+                                                <option th:text="*{ataSubChapter}">VALUE></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- row 2.1. EO Document, DocumentSubChapter , ATA, ATASubChapter Input-->
+
+                                <!-- row 2.2. References-->
                                 <div class="row my-3">
 
                                     <div class="col-sm-6">
                                         <label for="fullReferencePath"
-                                               class="form-label text-start small text-muted">
-                                            Document Ref. (Optional)
-                                        </label>
-                                        <input th:value="*{fullReferencePath}"
-                                               id="fullReferencePath"
-                                               name="fullReferencePath"
-                                               type="text"
-                                               class="form-control text-start small"
-                                               placeholder="DSC-27-10-10 P 1/6">
-                                    </div>
-
-                                    <div class="col-sm-6">
-
-                                        <label for="articleRef"
                                                class="form-label text-start small">
-                                            Article (Optional)
+                                            Full ref. path (Optional)
                                         </label>
 
                                         <div class="input-group input-group-sm">
-                                            <input th:value="*{articleRef}"
-                                                   id="articleRef"
-                                                   name="articleRef"
+                                            <input th:value="*{fullReferencePath}"
+                                                   id="fullReferencePath"
+                                                   name="fullReferencePath"
                                                    type="text"
                                                    class="form-control"
                                                    placeholder="">
                                         </div>
 
-                                        <div th:each="e: ${#fields.errors('articleRef')}"
-                                             th:text="${e}"
-                                             id="articleRefError"
-                                             class="text-danger small">
-                                            Error
+                                    </div>
+
+                                    <div class="col-sm-6">
+
+                                        <label for="article"
+                                               class="form-label text-start small">
+                                            Article (Optional)
+                                        </label>
+
+                                        <div class="input-group input-group-sm">
+                                            <input th:value="*{article}"
+                                                   id="article"
+                                                   name="article"
+                                                   type="text"
+                                                   class="form-control"
+                                                   placeholder="">
                                         </div>
+
                                     </div>
 
                                 </div>
-                                <!-- EO row 2.1. References-->
+                                <!-- EO row 2.2. References-->
 
                                 <h4 class="text-muted text-decoration-underline">Answers:</h4>
 
@@ -185,7 +281,7 @@
                                                   name="correctAnswer"
                                                   rows="1"
                                                   placeholder="Required..."
-                                                  th:value="*{correctAnswer}"></textarea>
+                                                  th:text="*{correctAnswer}"></textarea>
 
                                         <div th:each="e: ${#fields.errors('correctAnswer')}"
                                              th:text="${e}"
@@ -209,7 +305,7 @@
                                                   name="altAnswer1"
                                                   rows="1"
                                                   placeholder="Required..."
-                                                  th:value="*{altAnswer1}"></textarea>
+                                                  th:text="*{altAnswer1}"></textarea>
 
                                         <div th:each="e: ${#fields.errors('altAnswer1')}"
                                              th:text="${e}"
@@ -233,7 +329,7 @@
                                                   name="altAnswer2"
                                                   rows="1"
                                                   placeholder="Required..."
-                                                  th:value="*{altAnswer2}"></textarea>
+                                                  th:text="*{altAnswer2}"></textarea>
 
                                         <div th:each="e: ${#fields.errors('altAnswer1')}"
                                              th:text="${e}"
@@ -257,7 +353,7 @@
                                                   name="altAnswer3"
                                                   rows="1"
                                                   placeholder=""
-                                                  th:value="*{altAnswer3}"></textarea>
+                                                  th:text="*{altAnswer3}"></textarea>
                                     </div>
                                 </div>
                                 <!-- row 6.EO  Alt Answer 3-->
@@ -274,24 +370,33 @@
                                                   name="altAnswer4"
                                                   rows="1"
                                                   placeholder=""
-                                                  th:value="*{altAnswer4}"></textarea>
+                                                  th:text="*{altAnswer4}"></textarea>
                                     </div>
                                 </div>
                                 <!-- row 7.EO  Alt Answer 4-->
 
 
+                                <div class="row my-5">
+                                    <div class="col-sm-3">
 
-                                <div class="row my-3">
-                                    <div class="col-lg-6">
                                     </div>
-                                    <div class="col-sm-1">
-                                        <button type="submit" class="btn btn-primary mx-2 btn-sm">Add</button>
+                                    <div class="col-sm-3">
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="submit" class="btn btn-primary btn-sm" style="width: 100%">
+                                            Add Question
+                                        </button>
                                     </div>
 
-                                    <div class="col-sm-1">
-                                        <a th:href="@{/questions/add}" class="btn btn-primary btn-sm">Cancel</a>
+                                    <div class="col-sm-3">
+                                        <a th:href="@{/questions/add}" class="btn btn-primary btn-sm" style="width: 100%">
+                                            Cancel
+                                        </a>
                                     </div>
+
                                 </div>
+
 
 
                             </form>
@@ -342,6 +447,7 @@
 </body>
 
 <script src="/js/sidebar-link-highlight.js"></script>
+<script src="/js/questions-add.js"></script>
 
 
 </html>

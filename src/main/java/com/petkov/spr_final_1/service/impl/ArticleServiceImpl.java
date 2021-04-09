@@ -4,13 +4,22 @@ import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
 import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
+import com.petkov.spr_final_1.model.view.ArticleViewModel;
+import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.ArticleRepository;
 import com.petkov.spr_final_1.service.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -103,5 +112,24 @@ public class ArticleServiceImpl implements ArticleService {
                 .orElseThrow(() -> new IllegalArgumentException("Article not found in DB"));
 
         return modelMapper.map(articleEntity, ArticleServiceModel.class);
+    }
+
+    @Override
+    public List<ArticleViewModel> getAllSortedByNameDesc() {
+        return articleRepository
+                .findAll()
+                .stream()
+                .map(articleEntity -> modelMapper.map(articleEntity, ArticleViewModel.class))
+                .sorted(Comparator.comparing(
+                        (ArticleViewModel articleViewModel) -> articleViewModel.getChapter().getAtaCode()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<List<ArticleViewModel>> getAllSortedByNameDescAsync() {
+        return CompletableFuture
+                .supplyAsync(this::getAllSortedByNameDesc)
+                .orTimeout(30, TimeUnit.SECONDS);
     }
 }

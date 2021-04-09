@@ -11,9 +11,13 @@ import com.petkov.spr_final_1.service.DocumentService;
 import com.petkov.spr_final_1.service.DocumentSubChapterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +50,7 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
     }
 
     @Override
+    @Transactional
     public void seedDocumentSubchapterToDb(DocumentSubchapterServiceModel serviceModel) {
 
         DocumentSubchapterEntity documentSubchapterEntity =
@@ -66,8 +71,23 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
         return documentSubchapterRepository
                 .findAll(Sort.by(Sort.Direction.DESC, "docSubchapterName"))
                 .stream()
-                .map(documentSubchapterEntity ->
-                        modelMapper.map(documentSubchapterEntity, DocumentSubchapterViewModel.class))
+                .map(documentSubchapterEntity -> {
+                    DocumentSubchapterViewModel documentSubchapterViewModel =
+                            modelMapper.map(documentSubchapterEntity, DocumentSubchapterViewModel.class);
+
+                    documentSubchapterViewModel.setDocumentRef(documentSubchapterEntity.getDocument().getDocumentName());
+
+                    return documentSubchapterViewModel;
+                })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<List<DocumentSubchapterViewModel>> getAllSortedByNameDescAsync() {
+        return CompletableFuture
+                .supplyAsync(this::getAllSortedByNameDesc)
+                .orTimeout(30, TimeUnit.SECONDS);
+
     }
 }

@@ -2,6 +2,8 @@ package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.test.QuestionAddBindingModel;
 import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
+import com.petkov.spr_final_1.service.ATAChapterService;
+import com.petkov.spr_final_1.service.DocumentService;
 import com.petkov.spr_final_1.service.QuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,14 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final ModelMapper modelMapper;
+    private final DocumentService documentService;
+    private final ATAChapterService ataChapterService;
 
-    public QuestionController(QuestionService questionService, ModelMapper modelMapper) {
+    public QuestionController(QuestionService questionService, ModelMapper modelMapper, DocumentService documentService, ATAChapterService ataChapterService) {
         this.questionService = questionService;
         this.modelMapper = modelMapper;
+        this.documentService = documentService;
+        this.ataChapterService = ataChapterService;
     }
 
 
@@ -43,8 +49,8 @@ public class QuestionController {
             model.addAttribute("questionAddBindingModel", new QuestionAddBindingModel());
         }
 
-//        model.addAttribute("articleDBList",
-//                article.getAllArticlesSortedAlphabeticallyDesc());
+        model.addAttribute("documentDbList", documentService.getAllDocumentsSortedByNameDesc());
+        model.addAttribute("chapterDBList", ataChapterService.getAllChaptersSortedByATADesc());
 
         return "questions-add";
     }
