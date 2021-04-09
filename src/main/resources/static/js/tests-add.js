@@ -157,7 +157,7 @@ function postTestAndHandleErrors() {
         })
             .then(response => {
 
-                if (response.ok) {
+                if (response.ok || response.status === 422){
                     return response.json();
                 }
 
@@ -165,7 +165,7 @@ function postTestAndHandleErrors() {
 
             })
             .then(data => {
-                console.log(data)
+
                 if (data['errors']) {
 
                     let errors = {};
@@ -178,6 +178,7 @@ function postTestAndHandleErrors() {
                         errors[field]
                             ? errors[field].push(errMsg)
                             : errors[field] = [errMsg]
+
                     })
 
                     let nameErrEl = document.getElementById('test-name-err');
@@ -189,9 +190,20 @@ function postTestAndHandleErrors() {
                         nameEl.classList.remove('border', 'border-danger');
                     }
 
+                    let dueDateErrEl = document.getElementById('due-date-err');
+
+                    if (errors.dueDate) {
+                        dueDateErrEl.innerText = errors['dueDate'].join('\n');
+                        dueDateEl.classList.add('border', 'border-danger');
+                    } else {
+                        dueDateErrEl.textContent = '';
+                        dueDateEl.classList.remove('border', 'border-danger');
+                    }
+
 
                 } else {
                     console.log('no errors')
+                    // todo - remove
                 }
             })
             .catch(error => {

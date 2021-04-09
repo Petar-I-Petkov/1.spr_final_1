@@ -13,7 +13,7 @@ public interface DocumentService {
 
     DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel);
 
-    DocumentServiceModel findDocumentByName(String documentRef);
+    DocumentServiceModel findDocumentByName(String documentName);
 
     List<DocumentViewModel> getAllDocumentsSortedByNameDesc();
 

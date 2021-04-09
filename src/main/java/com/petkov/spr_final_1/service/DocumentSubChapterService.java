@@ -17,4 +17,6 @@ public interface DocumentSubChapterService {
 
     CompletableFuture<List<DocumentSubchapterViewModel>> getAllSortedByNameDescAsync();
 
+    DocumentSubchapterServiceModel findByDocumentAndDocumentSubchapter(String documentName, String subchapterName);
+
 }

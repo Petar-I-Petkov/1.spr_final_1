@@ -70,6 +70,8 @@
                                    th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
                                    class="form-control"
                                    id="due-date">
+                            <div class="text small text-danger" id="due-date-err"></div>
+
                         </div>
                         <div class="col-sm-5 input-group-sm d-inline" id="add-test">
                             <button class="btn-sm btn-primary">Save Test</button>

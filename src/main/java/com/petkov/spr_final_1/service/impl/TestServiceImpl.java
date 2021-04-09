@@ -1,6 +1,7 @@
 package com.petkov.spr_final_1.service.impl;
 
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
+import com.petkov.spr_final_1.model.service.test.TestServiceModel;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 import com.petkov.spr_final_1.model.view.ActiveTestViewModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
@@ -109,5 +110,10 @@ public class TestServiceImpl implements TestService {
                     return testThumbnailViewModel;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public TestServiceModel seedTestToDb(TestServiceModel testServiceModel) {
+
     }
 }

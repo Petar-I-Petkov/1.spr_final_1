@@ -16,8 +16,6 @@ public interface QuestionService {
 
     boolean questionExistsByName(String name);
 
-    boolean questionExistsByQuestion(String question);
-
     void seedQuestionToDb(QuestionServiceModel questionServiceModel);
 
     CompletableFuture<List<QuestionViewModel>> getAllQuestionsSortedByATA();

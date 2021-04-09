@@ -5,7 +5,6 @@ import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ATASubChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATASubChapterViewModel;
-import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.ATASubChapterRepository;
 import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.service.ATASubChapterService;
@@ -13,7 +12,6 @@ import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,14 +113,15 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
     }
 
     @Override
-    public ATASubChapterServiceModel findByChapterAndSubchapterAta(int chapterRef, int ataSubCode) {
+    public ATASubChapterServiceModel findByChapterAndSubchapterAta(int ataChapterCode,
+                                                                   int ataSubchapterCode) throws IllegalArgumentException {
 
         ATAChapterEntity chapter =
-                modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
+                modelMapper.map(chapterService.findChapterByAtaCode(ataChapterCode), ATAChapterEntity.class);
 
         ATASubChapterEntity subChapterEntity = subChapterRepository
-                .findByAtaChapterRefAndAtaSubCode(chapter, ataSubCode)
-                .orElseThrow(() -> new IllegalArgumentException("SubChapter could not be found in DB"));
+                .findByAtaChapterRefAndAtaSubCode(chapter, ataSubchapterCode)
+                .orElseThrow(() -> new IllegalArgumentException("ATA SubChapter could not be found in DB"));
 
         return modelMapper.map(subChapterEntity, ATASubChapterServiceModel.class);
     }

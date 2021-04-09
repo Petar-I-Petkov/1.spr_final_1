@@ -5,11 +5,9 @@ import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
-import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.ArticleRepository;
 import com.petkov.spr_final_1.service.*;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -105,7 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleServiceModel getArticleByTitle(String title) throws IllegalArgumentException {
+    public ArticleServiceModel findArticleByTitle(String title) throws IllegalArgumentException {
 
         ArticleEntity articleEntity = articleRepository
                 .findByTitle(title)
@@ -115,21 +113,23 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleViewModel> getAllSortedByNameDesc() {
+    public List<ArticleViewModel> findAllSortedByNameDesc() {
+
+        //todo - add sorting to List<ArticleViewModel> findAllSortedByNameDesc() {
         return articleRepository
                 .findAll()
                 .stream()
                 .map(articleEntity -> modelMapper.map(articleEntity, ArticleViewModel.class))
-                .sorted(Comparator.comparing(
-                        (ArticleViewModel articleViewModel) -> articleViewModel.getChapter().getAtaCode()))
+//                .sorted(Comparator.comparing(
+//                        (ArticleViewModel articleViewModel) -> articleViewModel.getChapter().getAtaCode()))
                 .collect(Collectors.toList());
     }
 
     @Override
     @Async
-    public CompletableFuture<List<ArticleViewModel>> getAllSortedByNameDescAsync() {
+    public CompletableFuture<List<ArticleViewModel>> findAllSortedByNameDescAsync() {
         return CompletableFuture
-                .supplyAsync(this::getAllSortedByNameDesc)
+                .supplyAsync(this::findAllSortedByNameDesc)
                 .orTimeout(30, TimeUnit.SECONDS);
     }
 }

@@ -14,9 +14,9 @@ public interface ArticleService {
 
     void seedArticleToDb(ArticleServiceModel articleServiceModel) throws IOException;
 
-    ArticleServiceModel getArticleByTitle(String title) throws IllegalArgumentException;
+    ArticleServiceModel findArticleByTitle(String title) throws IllegalArgumentException;
 
-    List<ArticleViewModel> getAllSortedByNameDesc();
+    List<ArticleViewModel> findAllSortedByNameDesc();
 
-    CompletableFuture<List<ArticleViewModel>> getAllSortedByNameDescAsync();
+    CompletableFuture<List<ArticleViewModel>> findAllSortedByNameDescAsync();
 }

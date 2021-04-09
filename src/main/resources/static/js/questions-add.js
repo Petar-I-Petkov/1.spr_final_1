@@ -4,11 +4,13 @@ const ROOT_URL = window.location.origin;
 let elements = {
     allDocSubchaptersUrl: `${ROOT_URL}/document-subchapters/api`,
     allATASubchaptersUrl: `${ROOT_URL}/ata-subchapters/api`,
+    allArticlesUrl: `${ROOT_URL}/articles/api`,
 
     documentDropdown: () => document.getElementById('document'),
     subChapterDropdown: () => document.getElementById('documentSubchapter'),
     ataChapterDropdown: () => document.getElementById('chapter'),
     ataSubChapterDropdown: () => document.getElementById('ataSubChapter'),
+    articleDropdown: () => document.getElementById('article'),
 
 }
 
@@ -27,7 +29,7 @@ function populateDocSubchapterDropdown() {
         })
         .then(data => {
 
-            elements.documentDropdown().addEventListener('change', () => fillDocSubchapterDropdown(data));
+            elements.documentDropdown().addEventListener('change', () => filterAndFillDocSubchapterDropdown(data));
 
         })
         .catch(error => {
@@ -35,9 +37,7 @@ function populateDocSubchapterDropdown() {
         })
 }
 
-populateDocSubchapterDropdown();
-
-function fillDocSubchapterDropdown(subchapterList) {
+function filterAndFillDocSubchapterDropdown(subchapterList) {
 
     elements.subChapterDropdown().innerHTML = '<option></option>';
 
@@ -49,6 +49,9 @@ function fillDocSubchapterDropdown(subchapterList) {
         elements.subChapterDropdown().innerHTML += `<option>${subchapter.docSubchapterName}</option>`;
     })
 }
+
+populateDocSubchapterDropdown();
+
 
 
 function populateAtaSubchaptersDropdown() {
@@ -65,7 +68,7 @@ function populateAtaSubchaptersDropdown() {
         })
         .then(data => {
 
-            elements.ataChapterDropdown().addEventListener('change', () => fillATASubchaptersDropdown(data));
+            elements.ataChapterDropdown().addEventListener('change', () => filterAndFillATASubchaptersDropdown(data));
 
         })
         .catch(error => {
@@ -73,9 +76,7 @@ function populateAtaSubchaptersDropdown() {
         })
 }
 
-populateAtaSubchaptersDropdown();
-
-function fillATASubchaptersDropdown(ataSubchapterList) {
+function filterAndFillATASubchaptersDropdown(ataSubchapterList) {
 
     elements.ataSubChapterDropdown().innerHTML = '<option></option>';
 
@@ -91,4 +92,49 @@ function fillATASubchaptersDropdown(ataSubchapterList) {
     })
 
 }
+
+
+populateAtaSubchaptersDropdown();
+
+
+
+function populateArticleDropdown() {
+
+    fetch(elements.allArticlesUrl)
+        .then(response => {
+
+            if (response.ok) {
+                return response.json();
+            }
+
+            return Response.redirect(new Error(response.status + response.text()));
+
+        })
+        .then(data => {
+
+            data.forEach(article => {
+
+                elements.articleDropdown().innerHTML +=
+                    `<option>${article.title}</option>`;
+            })
+
+            //todo - implement filtering when selected
+            elements.documentDropdown().addEventListener('change', () => filterArticleDropdownByDocument(data));
+            elements.ataChapterDropdown().addEventListener('change', () => filterArticleDropdownByAtaChapter(data));
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+
+function filterArticleDropdownByDocument(data) {
+    console.log(data);
+}
+
+function filterArticleDropdownByAtaChapter(data) {
+    console.log(data);
+}
+
+populateArticleDropdown();
 

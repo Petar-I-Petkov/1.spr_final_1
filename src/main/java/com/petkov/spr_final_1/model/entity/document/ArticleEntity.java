@@ -63,7 +63,7 @@ public class ArticleEntity extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
+    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")//todo set nullable = false
     public ATAChapterEntity getChapter() {
         return chapter;
     }
@@ -93,7 +93,7 @@ public class ArticleEntity extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "document", referencedColumnName = "id")
+    @JoinColumn(name = "document", referencedColumnName = "id")//todo set nullable = false
     public DocumentEntity getDocument() {
         return document;
     }

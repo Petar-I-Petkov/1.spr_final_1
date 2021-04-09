@@ -62,6 +62,9 @@ public class ArticleAddBindingModel {
         this.fullReferencePath = fullReferencePath;
     }
 
+
+    @NotBlank(message = "ATA chapter is required.")
+    @Size(min = 2, message = "ATA chapter should be min 2 characters.")
     public String getChapterRef() {
         return chapterRef;
     }
@@ -87,6 +90,7 @@ public class ArticleAddBindingModel {
     }
 
     @NotBlank(message = "Document reference is required.")
+    @Size(min = 3, message = "Document reference should be min 3 characters.")
     public String getDocumentRef() {
         return documentRef;
     }
@@ -104,6 +108,7 @@ public class ArticleAddBindingModel {
     }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Size(min = 3, message = "Article title should be min 3 characters.")
     public LocalDate getDocumentDate() {
         return documentDate;
     }

@@ -90,4 +90,17 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
                 .orTimeout(30, TimeUnit.SECONDS);
 
     }
+
+    @Override
+    public DocumentSubchapterServiceModel findByDocumentAndDocumentSubchapter(String documentName, String subchapterName) {
+
+        DocumentEntity documentEntity =
+                modelMapper.map(documentService.findDocumentByName(documentName), DocumentEntity.class);
+
+        DocumentSubchapterEntity documentSubchapterEntity = documentSubchapterRepository
+                        .findByDocumentAndDocSubchapterName(documentEntity, subchapterName)
+                .orElseThrow(() -> new IllegalArgumentException("Document Subchapter not found in DB."));
+
+        return modelMapper.map(documentSubchapterEntity, DocumentSubchapterServiceModel.class);
+    }
 }

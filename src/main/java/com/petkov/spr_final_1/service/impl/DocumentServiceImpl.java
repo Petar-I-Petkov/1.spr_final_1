@@ -3,7 +3,6 @@ package com.petkov.spr_final_1.service.impl;
 import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
 import com.petkov.spr_final_1.model.entity.document.DocumentSubchapterEntity;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
-import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.DocumentRepository;
 import com.petkov.spr_final_1.service.DocumentService;
@@ -54,9 +53,10 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public DocumentServiceModel findDocumentByName(String documentRef) {
+    public DocumentServiceModel findDocumentByName(String documentName) {
+
         DocumentEntity documentEntity = documentRepository
-                .findByDocumentName(documentRef)
+                .findByDocumentName(documentName)
                 .orElseThrow(() -> new IllegalArgumentException("Document could not be found in DB"));
 
         return modelMapper.map(documentEntity, DocumentServiceModel.class);

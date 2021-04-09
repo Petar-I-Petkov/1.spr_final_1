@@ -1,17 +1,14 @@
 package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.test.TestAddBindingModel;
-import com.petkov.spr_final_1.model.service.test.TestAddServiceModel;
+import com.petkov.spr_final_1.model.service.test.TestServiceModel;
 import com.petkov.spr_final_1.service.TestService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -62,14 +59,14 @@ public class TestRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<TestAddServiceModel> addTest(@RequestBody @Valid TestAddBindingModel testAddBindingModel) {
+    public ResponseEntity<TestServiceModel> addTest(@RequestBody @Valid TestAddBindingModel testAddBindingModel) {
 
-            TestAddServiceModel testAddServiceModel =
-                    this.modelMapper.map(testAddBindingModel, TestAddServiceModel.class);
+            TestServiceModel testServiceModel =
+                    this.modelMapper.map(testAddBindingModel, TestServiceModel.class);
 
             return ResponseEntity
                     .ok()
-                    .body(testAddServiceModel);
+                    .body(testServiceModel);
 
     }
 }

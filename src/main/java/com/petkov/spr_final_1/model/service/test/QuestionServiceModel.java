@@ -58,7 +58,7 @@ public class QuestionServiceModel extends BaseServiceModel {
     }
 
     @NotBlank(message = "Correct Answer is required.")
-    @Size(min = 2, message = "Correct Answer should be min 2 characters.")
+    @Size(min = 1, message = "Correct Answer should be min 1 character.")
     public String getCorrectAnswer() {
         return correctAnswer;
     }
@@ -68,7 +68,7 @@ public class QuestionServiceModel extends BaseServiceModel {
     }
 
     @NotBlank(message = "Alternate answer 1 is required.")
-    @Size(min = 2, message = "Alternate answer 1 should be min 2 characters.")
+    @Size(min = 1, message = "Alternate answer 1 should be min 1 character.")
     public String getAltAnswer1() {
         return altAnswer1;
     }
@@ -78,7 +78,7 @@ public class QuestionServiceModel extends BaseServiceModel {
     }
 
     @NotBlank(message = "Alternate answer 2 is required.")
-    @Size(min = 2, message = "Alternate answer 2 should be min 2 characters.")
+    @Size(min = 1, message = "Alternate answer 2 should be min 1 character.")
     public String getAltAnswer2() {
         return altAnswer2;
     }

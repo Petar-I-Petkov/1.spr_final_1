@@ -20,6 +20,7 @@ public class QuestionEntity extends BaseEntity {
     private String altAnswer4;
 
     private List<TestEntity> tests;
+
     private ArticleEntity article;
 
     private ATAChapterEntity chapter;
@@ -40,7 +41,7 @@ public class QuestionEntity extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "question", unique = true, nullable = false)
+    @Column(name = "question", unique = true, nullable = false, columnDefinition = "TEXT")
     public String getQuestion() {
         return question;
     }
@@ -118,7 +119,7 @@ public class QuestionEntity extends BaseEntity {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne// - todo - refractor this (cascade = CascadeType.ALL)
     public ArticleEntity getArticle() {
         return article;
     }
@@ -158,7 +159,7 @@ public class QuestionEntity extends BaseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ducument_subchapter", referencedColumnName = "id")
+    @JoinColumn(name = "document_subchapter", referencedColumnName = "id")
     public DocumentSubchapterEntity getDocumentSubchapter() {
         return documentSubchapter;
     }

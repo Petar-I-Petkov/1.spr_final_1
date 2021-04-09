@@ -73,7 +73,7 @@ public class QuestionController {
             return "redirect:add";
         }
 
-        if (questionService.questionExistsByQuestion(questionAddBindingModel.getName())) {
+        if (questionService.questionExistsByName(questionAddBindingModel.getName())) {
 
             redirectAttributes
                     .addFlashAttribute("questionAddBindingModel", questionAddBindingModel);
@@ -91,6 +91,9 @@ public class QuestionController {
 
         QuestionServiceModel questionServiceModel
                 = modelMapper.map(questionAddBindingModel, QuestionServiceModel.class);
+
+        questionServiceModel.setChapter(questionAddBindingModel.getChapter().split(" - ")[0]);
+        questionServiceModel.setAtaSubChapter(questionAddBindingModel.getChapter().split(" - ")[0]);
 
         questionService.seedQuestionToDb(questionServiceModel);
 

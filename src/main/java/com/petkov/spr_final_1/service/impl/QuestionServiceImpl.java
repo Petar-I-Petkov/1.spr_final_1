@@ -1,16 +1,15 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
+import com.petkov.spr_final_1.model.entity.document.*;
 import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
 import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
-import com.petkov.spr_final_1.model.view.ArticleViewModel;
 import com.petkov.spr_final_1.model.view.QuestionViewModel;
 import com.petkov.spr_final_1.repository.QuestionRepository;
-import com.petkov.spr_final_1.service.ArticleService;
-import com.petkov.spr_final_1.service.QuestionService;
+import com.petkov.spr_final_1.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -23,11 +22,19 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
     private final ArticleService articleService;
+    private final DocumentService documentService;
+    private final ATASubChapterService ataSubChapterService;
+    private final ATAChapterService ataChapterService;
+    private final DocumentSubChapterService documentSubChapterService;
 
-    public QuestionServiceImpl(QuestionRepository questionRepository, ModelMapper modelMapper, ArticleService articleService) {
+    public QuestionServiceImpl(QuestionRepository questionRepository, ModelMapper modelMapper, ArticleService articleService, DocumentService documentService, ATASubChapterService ataSubChapterService, ATAChapterService ataChapterService, DocumentSubChapterService documentSubChapterService) {
         this.questionRepository = questionRepository;
         this.modelMapper = modelMapper;
         this.articleService = articleService;
+        this.documentService = documentService;
+        this.ataSubChapterService = ataSubChapterService;
+        this.ataChapterService = ataChapterService;
+        this.documentSubChapterService = documentSubChapterService;
     }
 
     @Override
@@ -41,31 +48,107 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public boolean questionExistsByQuestion(String question) {
-        return false;
-    }
-
-    @Override
+    @Transactional
     public void seedQuestionToDb(QuestionServiceModel questionServiceModel) {
 
         QuestionEntity questionEntity =
                 modelMapper.map(questionServiceModel, QuestionEntity.class);
 
-        if (!questionServiceModel.getArticle().isBlank()) {
+        setDocument(questionServiceModel, questionEntity);
 
-                ArticleEntity articleEntity = modelMapper
-                        .map(articleService.getArticleByTitle(questionServiceModel.getArticle()), ArticleEntity.class);
+        setDocumentSubchapterIfNotNull(questionServiceModel, questionEntity);
 
-                if(articleEntity != null){
-                questionEntity.setArticle(articleEntity);
-                }
+        setAtaChapter(questionServiceModel, questionEntity);
 
-        }
+        setAtaSubChapterIfNotNull(questionServiceModel, questionEntity);
+
+        setArticleIfNotNull(questionServiceModel, questionEntity);
 
 
         //todo seedQuestionToDb debug point
         System.out.println();
         questionRepository.saveAndFlush(questionEntity);
+    }
+
+    private void setArticleIfNotNull(QuestionServiceModel questionServiceModel, QuestionEntity questionEntity) {
+        if (!questionServiceModel.getArticle().isBlank()) {
+
+            try {
+                ArticleEntity articleEntity = modelMapper
+                        .map(articleService.findArticleByTitle(questionServiceModel.getArticle()), ArticleEntity.class);
+
+                questionEntity.setArticle(articleEntity);
+
+            } catch (IllegalArgumentException exception) {
+                //todo - advice somewhere for the exception
+            }
+
+        }
+    }
+
+    private void setAtaSubChapterIfNotNull(QuestionServiceModel questionServiceModel, QuestionEntity questionEntity) {
+
+        if (!questionServiceModel.getAtaSubChapter().isBlank()) {
+
+            int ataChapterCode = Integer.parseInt(questionServiceModel.getChapter());
+            int ataSubChapterCode = Integer.parseInt(questionServiceModel.getAtaSubChapter());
+
+            try {
+                ATASubChapterEntity ataSubChapterEntity = modelMapper
+                        .map(ataSubChapterService
+                                .findByChapterAndSubchapterAta(ataChapterCode, ataSubChapterCode), ATASubChapterEntity.class);
+
+                questionEntity.setAtaSubChapter(ataSubChapterEntity);
+
+            } catch (IllegalArgumentException ignored) {
+                //todo advice somewhere for what happened
+            }
+
+
+        }
+    }
+
+    private void setAtaChapter(QuestionServiceModel questionServiceModel, QuestionEntity questionEntity) {
+
+        ATAChapterEntity ataChapterEntity =
+                modelMapper.map(ataChapterService
+                                .findChapterByAtaCode(Integer.parseInt(questionServiceModel.getChapter())),
+                        ATAChapterEntity.class);
+
+        questionEntity.setChapter(ataChapterEntity);
+
+    }
+
+    private void setDocument(QuestionServiceModel questionServiceModel, QuestionEntity questionEntity) {
+
+
+        DocumentEntity documentEntity =
+                modelMapper.map(documentService
+                        .findDocumentByName(questionServiceModel.getDocument()), DocumentEntity.class);
+
+        questionEntity.setDocument(documentEntity);
+    }
+
+    private void setDocumentSubchapterIfNotNull(QuestionServiceModel questionServiceModel, QuestionEntity questionEntity) {
+
+        if (!questionServiceModel.getDocumentSubchapter().isBlank()) {
+
+            String documentName = questionServiceModel.getDocument();
+            String documentSubchapterName = questionServiceModel.getDocumentSubchapter();
+
+            try {
+                DocumentSubchapterEntity documentSubchapterEntity =
+                        modelMapper.map(documentSubChapterService.
+                                        findByDocumentAndDocumentSubchapter(documentName, documentSubchapterName),
+                                DocumentSubchapterEntity.class);
+
+                questionEntity.setDocumentSubchapter(documentSubchapterEntity);
+
+            } catch (IllegalArgumentException exception) {
+                //todo - advice somewhere for the exception
+            }
+
+        }
     }
 
     @Override

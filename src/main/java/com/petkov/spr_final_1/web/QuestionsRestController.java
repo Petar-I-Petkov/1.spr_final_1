@@ -23,8 +23,9 @@ public class QuestionsRestController {
         this.questionService = questionService;
     }
 
-
     //todo - add Aspect and/or EventListener to log at different place
+    //todo - change QuestionViewModel to QuestionThumbnailViewModel
+
     @GetMapping(value = "", produces = "application/json")
     public DeferredResult<ResponseEntity<List<QuestionViewModel>>> getAllQuestionsSortedByATA() {
 
