@@ -1,6 +1,5 @@
 package com.petkov.spr_final_1.DEVTools;
 
-import com.petkov.spr_final_1.constants.Paths;
 import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
 import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
@@ -14,11 +13,8 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.petkov.spr_final_1.constants.Paths.*;
 
 @Component
 public class AppController implements CommandLineRunner {
@@ -38,7 +34,6 @@ public class AppController implements CommandLineRunner {
         //number of tests in db
         System.out.printf("tests: %d%n", this.testRepository.count());
 
-        pathOf(FCOM, ATA_70_ENGINES);
 
         //testRepository.saveAndFlush(generateDummyTestWithQuestions());
 
@@ -148,14 +143,6 @@ public class AppController implements CommandLineRunner {
 
     }
 
-    private void pathOf(Paths... varArgs) {
-
-        List<String> stringList = Arrays.stream(varArgs)
-                .map(Enum::name)
-                .collect(Collectors.toList());
-
-        System.out.println(String.join("/", stringList));
-    }
 
 
 }

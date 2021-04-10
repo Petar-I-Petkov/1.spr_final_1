@@ -1,15 +1,15 @@
 package com.petkov.spr_final_1.model.error;
 
-public class BindingError {
+public class ApiBindingError {
 
     private String fieldName;
     private Object rejectedValue;
     private String messageError;
 
-    public BindingError() {
+    public ApiBindingError() {
     }
 
-    public BindingError(String fieldName, Object rejectedValue, String messageError) {
+    public ApiBindingError(String fieldName, Object rejectedValue, String messageError) {
         this.fieldName = fieldName;
         this.rejectedValue = rejectedValue;
         this.messageError = messageError;

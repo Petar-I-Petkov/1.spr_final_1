@@ -1,22 +1,21 @@
 package com.petkov.spr_final_1.utils;
 
-import com.petkov.spr_final_1.model.view.ActiveTestViewModel;
-import org.springframework.stereotype.Component;
+import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
 
 public class ActiveTestTransporter {
 
-    // todo ActiveTestTransporter - rename and make generic <T>
+    // todo ActiveTestTransporter - rename
 
-    private ActiveTestViewModel activeTestViewModel;
+    private ActiveTestEntity activeTestEntity;
 
     public ActiveTestTransporter() {
     }
 
-    public ActiveTestViewModel getActiveTestViewModel() {
-        return activeTestViewModel;
+    public ActiveTestEntity getActiveTestViewModel() {
+        return activeTestEntity;
     }
 
-    public void setActiveTestViewModel(ActiveTestViewModel activeTestViewModel) {
-        this.activeTestViewModel = activeTestViewModel;
+    public void setActiveTestViewModel(ActiveTestEntity activeTestEntity) {
+        this.activeTestEntity = activeTestEntity;
     }
 }

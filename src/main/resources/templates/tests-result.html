@@ -24,7 +24,7 @@
     <script src="/js/bootstrap.bundle.js"></script>
     <script src="/js/jquery-3.3.1.min.js"></script>
 
-    <title>AD - upcoming tests</title>
+    <title>AD - test result</title>
 
 </head>
 
@@ -49,57 +49,46 @@
 
 
             <div class="row bg-light border border-1 p-3 mt-3 mx-3"
-                 th:object="${activeTestEntity}">
+                 th:object="${testResult}">
                 <div class="row">
                     <div class="col-lg-5">
-                        <h3 th:text="|Test: ${activeTestEntity.name}|">Test: Test Name</h3>
+                        <h3 th:text="|Test: ${testResult.name}|">Test: Test Name</h3>
                     </div>
                 </div>
 
                 <div class="row">
 
-                    <form method="POST"
-                          th:action="@{/tests/active/{id}(id = ${activeTestEntity.id})}"
-                          th:object="${submitTestBindingModel}">
+                    <div>
 
                         <ul class="list-group list-group-numbered">
 
-                            <li th:each="q , iterStat : ${activeTestEntity.questionEntities}"
+                            <li th:each="q , iterStat : ${testResult.questionEntities}"
                                 class="list-group-item">
 
 
                                 <div class="question-text" th:text="${q.question}">Question Text</div>
-                                <input type="text"
-                                       style="display: none"
-                                       class="hidden-input"
-                                       th:field="${submitTestBindingModel.askedQuestionMatrix[__${iterStat.index}__]}"
-                                >
 
 
-                                <div th:each="a: ${q.answers}"
-                                     class="form-check">
-                                    <input
-                                            class="form-check-input"
-                                            type="radio"
-                                            id="flexRadioDefault1"
-                                            th:field="${submitTestBindingModel.givenAnswerMatrix[__${iterStat.index}__]}"
-                                            th:value="${a}">
-                                    <label th:text="${a}"
-                                           class="form-check-label"
-                                           for="flexRadioDefault1">
-                                        answer
-                                    </label>
-                                </div>
+
+<!--                                <div th:each="a: ${q.answers}"-->
+<!--                                     class="form-check">-->
+<!--                                    <input-->
+<!--                                            class="form-check-input"-->
+<!--                                            type="radio"-->
+<!--                                            id="flexRadioDefault1"-->
+<!--                                            th:field="${submitTestBindingModel.givenAnswerMatrix[__${iterStat.index}__]}"-->
+<!--                                            th:value="${a}">-->
+<!--                                    <label th:text="${a}"-->
+<!--                                           class="form-check-label"-->
+<!--                                           for="flexRadioDefault1">-->
+<!--                                        answer-->
+<!--                                    </label>-->
+<!--                                </div>-->
 
                             </li>
                         </ul>
 
-                        <div class="">
-                            <button type="submit" class="btn btn-success">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -122,16 +111,6 @@
 </body>
 
 <script src="/js/sidebar-link-highlight.js"></script>
-<script id="fill-all-hidden-inputs-with-question-text">
-
-    window.addEventListener('DOMContentLoaded', (e) => {
-        let hiddenQuestionInputs = Array.from(document.getElementsByClassName('hidden-input'));
-        hiddenQuestionInputs.forEach(input => {
-            input.value = input.previousElementSibling.textContent;
-        })
-    })
-
-</script>
 
 
 </html>

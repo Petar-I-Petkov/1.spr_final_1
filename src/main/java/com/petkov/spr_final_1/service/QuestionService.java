@@ -19,4 +19,6 @@ public interface QuestionService {
     void seedQuestionToDb(QuestionServiceModel questionServiceModel);
 
     CompletableFuture<List<QuestionViewModel>> getAllQuestionsSortedByATA();
+
+    QuestionServiceModel findById(String id);
 }

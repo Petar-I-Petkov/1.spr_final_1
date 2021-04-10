@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.exception;
 
-import com.petkov.spr_final_1.model.error.ApiError;
-import com.petkov.spr_final_1.model.error.BindingError;
+import com.petkov.spr_final_1.model.error.ApiResponseErrorObject;
+import com.petkov.spr_final_1.model.error.ApiBindingError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice(annotations = RestController.class)
-public class GlobalExceptionHandlerREST extends ResponseEntityExceptionHandler {
+public class RestControllersGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @Override
@@ -30,18 +30,18 @@ public class GlobalExceptionHandlerREST extends ResponseEntityExceptionHandler {
             WebRequest request
     ) {
 
-        List<BindingError> bindingError = exception.getBindingResult().getFieldErrors()
+        List<ApiBindingError> apiBindingError = exception.getBindingResult().getFieldErrors()
                 .stream()
-                .map(err -> new BindingError(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
+                .map(err -> new ApiBindingError(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
                 .distinct()
                 .collect(Collectors.toList());
 
-        ApiError apiError = new ApiError(status, "Binding Validation Error", exception);
-        apiError.setErrors(bindingError);
+        ApiResponseErrorObject apiResponseErrorObject = new ApiResponseErrorObject(status, "Binding Validation Error", exception);
+        apiResponseErrorObject.setErrors(apiBindingError);
 
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(apiError);
+                .body(apiResponseErrorObject);
     }
 
     @Override
@@ -52,11 +52,11 @@ public class GlobalExceptionHandlerREST extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
 
-        ApiError apiError = new ApiError(status, "Malformed JSON request", exception);
+        ApiResponseErrorObject apiResponseErrorObject = new ApiResponseErrorObject(status, "Malformed JSON request", exception);
 
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(apiError);
+                .body(apiResponseErrorObject);
 
     }
 

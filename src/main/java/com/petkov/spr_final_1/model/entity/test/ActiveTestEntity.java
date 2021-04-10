@@ -1,23 +1,22 @@
-package com.petkov.spr_final_1.model.view;
+package com.petkov.spr_final_1.model.entity.test;
 
 import com.petkov.spr_final_1.model.entity.UserEntity;
+import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ActiveTestViewModel {
+public class ActiveTestEntity {
 
     private String id;
     private String name;
     private LocalDate dueDate;
     private List<ActiveQuestionViewModel> questionEntities;
-    private Map<Integer, String> correctAnswerMatrix = new LinkedHashMap<>();
-    private Map<Integer, String> givenAnswerMatrix = new LinkedHashMap<>();
+    private List<SubmittedQuestionEntity> submittedQuestionEntities;
 
-
-    public ActiveTestViewModel() {
+    public ActiveTestEntity() {
     }
 
     public String getId() {
@@ -53,19 +52,11 @@ public class ActiveTestViewModel {
         this.questionEntities = questionEntities;
     }
 
-    public Map<Integer, String> getCorrectAnswerMatrix() {
-        return correctAnswerMatrix;
+    public List<SubmittedQuestionEntity> getSubmittedQuestionEntities() {
+        return submittedQuestionEntities;
     }
 
-    public void setCorrectAnswerMatrix(Map<Integer, String> correctAnswerMatrix) {
-        this.correctAnswerMatrix = correctAnswerMatrix;
-    }
-
-    public Map<Integer, String> getGivenAnswerMatrix() {
-        return givenAnswerMatrix;
-    }
-
-    public void setGivenAnswerMatrix(Map<Integer, String> givenAnswerMatrix) {
-        this.givenAnswerMatrix = givenAnswerMatrix;
+    public void setSubmittedQuestionEntities(List<SubmittedQuestionEntity> submittedQuestionEntities) {
+        this.submittedQuestionEntities = submittedQuestionEntities;
     }
 }

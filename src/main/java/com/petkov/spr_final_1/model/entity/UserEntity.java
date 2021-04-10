@@ -1,5 +1,6 @@
 package com.petkov.spr_final_1.model.entity;
 
+import com.petkov.spr_final_1.model.entity.test.CompletedTestEntity;
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class UserEntity extends BaseEntity {
     private String email;
     private List<TestEntity> testEntities;
     private List<UserRoleEntity> roles = new ArrayList<>();
+    private List<CompletedTestEntity> completedTestEntities;
 
     public UserEntity() {
     }
@@ -60,13 +62,14 @@ public class UserEntity extends BaseEntity {
     }
 
     @OneToMany
-    public List<TestEntity> getTests() {
+    public List<TestEntity> getTestEntities() {
         return testEntities;
     }
 
-    public void setTests(List<TestEntity> testEntities) {
+    public void setTestEntities(List<TestEntity> testEntities) {
         this.testEntities = testEntities;
     }
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     public List<UserRoleEntity> getRoles() {
@@ -75,5 +78,14 @@ public class UserEntity extends BaseEntity {
 
     public void setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
+    }
+
+    @OneToMany(mappedBy = "userEntity", targetEntity = CompletedTestEntity.class)
+    public List<CompletedTestEntity> getCompletedTestEntities() {
+        return completedTestEntities;
+    }
+
+    public void setCompletedTestEntities(List<CompletedTestEntity> completedTestEntities) {
+        this.completedTestEntities = completedTestEntities;
     }
 }

@@ -5,31 +5,31 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ApiError {
+public class ApiResponseErrorObject {
 
     private HttpStatus status;
     private LocalDateTime timestamp;
     private String message;
   //  private String debugMessage;
-    private List<BindingError> errors;
+    private List<ApiBindingError> errors;
 
-    private ApiError() {
+    private ApiResponseErrorObject() {
         timestamp = LocalDateTime.now();
     }
 
-    public ApiError(HttpStatus status) {
+    public ApiResponseErrorObject(HttpStatus status) {
         this();
         this.status = status;
     }
 
-    public ApiError(HttpStatus status, Throwable ex) {
+    public ApiResponseErrorObject(HttpStatus status, Throwable ex) {
         this();
         this.status = status;
         this.message = "Unexpected error";
   //      this.debugMessage = ex.getMessage();
     }
 
-    public ApiError(HttpStatus status, String message, Throwable ex) {
+    public ApiResponseErrorObject(HttpStatus status, String message, Throwable ex) {
         this();
         this.status = status;
         this.message = message;
@@ -60,11 +60,11 @@ public class ApiError {
         this.message = message;
     }
 
-    public List<BindingError> getErrors() {
+    public List<ApiBindingError> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<BindingError> errors) {
+    public void setErrors(List<ApiBindingError> errors) {
         this.errors = errors;
     }
 }

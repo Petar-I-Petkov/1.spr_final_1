@@ -200,6 +200,8 @@ function postTestAndHandleErrors() {
                         dueDateEl.classList.remove('border', 'border-danger');
                     }
 
+                    //todo - handle no questions and the other error
+
 
                 } else {
                     console.log('no errors')

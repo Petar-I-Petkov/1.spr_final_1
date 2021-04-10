@@ -38,9 +38,10 @@ public class ApplicationBeanConfiguration {
 //        return new ObjectMapper();
 //    }
 
-    //todo - ActiveTestTransporter Bean - change the scope/make prototype?
-    //todo - ActiveTestTransporter -  move somewhere else?
+    //TODO - ActiveTestTransporter Bean - change the scope/make prototype?
+    //TODO - ActiveTestTransporter -  move somewhere else?
     @Bean
+    @Scope("prototype")
     public ActiveTestTransporter activeTestTransporter(){
         return new ActiveTestTransporter();
     }

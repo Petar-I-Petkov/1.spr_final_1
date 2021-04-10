@@ -9,7 +9,6 @@ public class ActiveQuestionViewModel {
     private String question;
     private List<String> answers;
     private ArticleViewModel articleViewModel;
-    private String givenAnswer;
 
     public ActiveQuestionViewModel() {
     }
@@ -54,11 +53,4 @@ public class ActiveQuestionViewModel {
         this.articleViewModel = articleViewModel;
     }
 
-    public String getGivenAnswer() {
-        return givenAnswer;
-    }
-
-    public void setGivenAnswer(String givenAnswer) {
-        this.givenAnswer = givenAnswer;
-    }
 }

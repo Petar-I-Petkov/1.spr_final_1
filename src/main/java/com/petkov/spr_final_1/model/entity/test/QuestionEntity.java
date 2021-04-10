@@ -119,7 +119,7 @@ public class QuestionEntity extends BaseEntity {
     }
 
 
-    @ManyToOne// - todo - refractor this (cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)// - todo - refactor this (cascade = CascadeType.ALL)
     public ArticleEntity getArticle() {
         return article;
     }

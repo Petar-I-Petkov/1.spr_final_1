@@ -13,4 +13,6 @@ public interface QuestionRepository extends JpaRepository<QuestionEntity, String
 
     Optional<QuestionEntity> findByQuestion(String question);
 
+
+
 }

@@ -1,20 +1,30 @@
 package com.petkov.spr_final_1.service.impl;
 
+import com.petkov.spr_final_1.model.binding.test.SubmitTestBindingModel;
+import com.petkov.spr_final_1.model.entity.UserEntity;
+import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
+import com.petkov.spr_final_1.model.entity.test.SubmittedQuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
+import com.petkov.spr_final_1.model.service.test.CompletedTestServiceModel;
 import com.petkov.spr_final_1.model.service.test.TestServiceModel;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
-import com.petkov.spr_final_1.model.view.ActiveTestViewModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
 import com.petkov.spr_final_1.model.view.TestThumbnailViewModel;
 import com.petkov.spr_final_1.repository.TestRepository;
 import com.petkov.spr_final_1.service.ArticleService;
 import com.petkov.spr_final_1.service.QuestionService;
 import com.petkov.spr_final_1.service.TestService;
+import com.petkov.spr_final_1.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,31 +34,56 @@ public class TestServiceImpl implements TestService {
     private final ModelMapper modelMapper;
     private final ArticleService articleService;
     private final QuestionService questionService;
+    private final UserService userService;
 
     public TestServiceImpl(TestRepository testRepository,
                            ModelMapper modelMapper,
                            ArticleService articleService,
-                           QuestionService questionService) {
+                           QuestionService questionService, UserService userService) {
         this.testRepository = testRepository;
         this.modelMapper = modelMapper;
         this.articleService = articleService;
         this.questionService = questionService;
+        this.userService = userService;
     }
 
     @Override
     @Transactional
-    public ActiveTestViewModel getActiveTestById(String id) {
+    public ActiveTestEntity buildActiveTest(String id) {
 
         TestEntity testEntity =
                 testRepository.findById(id)
                         .orElseThrow(() ->
                                 new IllegalArgumentException(String.format("Test with id '%s' not found", id)));
 
-        ActiveTestViewModel activeTestViewModel
-                = modelMapper.map(testEntity, ActiveTestViewModel.class);
+        ActiveTestEntity activeTestEntity
+                = modelMapper.map(testEntity, ActiveTestEntity.class);
 
-        int[] index = new int[]{0};
 
+        setActiveQuestionViewModels(testEntity, activeTestEntity);
+
+        setSubmittedQuestionServiceModels(testEntity, activeTestEntity);
+
+        return activeTestEntity;
+    }
+
+    private void setSubmittedQuestionServiceModels(TestEntity testEntity, ActiveTestEntity activeTestEntity) {
+        List<SubmittedQuestionEntity> submittedQuestionEntities =
+                testEntity.getQuestions()
+                        .stream()
+                        .map(questionEntity -> {
+
+                            SubmittedQuestionEntity submittedQuestionEntity =
+                                    modelMapper.map(questionEntity, SubmittedQuestionEntity.class);
+
+                            return submittedQuestionEntity;
+
+                        }).collect(Collectors.toList());
+
+        activeTestEntity.setSubmittedQuestionEntities(submittedQuestionEntities);
+    }
+
+    private void setActiveQuestionViewModels(TestEntity testEntity, ActiveTestEntity activeTestEntity) {
         List<ActiveQuestionViewModel> activeQuestionViewModels =
                 testEntity.getQuestions()
                         .stream()
@@ -57,41 +92,42 @@ public class TestServiceImpl implements TestService {
                             ActiveQuestionViewModel activeQuestionViewModel =
                                     modelMapper.map(questionEntity, ActiveQuestionViewModel.class);
 
-                            //set article
-                            ArticleViewModel articleViewModel =
-                                    modelMapper.map(questionEntity.getArticle(), ArticleViewModel.class);
-
-                            activeQuestionViewModel.setArticleViewModel(articleViewModel);
+                            //set article to question if article exists
+                            setArticleToQuestionIfNotNull(questionEntity, activeQuestionViewModel);
 
                             //set answers
-                            List<String> answers = List.of(
-                                    questionEntity.getCorrectAnswer(),
-                                    questionEntity.getAltAnswer1(),
-                                    questionEntity.getAltAnswer2(),
-                                    questionEntity.getAltAnswer3(),
-                                    questionEntity.getAltAnswer4()
-                            );
-
-                            activeQuestionViewModel.setAnswers(answers);
-
-                            //populate the correct/given answer matrices
-                            activeTestViewModel.getCorrectAnswerMatrix().put(index[0], questionEntity.getCorrectAnswer());
-                            activeTestViewModel.getGivenAnswerMatrix().put(index[0],"not answered");
-                            index[0]++;
+                            //TODO - randomise setting answers,
+                            //                 so they appear different on page every time
+                            setAnswersToQuestionAsList(questionEntity, activeQuestionViewModel);
 
                             return activeQuestionViewModel;
                         })
                         .collect(Collectors.toList());
 
+        activeTestEntity.setQuestionEntities(activeQuestionViewModels);
+    }
 
+    private void setAnswersToQuestionAsList(com.petkov.spr_final_1.model.entity.test.QuestionEntity questionEntity, ActiveQuestionViewModel activeQuestionViewModel) {
+        List<String> answers = List.of(
+                questionEntity.getCorrectAnswer(),
+                questionEntity.getAltAnswer1(),
+                questionEntity.getAltAnswer2(),
+                questionEntity.getAltAnswer3(),
+                questionEntity.getAltAnswer4()
+        );
 
+        activeQuestionViewModel.setAnswers(answers);
+    }
 
-        activeTestViewModel.setQuestionEntities(activeQuestionViewModels);
+    private void setArticleToQuestionIfNotNull(com.petkov.spr_final_1.model.entity.test.QuestionEntity questionEntity, ActiveQuestionViewModel activeQuestionViewModel) {
+        try {
+            ArticleViewModel articleViewModel =
+                    modelMapper.map(questionEntity.getArticle(), ArticleViewModel.class);
 
-        //todo ActiveTestViewModel debug point
-        System.out.println();
-
-        return activeTestViewModel;
+            activeQuestionViewModel.setArticleViewModel(articleViewModel);
+        } catch (IllegalArgumentException exception) {
+            //todo handle exception elsewhere and advise in Log?
+        }
     }
 
     @Override
@@ -114,6 +150,6 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public TestServiceModel seedTestToDb(TestServiceModel testServiceModel) {
-
+        return null;
     }
 }

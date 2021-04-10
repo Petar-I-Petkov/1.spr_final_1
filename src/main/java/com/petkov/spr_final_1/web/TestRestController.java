@@ -64,7 +64,11 @@ public class TestRestController {
             TestServiceModel testServiceModel =
                     this.modelMapper.map(testAddBindingModel, TestServiceModel.class);
 
-            return ResponseEntity
+        //todo addTest() debugPoint
+        System.out.println();
+
+
+        return ResponseEntity
                     .ok()
                     .body(testServiceModel);
 

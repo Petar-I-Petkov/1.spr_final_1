@@ -5,26 +5,26 @@ import java.util.Map;
 
 public class SubmitTestBindingModel {
 
-    private Map<Integer, String> correctAnswerMatrix = new LinkedHashMap<>();
-    private Map<Integer, String> givenAnswerMatrix = new LinkedHashMap<>();
+    private Map<String, String> askedQuestionMatrix = new LinkedHashMap<>();
+    private Map<String, String> givenAnswerMatrix = new LinkedHashMap<>();
 
     public SubmitTestBindingModel() {
     }
 
 
-    public Map<Integer, String> getCorrectAnswerMatrix() {
-        return correctAnswerMatrix;
+    public Map<String, String> getAskedQuestionMatrix() {
+        return askedQuestionMatrix;
     }
 
-    public void setCorrectAnswerMatrix(Map<Integer, String> correctAnswerMatrix) {
-        this.correctAnswerMatrix = correctAnswerMatrix;
+    public void setAskedQuestionMatrix(Map<String, String> askedQuestionMatrix) {
+        this.askedQuestionMatrix = askedQuestionMatrix;
     }
 
-    public Map<Integer, String> getGivenAnswerMatrix() {
+    public Map<String, String> getGivenAnswerMatrix() {
         return givenAnswerMatrix;
     }
 
-    public void setGivenAnswerMatrix(Map<Integer, String> givenAnswerMatrix) {
+    public void setGivenAnswerMatrix(Map<String, String> givenAnswerMatrix) {
         this.givenAnswerMatrix = givenAnswerMatrix;
     }
 }

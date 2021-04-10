@@ -163,5 +163,16 @@ public class QuestionServiceImpl implements QuestionService {
                 .orTimeout(30, TimeUnit.SECONDS);
     }
 
+    @Override
+    public QuestionServiceModel findById(String id) {
+
+        QuestionEntity questionEntity = questionRepository
+                .findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Question not found ind DB."));
+
+        return modelMapper.map(questionEntity, QuestionServiceModel.class );
+
+    }
+
 
 }

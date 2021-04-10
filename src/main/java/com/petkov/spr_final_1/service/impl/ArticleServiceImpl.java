@@ -62,12 +62,14 @@ public class ArticleServiceImpl implements ArticleService {
 
         if (!articleServiceModel.getAtaSubChapterRef().isEmpty() && !articleServiceModel.getChapterRef().isEmpty()) {
 
+            //todo - put back in controller
             int chapterRef = Integer.parseInt(articleServiceModel.getChapterRef().split(" ")[0]);
 
             // todo seedArticleToDb - add try catch
             ATAChapterEntity chapterEntity =
                     modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
+            //todo - put back in controller
             int subChapterRef = Integer.parseInt(articleServiceModel.getAtaSubChapterRef().split(" ")[0]);
             ATASubChapterEntity subChapterEntity =
                     modelMapper.map(subChapterService
@@ -77,6 +79,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleEntity.setAtaSubChapter(subChapterEntity);
 
         } else if (!articleServiceModel.getChapterRef().isEmpty()) {
+            //todo - put back in controller
             int chapterRef = Integer.parseInt(articleServiceModel.getChapterRef().split(" ")[0]);
             ATAChapterEntity chapterEntity =
                     modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
