@@ -3,6 +3,7 @@ package com.petkov.spr_final_1.model.entity.test;
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.UserEntity;
 import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
+import com.petkov.spr_final_1.model.entity.enumeration.TestTagEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public class TestEntity extends BaseEntity {
     private LocalDate dueDate;
     private UserEntity createdBy;
     private TestStatusEnum testStatusEnum;
+    private List<TestTagEnum> testTagEnums;
     private List<QuestionEntity> questionEntities;
 
     public TestEntity() {
@@ -69,6 +71,17 @@ public class TestEntity extends BaseEntity {
 
     public void setTestStatus(TestStatusEnum testStatusEnum) {
         this.testStatusEnum = testStatusEnum;
+    }
+
+    @ElementCollection(targetClass = TestTagEnum.class)
+    @CollectionTable
+    @Enumerated(EnumType.STRING)
+    public List<TestTagEnum> getTestTagEnums() {
+        return testTagEnums;
+    }
+
+    public void setTestTagEnums(List<TestTagEnum> testTagEnums) {
+        this.testTagEnums = testTagEnums;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)

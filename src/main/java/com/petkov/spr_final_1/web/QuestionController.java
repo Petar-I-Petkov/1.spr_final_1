@@ -49,7 +49,7 @@ public class QuestionController {
             model.addAttribute("questionAddBindingModel", new QuestionAddBindingModel());
         }
 
-        model.addAttribute("documentDbList", documentService.getAllDocumentsSortedByNameDesc());
+        model.addAttribute("documentDbList", documentService.findAllDocumentsSortedByNameDesc());
         model.addAttribute("chapterDBList", ataChapterService.getAllChaptersSortedByATADesc());
 
         return "questions-add";

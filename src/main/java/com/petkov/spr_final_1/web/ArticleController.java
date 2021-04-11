@@ -53,7 +53,7 @@ public class ArticleController {
             model.addAttribute("seedOk", false);
         }
 
-        model.addAttribute("documentDbList", documentService.getAllDocumentsSortedByNameDesc());
+        model.addAttribute("documentDbList", documentService.findAllDocumentsSortedByNameDesc());
         model.addAttribute("chapterDBList", ataChapterService.getAllChaptersSortedByATADesc());
 
 

@@ -56,16 +56,17 @@
                 <div>
                     <!-- Add Test Tab-->
                     <div class="row">
-                        <div class="col input-group-sm">
-                            <label class="text small" for="test-name">Name (Required)</label>
+
+                        <div class="col-sm-6 input-group-sm">
+                            <label class="text small" for="test-name">Name: (Required)</label>
                             <input type="text" class="form-control" id="test-name">
                             <div class="text small text-danger" id="test-name-err"></div>
                         </div>
 
                     </div>
-                    <div class="row">
-                        <div class="col-sm-5 input-group-sm ">
-                            <label class="text small" for="due-date">Due Date (Required)</label>
+                    <div class="row mt-2">
+                        <div class="col-sm-5 input-group-sm">
+                            <label class="text small" for="due-date">Due Date: (Required)</label>
                             <input type="date"
                                    th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
                                    class="form-control"
@@ -73,23 +74,54 @@
                             <div class="text small text-danger" id="due-date-err"></div>
 
                         </div>
-                        <div class="col-sm-5 input-group-sm d-inline" id="add-test">
-                            <button class="btn-sm btn-primary">Save Test</button>
+                        <div class="col-sm-5 input-group-sm">
+                            <label for="test-tags" class="text small">Test Tags</label>
+                            <select id="test-tags" class="form-select">
+                                <option selected>Select...</option>
+                                <option
+                                        th:each="t : ${T(com.petkov.spr_final_1.model.entity.enumeration.TestTagEnum).values()}"
+                                        th:value="${t}"
+                                        th:text="${t}">Select Tag
+                                </option>
+                            </select>
+
                         </div>
+                        <div class="col-sm-2 input-group-sm" id="add-test-tag">
+                            <div>&nbsp;</div>
+                            <button class="btn btn-sm btn-secondary">Tag</button>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+
+                        <h6 class="text-muted">Tags:</h6>
+                        <!-- Tab Tab-->
+                        <div class="col-sm-11 border border-1 rounded m-2" id="tags-container">
+
+
+
+
+                        </div>
+                        <!-- EO Tab Tab-->
+
+                        <div class="col mt-2 mx-4">
+                            <div class="col-sm-3 float-end">
+                                <button
+                                        id="add-test"
+                                        type="submit"
+                                        class="btn btn-primary btn-sm"
+                                        style="width: 100%">
+                                    Add Test
+                                </button>
+                            </div>
+
+                        </div>
+
+
                     </div>
                     <!-- EO Add Test Tab-->
                 </div>
-                <!-- Add Test Tab-->
-                <div class="row">
-                    <div class="col"></div>
 
-
-                </div>
-                <div class="row">
-
-
-                </div>
-                <!-- EO Add Test Tab-->
 
             </div>
             <!-- EO Test Info Panel-->

@@ -9,6 +9,8 @@ import java.util.concurrent.CompletableFuture;
 
 public interface DocumentSubChapterService {
 
+    void initSeedDocumentSubchaptersFromJson();
+
     boolean subChapterExistsInDocument(String documentRef, String docSubchapterName);
 
     void seedDocumentSubchapterToDb(DocumentSubchapterServiceModel documentSubchapterServiceModel);

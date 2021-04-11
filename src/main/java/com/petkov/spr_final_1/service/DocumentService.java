@@ -9,16 +9,18 @@ import java.util.concurrent.CompletableFuture;
 
 public interface DocumentService {
 
+    void initSeedDocumentsFromJson();
+
     boolean documentExists(String documentName);
 
     DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel);
 
     DocumentServiceModel findDocumentByName(String documentName);
 
-    List<DocumentViewModel> getAllDocumentsSortedByNameDesc();
+    List<DocumentViewModel> findAllDocumentsSortedByNameDesc();
 
     DocumentServiceModel findDocumentById(String id);
 
-    CompletableFuture<List<DocumentViewModel>> getAllDocumentsSortedByNameDescAsync();
+    CompletableFuture<List<DocumentViewModel>> findAllDocumentsSortedByNameDescAsync();
 
 }

@@ -1,6 +1,7 @@
 package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.test.SubmitTestBindingModel;
+import com.petkov.spr_final_1.model.binding.test.TestAddBindingModel;
 import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
 import com.petkov.spr_final_1.service.CompletedTestService;
 import com.petkov.spr_final_1.utils.ActiveTestTransporter;

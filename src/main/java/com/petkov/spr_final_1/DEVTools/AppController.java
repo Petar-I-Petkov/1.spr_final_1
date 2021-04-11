@@ -45,7 +45,7 @@ public class AppController implements CommandLineRunner {
     private TestEntity generateDummyTestWithQuestions() {
         TestEntity testEntity = new TestEntity();
         testEntity.setName("Engines");
-        testEntity.setTestStatus(TestStatusEnum.PENDING);
+        testEntity.setTestStatus(TestStatusEnum.ACTIVE);
         testEntity.setDateCreated(LocalDate.now());
         testEntity.setDueDate(LocalDate.now());
 

@@ -37,7 +37,7 @@ public class DocumentRestController {
         DeferredResult<ResponseEntity<List<DocumentViewModel>>> deferredResult = new DeferredResult<>();
 
         documentService
-                .getAllDocumentsSortedByNameDescAsync()
+                .findAllDocumentsSortedByNameDescAsync()
                 .thenApply(documentViewModels ->
                         deferredResult.setResult(ResponseEntity
                                 .ok()

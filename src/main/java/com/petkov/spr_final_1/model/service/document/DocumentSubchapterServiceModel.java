@@ -1,5 +1,6 @@
 package com.petkov.spr_final_1.model.service.document;
 
+import com.google.gson.annotations.Expose;
 import com.petkov.spr_final_1.model.service.BaseServiceModel;
 
 import javax.validation.constraints.NotBlank;
@@ -7,7 +8,9 @@ import javax.validation.constraints.Size;
 
 public class DocumentSubchapterServiceModel extends BaseServiceModel {
 
+    @Expose
     private String docSubchapterName;
+    @Expose
     private String documentRef;
 
     public DocumentSubchapterServiceModel() {

@@ -1,5 +1,6 @@
 package com.petkov.spr_final_1.model.service.document;
 
+import com.google.gson.annotations.Expose;
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
 import com.petkov.spr_final_1.model.service.BaseServiceModel;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class DocumentServiceModel extends BaseServiceModel {
 
+    @Expose
     private String documentName;
     private List<ArticleEntity> paragraphs = new ArrayList<>();
 

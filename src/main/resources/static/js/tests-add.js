@@ -122,6 +122,77 @@ function transferQuestion(e) {
     }
 }
 
+function addTag() {
+
+    const tagDropdownEl = document.getElementById('test-tags');
+    const addTagBtn = document.getElementById('add-test-tag');
+    const tagContainer = document.getElementById('tags-container');
+
+    addTagBtn.addEventListener('click', (e) => {
+
+        let selectedIndex = tagDropdownEl.selectedIndex;
+        let tagName = tagDropdownEl.options[selectedIndex].text;
+
+        if (selectedIndex !== 0) {
+
+            //tag div
+            let tagDiv = document.createElement('div');
+            tagDiv.className = "my-2 mx-1 float-start";
+
+            //tag inputDiv
+            let inputDiv = document.createElement('div');
+            inputDiv.className = "input-group";
+
+            //tag text Div + inner Div
+            let tagTextDiv = document.createElement('div');
+            tagTextDiv.className = "p-2 border border-1";
+            let tagTestInnerDiv = document.createElement('div');
+            tagTestInnerDiv.className = "text text-truncate small test-tag";
+            tagTestInnerDiv.textContent = tagName;
+            tagTextDiv.appendChild(tagTestInnerDiv);
+
+            //buttonDiv
+            let closeTagBtn = document.createElement('button');
+            closeTagBtn.className = "input-group-text";
+            closeTagBtn.textContent = 'x';
+
+            //fill tag div
+            inputDiv.appendChild(tagTextDiv);
+            inputDiv.appendChild(closeTagBtn);
+            tagDiv.appendChild(inputDiv);
+
+            //attach to container
+            tagContainer.appendChild(tagDiv)
+
+            //remove tag button event
+            closeTagBtn.addEventListener('click', (e) => {
+                tagDropdownEl.selectedIndex = -1;
+                tagDiv.remove();
+            })
+
+            // <div className="my-2 mx-1 float-start">
+            //     <div className="input-group">
+            //         <div className="p-2 border border-1">
+            //             <div className="text text-truncate small test-tag">
+            //                 FCOM
+            //             </div>
+            //         </div>
+            //         <button className="input-group-text">
+            //             x
+            //         </button>
+            //     </div>
+            // </div>
+
+        }
+
+
+    })
+
+
+}
+
+addTag();
+
 function postTestAndHandleErrors() {
 
     const saveBtn = document.getElementById('add-test');
@@ -131,6 +202,8 @@ function postTestAndHandleErrors() {
         let nameEl = document.getElementById('test-name');
         let dueDateEl = document.getElementById('due-date');
         let questionIds = [];
+        let testTags = Array.from(document.getElementsByClassName('test-tag'))
+            .map(element => element.textContent);
 
         //get question list from page
         Array.from(document
@@ -142,8 +215,10 @@ function postTestAndHandleErrors() {
         let addTestObj = JSON.stringify({
             name: nameEl.value,
             dueDate: dueDateEl.value,
-            questionIds: questionIds
+            questionIds: questionIds,
+            testTagEnums: testTags
         })
+        console.log(addTestObj);
 
 
         fetch(`${testApiUrl}`, {
@@ -157,7 +232,7 @@ function postTestAndHandleErrors() {
         })
             .then(response => {
 
-                if (response.ok || response.status === 422){
+                if (response.ok || response.status === 422) {
                     return response.json();
                 }
 
@@ -165,6 +240,8 @@ function postTestAndHandleErrors() {
 
             })
             .then(data => {
+
+                console.log(data)
 
                 if (data['errors']) {
 
