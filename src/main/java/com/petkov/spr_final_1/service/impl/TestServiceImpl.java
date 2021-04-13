@@ -2,10 +2,13 @@ package com.petkov.spr_final_1.service.impl;
 
 import com.petkov.spr_final_1.model.binding.test.SubmitTestBindingModel;
 import com.petkov.spr_final_1.model.entity.UserEntity;
+import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
 import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
+import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.SubmittedQuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
 import com.petkov.spr_final_1.model.service.test.CompletedTestServiceModel;
+import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
 import com.petkov.spr_final_1.model.service.test.TestServiceModel;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
@@ -149,7 +152,44 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    @Transactional
     public TestServiceModel seedTestToDb(TestServiceModel testServiceModel) {
-        return null;
+
+        TestEntity testEntity =
+                modelMapper.map(testServiceModel, TestEntity.class);
+
+        //user
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        testEntity.setCreatedBy(modelMapper
+                .map(userService.findByUsername(username), UserEntity.class));
+
+        //questions
+        List<QuestionEntity> questionEntities =
+                testServiceModel.getQuestionIds()
+                        .stream()
+                        .map(questionService::findById)
+                        .map(serviceModel -> modelMapper.map(serviceModel, QuestionEntity.class))
+                        .collect(Collectors.toList());
+
+        testEntity.setQuestions(questionEntities);
+
+        //status
+        testEntity.setTestStatus(TestStatusEnum.ACTIVE);
+
+        //date Created
+        testEntity.setDateCreated(LocalDate.now());
+
+        //todo addTest() debugPoint
+        System.out.println();
+        TestEntity seedResult = testRepository.save(testEntity);
+
+        return modelMapper.map(seedResult, TestServiceModel.class);
     }
 }

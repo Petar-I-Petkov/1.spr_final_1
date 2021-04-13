@@ -3,7 +3,7 @@ package com.petkov.spr_final_1.model.view;
 public class DocumentViewModel {
 
     private String id;
-    private String documentName;
+    private String name;
 
     public DocumentViewModel() {
     }
@@ -16,11 +16,11 @@ public class DocumentViewModel {
         this.id = id;
     }
 
-    public String getDocumentName() {
-        return documentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

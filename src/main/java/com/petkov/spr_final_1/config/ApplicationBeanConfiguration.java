@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.petkov.spr_final_1.utils.ActiveTestTransporter;
+import com.petkov.spr_final_1.utils.ValidationUtil;
+import com.petkov.spr_final_1.utils.ValidationUtilImpl;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationBeanConfiguration {
 
     @Bean
-    public ModelMapper modelMapper(){
+    public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -31,6 +33,12 @@ public class ApplicationBeanConfiguration {
         return new GsonBuilder().
                 excludeFieldsWithoutExposeAnnotation().
                 create();
+    }
+
+    @Bean
+    public ValidationUtil validationUtil() {
+        return new ValidationUtilImpl() {
+        };
     }
 
 //    @Bean
@@ -42,7 +50,7 @@ public class ApplicationBeanConfiguration {
     //TODO - ActiveTestTransporter -  move somewhere else?
     @Bean
     @Scope("prototype")
-    public ActiveTestTransporter activeTestTransporter(){
+    public ActiveTestTransporter activeTestTransporter() {
         return new ActiveTestTransporter();
     }
 }

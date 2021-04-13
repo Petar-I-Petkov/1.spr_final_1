@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class DocumentSubchapterAddBindingModel {
 
     private String docSubchapterName;
-    private String documentRef;
+    private String document;
 
     public DocumentSubchapterAddBindingModel() {
     }
@@ -24,11 +24,11 @@ public class DocumentSubchapterAddBindingModel {
     }
 
     @NotBlank(message = "Document required.")
-    public String getDocumentRef() {
-        return documentRef;
+    public String getDocument() {
+        return document;
     }
 
-    public void setDocumentRef(String documentRef) {
-        this.documentRef = documentRef;
+    public void setDocument(String document) {
+        this.document = document;
     }
 }

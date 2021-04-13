@@ -11,7 +11,6 @@ public class DocumentSubchapterEntity extends BaseEntity {
 
     private String docSubchapterName;
     private DocumentEntity document;
-    private List<ArticleEntity> articles;
 
     public DocumentSubchapterEntity() {
     }
@@ -35,12 +34,4 @@ public class DocumentSubchapterEntity extends BaseEntity {
         this.document = document;
     }
 
-    @OneToMany(mappedBy = "documentSubchapter", targetEntity = ArticleEntity.class)
-    public List<ArticleEntity> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleEntity> articles) {
-        this.articles = articles;
-    }
 }

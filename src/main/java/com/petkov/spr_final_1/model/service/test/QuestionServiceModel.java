@@ -29,6 +29,7 @@ public class QuestionServiceModel extends BaseServiceModel {
     public QuestionServiceModel() {
     }
 
+
     @NotNull(message = "Question title is required.")
     @Size(min = 3, message = "Question title should be min 3 characters.")
     public String getName() {

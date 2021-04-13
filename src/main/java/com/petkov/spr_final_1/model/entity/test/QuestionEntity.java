@@ -19,8 +19,6 @@ public class QuestionEntity extends BaseEntity {
     private String altAnswer3;
     private String altAnswer4;
 
-    private List<TestEntity> tests;
-
     private ArticleEntity article;
 
     private ATAChapterEntity chapter;
@@ -103,21 +101,6 @@ public class QuestionEntity extends BaseEntity {
     public void setAltAnswer4(String altAnswer4) {
         this.altAnswer4 = altAnswer4;
     }
-
-    @ManyToMany
-    @JoinTable(
-            name = "tests_questions",
-            joinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "test_id", referencedColumnName = "id")
-    )
-    public List<TestEntity> getTests() {
-        return tests;
-    }
-
-    public void setTests(List<TestEntity> tests) {
-        this.tests = tests;
-    }
-
 
     @ManyToOne(cascade = CascadeType.ALL)// - todo - refactor this (cascade = CascadeType.ALL)
     public ArticleEntity getArticle() {

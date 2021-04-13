@@ -11,7 +11,7 @@ public class DocumentSubchapterServiceModel extends BaseServiceModel {
     @Expose
     private String docSubchapterName;
     @Expose
-    private String documentRef;
+    private String document;
 
     public DocumentSubchapterServiceModel() {
     }
@@ -27,11 +27,11 @@ public class DocumentSubchapterServiceModel extends BaseServiceModel {
     }
 
     @NotBlank(message = "Document required.")
-    public String getDocumentRef() {
-        return documentRef;
+    public String getDocument() {
+        return document;
     }
 
-    public void setDocumentRef(String documentRef) {
-        this.documentRef = documentRef;
+    public void setDocument(String document) {
+        this.document = document;
     }
 }

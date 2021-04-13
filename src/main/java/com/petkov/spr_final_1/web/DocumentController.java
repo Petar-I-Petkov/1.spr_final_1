@@ -47,7 +47,7 @@ public class DocumentController {
         return "documents";
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     public String addDocumentConfirm(@Valid DocumentAddBindingModel documentAddBindingModel,
                                      BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) {
@@ -60,7 +60,7 @@ public class DocumentController {
             return "redirect:/documents";
         }
 
-        if (documentService.documentExists(documentAddBindingModel.getDocumentName())) {
+        if (documentService.documentExists(documentAddBindingModel.getName())) {
 
             redirectAttributes.addFlashAttribute("documentAddBindingModel", documentAddBindingModel);
             redirectAttributes

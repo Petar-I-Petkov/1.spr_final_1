@@ -13,6 +13,4 @@ public interface DocumentSubchapterRepository extends JpaRepository<DocumentSubc
     Optional<DocumentSubchapterEntity> findByDocumentAndDocSubchapterName(DocumentEntity document,
                                                                           String docSubchapterName);
 
-    Optional<DocumentSubchapterEntity> findByDocSubchapterName(String docSubchapterName);
-
 }

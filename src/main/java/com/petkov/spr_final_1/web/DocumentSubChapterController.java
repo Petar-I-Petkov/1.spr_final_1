@@ -53,7 +53,7 @@ public class DocumentSubChapterController {
         return "document-subchapters";
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     public String addSubChapterConfirm(@Valid DocumentSubchapterAddBindingModel documentSubchapterAddBindingModel,
                                        BindingResult bindingResult,
                                        RedirectAttributes redirectAttributes) {
@@ -70,7 +70,7 @@ public class DocumentSubChapterController {
         }
 
         if (documentSubChapterService.subChapterExistsInDocument(
-                documentSubchapterAddBindingModel.getDocumentRef(),
+                documentSubchapterAddBindingModel.getDocument(),
                 documentSubchapterAddBindingModel.getDocSubchapterName()
         )) {
 

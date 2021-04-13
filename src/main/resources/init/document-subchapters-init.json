@@ -1,18 +1,18 @@
 [
   {
     "docSubchapterName": "aircraft systems",
-    "documentRef": "fcom"
+    "document": "fcom"
   },
   {
     "docSubchapterName": "procedures",
-    "documentRef": "fcom"
+    "document": "fcom"
   },
   {
     "docSubchapterName": "limitations",
-    "documentRef": "fcom"
+    "document": "fcom"
   },
   {
     "docSubchapterName": "performance",
-    "documentRef": "fcom"
+    "document": "fcom"
   }
 ]

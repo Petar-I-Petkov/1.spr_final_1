@@ -93,7 +93,7 @@
 
                         <div class="mx-5">
                             <form method="POST"
-                                  th:action="@{/documents}">
+                                  th:action="@{/documents/add}">
 
                                 <table class="table table-borderless">
                                     <tbody>
@@ -108,9 +108,9 @@
                                         <td>
                                             <div class="input-group input-group-sm">
                                                 <input
-                                                        th:value="*{documentName}"
-                                                        id="documentName"
-                                                        name="documentName"
+                                                        th:value="*{name}"
+                                                        id="name"
+                                                        name="name"
                                                         type="text" class="form-control" placeholder="Document">
                                             </div>
                                         </td>
@@ -127,7 +127,7 @@
                                     <tr>
                                         <td class="text-center small">
                                             <small
-                                                    th:each="e: ${#fields.errors('documentName')}"
+                                                    th:each="e: ${#fields.errors('name')}"
                                                     th:text="${e}"
                                                     id="nameError"
                                                     class="text-danger">

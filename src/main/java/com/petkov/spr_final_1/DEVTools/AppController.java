@@ -34,7 +34,6 @@ public class AppController implements CommandLineRunner {
         //number of tests in db
         System.out.printf("tests: %d%n", this.testRepository.count());
 
-
         //testRepository.saveAndFlush(generateDummyTestWithQuestions());
 
         printTests();

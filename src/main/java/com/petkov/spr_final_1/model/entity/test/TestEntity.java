@@ -84,11 +84,12 @@ public class TestEntity extends BaseEntity {
         this.testTagEnums = testTagEnums;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany // todo - refactor this (cascade = CascadeType.ALL) -\
+                     // todo it has no place here when using frontend to add tests
     @JoinTable(
             name = "tests_questions",
-            joinColumns = @JoinColumn(name = "test_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "test_id", referencedColumnName = "id")
     )
     public List<QuestionEntity> getQuestions() {
         return questionEntities;

@@ -95,30 +95,30 @@
 
                                     <div class="col-sm-6">
 
-                                        <label for="documentRef"
+                                        <label for="document"
                                                class="form-label text-start small">
                                             Document Ref. (Required)
                                         </label>
 
                                         <div class="input-group input-group-sm">
                                             <select
-                                                    id="documentRef"
-                                                    name="documentRef"
+                                                    id="document"
+                                                    name="document"
                                                     class="form-select"
                                                     aria-label="Select Document Reference">
 
-                                                <option selected th:text="*{documentRef}">Select...</option>
+                                                <option selected th:text="*{document}">Select...</option>
                                                 <option
                                                         th:each="d : ${documentDBList}"
-                                                        th:text="${#strings.toUpperCase(d.documentName)}">
+                                                        th:text="${#strings.toUpperCase(d.name)}">
                                                     One
                                                 </option>
                                             </select>
                                         </div>
 
-                                        <div th:each="e: ${#fields.errors('documentRef')}"
+                                        <div th:each="e: ${#fields.errors('document')}"
                                              th:text="${e}"
-                                             id="documentRefError"
+                                             id="documentError"
                                              class="text-danger small">
                                             Error
                                         </div>

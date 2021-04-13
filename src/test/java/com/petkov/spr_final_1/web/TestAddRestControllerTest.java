@@ -1,7 +1,13 @@
 package com.petkov.spr_final_1.web;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.petkov.spr_final_1.model.entity.enumeration.TestTagEnum;
 import com.petkov.spr_final_1.service.TestService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
+import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
@@ -9,67 +15,95 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = TestRestController.class)
+@EnableWebMvc
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 public class TestAddRestControllerTest {
-
-//    @TestConfiguration
-//    static class TestAddRestControllerTestContextConfiguration {
-//        @Bean
-//        public TestService testService() {
-//            return new TestService() {
-//                @Override
-//                public ActiveTestViewModel getActiveTestById(String id) {
-//                    return null;
-//                }
-//
-//                @Override
-//                public List<TestThumbnailViewModel> getAllUpcomingTestsView() {
-//                    return null;
-//                }
-//            };
-//        }
-//    }
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private TestService testService;
-
     @MockBean
     private ModelMapper modelMapper;
-
     @MockBean
     private ValidationUtil validationUtil;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
 
 
     @Test
     @WithMockUser(value = "pesho", roles = {"USER", "ADMIN"})
-    public void test() throws Exception {
+    public void testApiAddReturns_BadRequest() throws Exception {
 
-
-        mockMvc
+        String objAsString =
+                """
+                {
+                "name":"",
+                "dueDate":"",
+                "questionIds":[],
+                "testTagEnums":[]
+                }
+                """;
+            mockMvc
                 .perform(post("/tests/api")
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("name", "1")
-                        .param("dueDate", "1")
-                        .param("questionIds","1"))
-                .andExpect(status().isUnprocessableEntity());
+                        .content(objAsString)
+                )
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    @WithMockUser(value = "pesho", roles = {"USER", "ADMIN"})
+    public void testApiAddReturns_ResponseOk_with_responseBody() throws Exception {
+
+        String objAsString =
+                """
+                {
+                "name":"TEST",
+                "dueDate":"2035-10-17",
+                "questionIds":["6760c290-926a-4321-a599-d0db95a4dd3e"],
+                "testTagEnums":["AFL"]
+                }
+                """;
+
+        MvcResult result = mockMvc
+                .perform(post("/tests/api")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objAsString)
+                )
+                .andExpect(status().isCreated())
+                .andReturn();
+
+//        System.out.println(result.getResponse().getContentAsString());
+
     }
 }

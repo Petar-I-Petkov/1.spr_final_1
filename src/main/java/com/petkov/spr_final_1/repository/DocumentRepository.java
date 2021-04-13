@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface DocumentRepository extends JpaRepository<DocumentEntity, String> {
 
-    Optional<DocumentEntity> findByDocumentName(String documentName);
+    Optional<DocumentEntity> findByName(String documentName);
 
 }

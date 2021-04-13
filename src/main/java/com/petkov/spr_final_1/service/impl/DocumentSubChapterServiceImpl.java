@@ -12,6 +12,7 @@ import com.petkov.spr_final_1.service.DocumentSubChapterService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
@@ -39,13 +40,13 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
     private final ValidationUtil validationUtil;
 
     public DocumentSubChapterServiceImpl(DocumentSubchapterRepository documentSubchapterRepository,
-                                         DocumentService documentService,
+                                         @Lazy DocumentService documentService,
                                          ModelMapper modelMapper,
-                                         @Value("classpath:init/document-subchapters-init.json")Resource documentInitFile,
+                                         @Value("classpath:init/document-subchapters-init.json") Resource documentInitFile,
                                          Gson gson,
                                          ValidationUtil validationUtil) {
         this.documentSubchapterRepository = documentSubchapterRepository;
-        this.documentService = documentService;
+     this.documentService = documentService;
         this.modelMapper = modelMapper;
         this.documentInitFile = documentInitFile;
         this.gson = gson;
@@ -53,22 +54,22 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
     }
 
     @Override
+    @Transactional
     public void initSeedDocumentSubchaptersFromJson() {
-        if (documentSubchapterRepository.count() == 0) {
-            try {
-                DocumentSubchapterServiceModel[] documentSubchapterServiceModels =
-                        gson.fromJson(Files.readString(Path.of(documentInitFile.getURI())),
-                                DocumentSubchapterServiceModel[].class);
 
-                Arrays
-                        .stream(documentSubchapterServiceModels)
-                        .forEach(this::seedIfValidOrPrintError);
+        try {
+            DocumentSubchapterServiceModel[] documentSubchapterServiceModels =
+                    gson.fromJson(Files.readString(Path.of(documentInitFile.getURI())),
+                            DocumentSubchapterServiceModel[].class);
 
-                // TODO: 4/11/2021 -  initSeedDocumentsFromJson - add successfull seed message
+            Arrays
+                    .stream(documentSubchapterServiceModels)
+                    .forEach(this::seedIfValidOrPrintError);
 
-            } catch (IOException e) {
-                throw new IllegalStateException("IO error from file 'init/document-subchapters-init.json'!");
-            }
+            // TODO: 4/11/2021 -  initSeedDocumentsFromJson - add successfull seed message
+
+        } catch (IOException e) {
+            throw new IllegalStateException("IO error from file 'init/document-subchapters-init.json'!");
         }
     }
 
@@ -76,15 +77,23 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
 
         if (this.validationUtil.isValid(documentSubchapterServiceModel)) {
 
+            DocumentEntity documentEntity =
+                    modelMapper.map(documentService
+                            .findDocumentByName(documentSubchapterServiceModel.getDocument()), DocumentEntity.class);
+
             DocumentSubchapterEntity documentSubchapterEntity =
                     modelMapper.map(documentSubchapterServiceModel, DocumentSubchapterEntity.class);
 
-            DocumentEntity documentEntity =
-                    modelMapper.map(documentService
-                            .findDocumentByName(documentSubchapterServiceModel.getDocumentRef()), DocumentEntity.class);
 
-            documentSubchapterEntity.setDocument(documentEntity);
-            documentSubchapterRepository.saveAndFlush(documentSubchapterEntity);
+            boolean subChapterExists =
+                    subChapterExistsInDocument(documentEntity.getName(),
+                            documentSubchapterServiceModel.getDocSubchapterName());
+
+            if (!subChapterExists) {
+                documentSubchapterEntity.setDocument(documentEntity);
+                documentSubchapterRepository.saveAndFlush(documentSubchapterEntity);
+            }
+
 
         } else {
             //todo seedChaptersIfValidOrPrintError - Log errors io printing
@@ -95,23 +104,24 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
                     .map(ConstraintViolation::getMessage)
                     .forEach(System.out::println);
             System.out.printf("For document '%s - %s'%n",
-                    documentSubchapterServiceModel.getDocumentRef(),
+                    documentSubchapterServiceModel.getDocument(),
                     documentSubchapterServiceModel.getDocSubchapterName());
         }
     }
 
 
     @Override
-    public boolean subChapterExistsInDocument(String documentRef, String docSubchapterName) {
+    public boolean subChapterExistsInDocument(String documentName, String docSubchapterName) {
 
         DocumentEntity documentEntity =
-                modelMapper.map(documentService.findDocumentByName(documentRef), DocumentEntity.class);
+                modelMapper.map(documentService.findDocumentByName(documentName), DocumentEntity.class);
 
-        if (documentEntity.getDocSubchapters() != null) {
-            return documentEntity.getDocSubchapters().contains(docSubchapterName);
-        }
+        DocumentSubchapterEntity documentSubchapterEntity =
+                documentSubchapterRepository
+                        .findByDocumentAndDocSubchapterName(documentEntity, docSubchapterName)
+                .orElse(null);
 
-        return false;
+        return documentSubchapterEntity != null;
     }
 
     @Override
@@ -122,7 +132,7 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
                 modelMapper.map(serviceModel, DocumentSubchapterEntity.class);
 
         DocumentEntity documentEntity
-                = modelMapper.map(documentService.findDocumentByName(serviceModel.getDocumentRef()),
+                = modelMapper.map(documentService.findDocumentByName(serviceModel.getDocument()),
                 DocumentEntity.class);
 
         documentSubchapterEntity.setDocument(documentEntity);
@@ -140,7 +150,7 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
                     DocumentSubchapterViewModel documentSubchapterViewModel =
                             modelMapper.map(documentSubchapterEntity, DocumentSubchapterViewModel.class);
 
-                    documentSubchapterViewModel.setDocumentRef(documentSubchapterEntity.getDocument().getDocumentName());
+                    documentSubchapterViewModel.setDocumentRef(documentSubchapterEntity.getDocument().getName());
 
                     return documentSubchapterViewModel;
                 })
@@ -163,7 +173,7 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
                 modelMapper.map(documentService.findDocumentByName(documentName), DocumentEntity.class);
 
         DocumentSubchapterEntity documentSubchapterEntity = documentSubchapterRepository
-                        .findByDocumentAndDocSubchapterName(documentEntity, subchapterName)
+                .findByDocumentAndDocSubchapterName(documentEntity, subchapterName)
                 .orElseThrow(() -> new IllegalArgumentException("Document Subchapter not found in DB."));
 
         return modelMapper.map(documentSubchapterEntity, DocumentSubchapterServiceModel.class);

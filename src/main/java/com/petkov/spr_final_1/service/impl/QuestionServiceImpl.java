@@ -64,9 +64,6 @@ public class QuestionServiceImpl implements QuestionService {
 
         setArticleIfNotNull(questionServiceModel, questionEntity);
 
-
-        //todo seedQuestionToDb debug point
-        System.out.println();
         questionRepository.saveAndFlush(questionEntity);
     }
 
@@ -82,7 +79,6 @@ public class QuestionServiceImpl implements QuestionService {
             } catch (IllegalArgumentException exception) {
                 //todo - advice somewhere for the exception
             }
-
         }
     }
 
@@ -166,12 +162,27 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionServiceModel findById(String id) {
 
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
         QuestionEntity questionEntity = questionRepository
                 .findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("Question not found ind DB."));
+                .orElseThrow(() -> new IllegalArgumentException("Question not found ind DB."));
 
-        return modelMapper.map(questionEntity, QuestionServiceModel.class );
+        QuestionServiceModel questionServiceModel =
+                modelMapper.map(questionEntity, QuestionServiceModel.class);
 
+        try {
+            questionServiceModel.setDocument(questionEntity.getDocument().getName());
+        } catch (NullPointerException ignored) {
+        }
+
+        try {
+            questionServiceModel
+                    .setDocumentSubchapter(questionEntity.getDocumentSubchapter().getDocSubchapterName());
+        } catch (NullPointerException ignored) {
+        }
+
+        return questionServiceModel;
     }
 
 

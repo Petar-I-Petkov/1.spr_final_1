@@ -23,4 +23,5 @@ public interface DocumentService {
 
     CompletableFuture<List<DocumentViewModel>> findAllDocumentsSortedByNameDescAsync();
 
+    DocumentServiceModel renameDocument(DocumentServiceModel documentServiceModel, String newName);
 }

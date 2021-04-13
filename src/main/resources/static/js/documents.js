@@ -18,7 +18,7 @@ function renderAllDocuments() {
             if (response.ok) {
                 return response.json();
             } else {
-                const message = `Documents COULD NOT BE LOADED FROM ${allChaptersUrl}`;
+                const message = `Documents COULD NOT BE LOADED FROM ${allDocumentsUrl}`;
                 displayRestGetAllError(message);
                 return Promise.reject(new Error(message + response.status + response.statusText));
             }
@@ -32,11 +32,12 @@ function renderAllDocuments() {
 
         })
         .catch(error => {
-            displayRestGetAllError(`Documents COULD NOT BE LOADED FROM ${allChaptersUrl}`);
+            displayRestGetAllError(`Documents COULD NOT BE LOADED FROM ${allDocumentsUrl}`);
             console.log(error)
         });
 
-    function renderChapter({id, documentName}) {
+    function renderChapter({id, name}) {
+
 
         //new tr
         let newTr = document.createElement('tr');
@@ -53,7 +54,7 @@ function renderAllDocuments() {
         let newNameTd = document.createElement('td');
         let nameDiv = document.createElement('div');
         nameDiv.classList.add('d-inline')
-        nameDiv.textContent = documentName;
+        nameDiv.textContent = name;
         newNameTd.appendChild(nameDiv)
 
 
@@ -62,7 +63,7 @@ function renderAllDocuments() {
         newEditBtn.classList.add('btn', 'btn-outline-dark', 'mx-2', 'btn-sm', 'float-end');
         newEditBtn.innerText = 'Edit';
         newEditBtn.addEventListener('click',
-            (e) => renderEditForm(e, newNameTd, nameDiv, documentName, newEditBtn, id, nameErrorEl));
+            (e) => renderEditForm(e, newNameTd, nameDiv, name, newEditBtn, id, nameErrorEl));
 
         //add button to nameTd
         newNameTd.appendChild(newEditBtn);
@@ -137,7 +138,7 @@ function renderAllDocuments() {
 
         let editObj = JSON.stringify({
             id: id,
-            documentName: newName,
+            name: newName,
         });
 
         const token = $("meta[name='_csrf']").attr("content");
@@ -177,8 +178,6 @@ function renderAllDocuments() {
                     renderAllDocuments();
 
                 }
-
-                console.log(data)
 
             })
             .catch(error => console.log(err));

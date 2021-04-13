@@ -2,6 +2,7 @@ package com.petkov.spr_final_1.web;
 
 import com.petkov.spr_final_1.model.binding.test.TestAddBindingModel;
 import com.petkov.spr_final_1.model.service.test.TestServiceModel;
+import com.petkov.spr_final_1.model.view.TestThumbnailViewModel;
 import com.petkov.spr_final_1.service.TestService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
@@ -10,8 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RequestMapping("/tests/api")
 @RestController
@@ -59,19 +63,17 @@ public class TestRestController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<TestServiceModel> addTest(@RequestBody @Valid TestAddBindingModel testAddBindingModel) {
+    public ResponseEntity<TestThumbnailViewModel> addTest(@RequestBody @Valid TestAddBindingModel testAddBindingModel) throws URISyntaxException {
 
-            TestServiceModel testServiceModel =
+            TestServiceModel testToAdd =
                     this.modelMapper.map(testAddBindingModel, TestServiceModel.class);
 
-        //todo addTest() debugPoint
-        System.out.println();
-
+        TestServiceModel seedResult = testService.seedTestToDb(testToAdd);
 
         //todo - addTest RESt - return more restrictive response, with no ids
         return ResponseEntity
-                    .ok()
-                    .body(testServiceModel);
+                    .created(new URI("tests/api"))
+                    .body(modelMapper.map(seedResult, TestThumbnailViewModel.class));
 
     }
 }

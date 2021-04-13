@@ -6,20 +6,18 @@ import java.util.List;
 
 public class DocumentAddBindingModel {
 
-    private String documentName;
-
+    private String name;
 
     public DocumentAddBindingModel() {
     }
 
-    @NotBlank(message = "Cannot be empty. ")
+    @NotBlank(message = "Document name cannot be empty. ")
     @Size(min = 3, message = "Document name must be at least 3 characters. ")
-    public String getDocumentName() {
-        return documentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
+    public void setName(String name) {
+        this.name = name;
     }
-
 }

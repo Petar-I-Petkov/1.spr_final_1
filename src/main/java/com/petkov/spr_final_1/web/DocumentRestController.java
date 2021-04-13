@@ -60,12 +60,10 @@ public class DocumentRestController {
 
         DocumentServiceModel documentServiceModel = documentService.findDocumentById(id);
 
-        documentServiceModel.setDocumentName(documentAddBindingModel.getDocumentName());
-
         return ResponseEntity
                 .ok()
                 .body(modelMapper
-                        .map(documentService.seedDocumentToDb(documentServiceModel), DocumentViewModel.class));
+                        .map(documentService.renameDocument(documentServiceModel, documentAddBindingModel.getName()), DocumentViewModel.class));
     }
 
 

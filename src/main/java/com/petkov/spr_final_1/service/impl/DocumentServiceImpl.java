@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
 import com.petkov.spr_final_1.model.entity.document.DocumentSubchapterEntity;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
+import com.petkov.spr_final_1.model.service.document.DocumentSubchapterServiceModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.DocumentRepository;
 import com.petkov.spr_final_1.service.DocumentService;
+import com.petkov.spr_final_1.service.DocumentSubChapterService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,32 +28,34 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import static com.petkov.spr_final_1.constants.ExceptionMessages.*;
+import static com.petkov.spr_final_1.constants.GlobalMessages.*;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
-    private static final String DEFAULT_REFERENCE_NAME = "other";
+    private static final String DEFAULT_DOCUMENT_SUBCHAPTER_NAME = "other";
 
     private final ModelMapper modelMapper;
     private final DocumentRepository documentRepository;
     private final Resource documentInitFile;
     private final Gson gson;
     private final ValidationUtil validationUtil;
+    private final DocumentSubChapterService documentSubChapterService;
 
     //todo - service - extract constants
 
 
     public DocumentServiceImpl(ModelMapper modelMapper,
                                DocumentRepository documentRepository,
-                               @Value("classpath:init/documents-init.json") Resource documentInitFile,
+                               @Value(DOCUMENTS_INIT_FILE_PATH) Resource documentInitFile,
                                Gson gson,
-                               ValidationUtil validationUtil) {
+                               ValidationUtil validationUtil, DocumentSubChapterService documentSubChapterService) {
         this.modelMapper = modelMapper;
         this.documentRepository = documentRepository;
         this.documentInitFile = documentInitFile;
         this.gson = gson;
         this.validationUtil = validationUtil;
+        this.documentSubChapterService = documentSubChapterService;
     }
 
     @Override
@@ -59,16 +63,16 @@ public class DocumentServiceImpl implements DocumentService {
         if (documentRepository.count() == 0) {
             try {
                 DocumentServiceModel[] documentServiceModels =
-                        gson.fromJson(Files.readString(Path.of(documentInitFile.getURI())), DocumentServiceModel[].class);
+                        gson.fromJson(Files.readString(Path.of(documentInitFile.getURI())),
+                                DocumentServiceModel[].class);
 
-                Arrays
-                        .stream(documentServiceModels)
+                Arrays.stream(documentServiceModels)
                         .forEach(this::seedDocumentsIfValidOrPrintError);
 
-                // TODO: 4/11/2021 -  initSeedDocumentsFromJson - add successfull seed message
+                // TODO: 4/11/2021 -  initSeedDocumentsFromJson - add successful seed message
 
             } catch (IOException e) {
-                throw new IllegalStateException("IO error from file 'init/documents-init.json'!");
+                throw new IllegalStateException(DOCUMENTS_INIT_IO_ERROR_MESSAGE);
             }
         }
     }
@@ -77,8 +81,7 @@ public class DocumentServiceImpl implements DocumentService {
 
         if (this.validationUtil.isValid(documentServiceModel)) {
 
-            DocumentEntity documentEntity = modelMapper.map(documentServiceModel, DocumentEntity.class);
-            documentRepository.saveAndFlush(documentEntity);
+            seedDocumentToDb(documentServiceModel);
 
         } else {
             //todo seedChaptersIfValidOrPrintError - Log errors io printing
@@ -88,14 +91,14 @@ public class DocumentServiceImpl implements DocumentService {
                     .stream()
                     .map(ConstraintViolation::getMessage)
                     .forEach(System.out::println);
-            System.out.printf("For document '%s'%n", documentServiceModel.getDocumentName());
+            System.out.printf("For document '%s'%n", documentServiceModel.getName());
         }
     }
 
     @Override
     public boolean documentExists(String documentName) {
         return documentRepository
-                .findByDocumentName(documentName.toLowerCase().trim())
+                .findByName(documentName.toLowerCase().trim())
                 .isPresent();
     }
 
@@ -104,10 +107,10 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel) {
 
         DocumentEntity documentEntity = this.modelMapper.map(documentServiceModel, DocumentEntity.class);
+        documentEntity.setName(documentEntity.getName().toLowerCase().trim());
+        documentRepository.save(documentEntity);
 
         setDefaultSubchapterIfMissing(documentEntity);
-
-        documentEntity.setDocumentName(documentEntity.getDocumentName().toLowerCase().trim());
 
         return modelMapper.map(documentRepository.saveAndFlush(documentEntity), DocumentServiceModel.class);
 
@@ -115,21 +118,26 @@ public class DocumentServiceImpl implements DocumentService {
 
     private void setDefaultSubchapterIfMissing(DocumentEntity documentEntity) {
 
-        if (documentEntity.getId() == null || documentEntity.getId().isBlank()) {
+        boolean subChapterExistsInDoc =
+                documentSubChapterService
+                        .subChapterExistsInDocument(documentEntity.getName(), DEFAULT_DOCUMENT_SUBCHAPTER_NAME);
 
+        if (!subChapterExistsInDoc) {
             DocumentSubchapterEntity defaultSubchapter = new DocumentSubchapterEntity();
-            defaultSubchapter.setDocSubchapterName(DEFAULT_REFERENCE_NAME);
-            documentEntity.setDocSubchapters(List.of(defaultSubchapter));
+            defaultSubchapter.setDocSubchapterName(DEFAULT_DOCUMENT_SUBCHAPTER_NAME);
             defaultSubchapter.setDocument(documentEntity);
+            documentSubChapterService.seedDocumentSubchapterToDb(
+                    modelMapper.map(defaultSubchapter, DocumentSubchapterServiceModel.class));
         }
     }
+
 
     @Override
     public DocumentServiceModel findDocumentByName(String documentName) {
 
         DocumentEntity documentEntity = documentRepository
-                .findByDocumentName(documentName)
-                .orElseThrow(() -> new IllegalArgumentException(DOCUMENT_NOT_FOUND));
+                .findByName(documentName)
+                .orElseThrow(() -> new IllegalArgumentException(DOCUMENT_NOT_FOUND_MESSAGE));
 
         return modelMapper.map(documentEntity, DocumentServiceModel.class);
     }
@@ -138,7 +146,7 @@ public class DocumentServiceImpl implements DocumentService {
     public List<DocumentViewModel> findAllDocumentsSortedByNameDesc() {
 
         return documentRepository
-                .findAll(Sort.by(Sort.Direction.DESC, "documentName"))
+                .findAll(Sort.by(Sort.Direction.DESC, "name"))
                 .stream()
                 .map(documentEntity -> modelMapper.map(documentEntity, DocumentViewModel.class))
                 .collect(Collectors.toList());
@@ -149,7 +157,7 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentServiceModel findDocumentById(String id) {
         DocumentEntity documentEntity = documentRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Document could not be found in DB"));
+                .orElseThrow(() -> new IllegalArgumentException(DOCUMENT_NOT_FOUND_MESSAGE));
 
         return modelMapper.map(documentEntity, DocumentServiceModel.class);
     }
@@ -160,8 +168,19 @@ public class DocumentServiceImpl implements DocumentService {
         return CompletableFuture
                 .supplyAsync(this::findAllDocumentsSortedByNameDesc)
                 .orTimeout(30, TimeUnit.SECONDS);
-
     }
 
+    @Override
+    public DocumentServiceModel renameDocument(DocumentServiceModel documentServiceModel, String newName) {
+        DocumentEntity documentEntity = documentRepository
+                .findById(documentServiceModel.getId())
+                .orElseThrow(() -> new IllegalArgumentException(DOCUMENT_NOT_FOUND_MESSAGE));
+
+        documentEntity.setName(newName.toLowerCase().trim());
+
+        documentRepository.saveAndFlush(documentEntity);
+
+        return modelMapper.map(documentEntity, DocumentServiceModel.class);
+    }
 
 }

@@ -1,5 +1,9 @@
 package com.petkov.spr_final_1.model.binding.test;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
+import com.fasterxml.jackson.databind.ser.std.EnumSerializer;
 import com.petkov.spr_final_1.model.entity.UserEntity;
 import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
 import com.petkov.spr_final_1.model.entity.enumeration.TestTagEnum;

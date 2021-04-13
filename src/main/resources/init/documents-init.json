@@ -1,17 +1,17 @@
 [
   {
-    "documentName": "fcom"
+    "name": "fcom"
   },
   {
-    "documentName": "fctm"
+    "name": "fctm"
   },
   {
-    "documentName": "mel"
+    "name": "mel"
   },
   {
-    "documentName": "cdl"
+    "name": "cdl"
   },
   {
-    "documentName": "afl"
+    "name": "afl"
   }
 ]
