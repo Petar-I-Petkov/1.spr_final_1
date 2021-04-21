@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface DocumentSubchapterRepository extends JpaRepository<DocumentSubchapterEntity, String> {
 
-    Optional<DocumentSubchapterEntity> findByDocumentAndDocSubchapterName(DocumentEntity document,
-                                                                          String docSubchapterName);
+    Optional<DocumentSubchapterEntity> findByDocumentAndName(DocumentEntity document,
+                                                                          String subchapterName);
 
 }

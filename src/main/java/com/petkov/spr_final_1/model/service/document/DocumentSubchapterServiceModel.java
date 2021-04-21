@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class DocumentSubchapterServiceModel extends BaseServiceModel {
 
     @Expose
-    private String docSubchapterName;
+    private String name;
     @Expose
     private String document;
 
@@ -18,12 +18,12 @@ public class DocumentSubchapterServiceModel extends BaseServiceModel {
 
     @NotBlank(message = "Cannot be empty. ")
     @Size(min = 3, message = "Subchapter name must be at least 3 characters. ")
-    public String getDocSubchapterName() {
-        return docSubchapterName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocSubchapterName(String docSubchapterName) {
-        this.docSubchapterName = docSubchapterName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @NotBlank(message = "Document required.")

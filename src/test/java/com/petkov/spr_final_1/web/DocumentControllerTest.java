@@ -52,7 +52,7 @@ public class DocumentControllerTest {
 
         Assertions.assertNotNull(savedDoc);
         Assertions.assertNotNull(documentSubchapterRepository
-                .findByDocumentAndDocSubchapterName(savedDoc,"other"));
+                .findByDocumentAndName(savedDoc,"other"));
 
         documentRepository.deleteById(savedDoc.getId());
 

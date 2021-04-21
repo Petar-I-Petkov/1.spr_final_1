@@ -13,11 +13,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -68,10 +66,10 @@ public class DocumentSubChapterControllerTest {
                 .andExpect(status().is3xxRedirection());
 
         DocumentSubchapterEntity savedDocSubchapter = documentSubchapterRepository
-                .findByDocumentAndDocSubchapterName(savedDoc, docSubchapterName).orElse(null);
+                .findByDocumentAndName(savedDoc, docSubchapterName).orElse(null);
 
         Assertions.assertNotNull(savedDocSubchapter);
-        Assertions.assertEquals(docSubchapterName, savedDocSubchapter.getDocSubchapterName());
+        Assertions.assertEquals(docSubchapterName, savedDocSubchapter.getName());
 
 
         documentSubchapterRepository.deleteById(savedDocSubchapter.getId());

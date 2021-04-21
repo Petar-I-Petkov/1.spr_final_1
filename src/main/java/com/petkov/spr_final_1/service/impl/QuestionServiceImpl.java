@@ -178,7 +178,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         try {
             questionServiceModel
-                    .setDocumentSubchapter(questionEntity.getDocumentSubchapter().getDocSubchapterName());
+                    .setDocumentSubchapter(questionEntity.getDocumentSubchapter().getName());
         } catch (NullPointerException ignored) {
         }
 

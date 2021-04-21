@@ -1,12 +1,9 @@
 package com.petkov.spr_final_1.model.view;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 public class DocumentSubchapterViewModel {
 
     private String id;
-    private String docSubchapterName;
+    private String name;
     private String documentRef;
 
     public DocumentSubchapterViewModel() {
@@ -21,12 +18,12 @@ public class DocumentSubchapterViewModel {
     }
 
 
-    public String getDocSubchapterName() {
-        return docSubchapterName;
+    public String getName() {
+        return name;
     }
 
-    public void setDocSubchapterName(String docSubchapterName) {
-        this.docSubchapterName = docSubchapterName;
+    public void setName(String name) {
+        this.name = name;
     }
 
 

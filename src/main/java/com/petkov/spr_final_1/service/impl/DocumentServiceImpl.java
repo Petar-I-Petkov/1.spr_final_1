@@ -103,34 +103,16 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    @Transactional
+    @Transactional // todo - > is Transactional needed at seedDocumentToDb?
     public DocumentServiceModel seedDocumentToDb(DocumentServiceModel documentServiceModel) {
 
         DocumentEntity documentEntity = this.modelMapper.map(documentServiceModel, DocumentEntity.class);
         documentEntity.setName(documentEntity.getName().toLowerCase().trim());
-        documentRepository.save(documentEntity);
 
-        setDefaultSubchapterIfMissing(documentEntity);
-
-        return modelMapper.map(documentRepository.saveAndFlush(documentEntity), DocumentServiceModel.class);
+        return modelMapper.map(documentRepository
+                .saveAndFlush(documentEntity), DocumentServiceModel.class);
 
     }
-
-    private void setDefaultSubchapterIfMissing(DocumentEntity documentEntity) {
-
-        boolean subChapterExistsInDoc =
-                documentSubChapterService
-                        .subChapterExistsInDocument(documentEntity.getName(), DEFAULT_DOCUMENT_SUBCHAPTER_NAME);
-
-        if (!subChapterExistsInDoc) {
-            DocumentSubchapterEntity defaultSubchapter = new DocumentSubchapterEntity();
-            defaultSubchapter.setDocSubchapterName(DEFAULT_DOCUMENT_SUBCHAPTER_NAME);
-            defaultSubchapter.setDocument(documentEntity);
-            documentSubChapterService.seedDocumentSubchapterToDb(
-                    modelMapper.map(defaultSubchapter, DocumentSubchapterServiceModel.class));
-        }
-    }
-
 
     @Override
     public DocumentServiceModel findDocumentByName(String documentName) {

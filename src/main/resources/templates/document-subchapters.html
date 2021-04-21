@@ -125,19 +125,19 @@
                                     </div>
 
                                     <div class="col-sm-5">
-                                        <label for="docSubchapterName" class="form-label text-start small">
+                                        <label for="name" class="form-label text-start small">
                                             Name (Required)
                                         </label>
-                                        <input th:value="*{docSubchapterName}"
-                                               id="docSubchapterName"
-                                               name="docSubchapterName"
+                                        <input th:value="*{name}"
+                                               id="name"
+                                               name="name"
                                                type="text"
                                                class="form-control"
                                                placeholder="ex: Limitations">
 
-                                        <div th:each="e: ${#fields.errors('docSubchapterName')}"
+                                        <div th:each="e: ${#fields.errors('name')}"
                                              th:text="${e}"
-                                             id="docSubchapterNameError"
+                                             id="nameError"
                                              class="text-danger small">
                                             Error
                                         </div>
