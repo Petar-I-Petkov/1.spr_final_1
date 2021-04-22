@@ -11,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "tests")
+@Access(AccessType.PROPERTY)
+
 public class TestEntity extends BaseEntity {
 
     private String name;

@@ -1,22 +1,17 @@
 package com.petkov.spr_final_1.model.entity;
 
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    private Long id;
-
-    public BaseEntity() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", nullable = false, updatable = false)
+    private Long id;
+
     public Long getId() {
         return id;
     }
@@ -25,11 +20,3 @@ public abstract class BaseEntity {
         this.id = id;
     }
 }
-
-
-//    @Id
-//    @GeneratedValue(generator = "uuid-string")
-//    @GenericGenerator(
-//            name = "uuid-string",
-//            strategy = "org.hibernate.id.UUIDGenerator"
-//    )

@@ -3,10 +3,11 @@ package com.petkov.spr_final_1.model.entity.document;
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "documents")
+@Access(AccessType.PROPERTY)
+
 public class DocumentEntity extends BaseEntity {
 
     private String name;

@@ -174,7 +174,7 @@ public class TestServiceImpl implements TestService {
         List<QuestionEntity> questionEntities =
                 testServiceModel.getQuestionIds()
                         .stream()
-                        .map(qId -> questionService.findById(Long.parseLong(qId)))
+                        .map(questionService::findById)
                         .map(serviceModel -> modelMapper.map(serviceModel, QuestionEntity.class))
                         .collect(Collectors.toList());
 
@@ -188,7 +188,7 @@ public class TestServiceImpl implements TestService {
 
         //todo addTest() debugPoint
         System.out.println();
-        TestEntity seedResult = testRepository.save(testEntity);
+        TestEntity seedResult = testRepository.saveAndFlush(testEntity);
 
         return modelMapper.map(seedResult, TestServiceModel.class);
     }

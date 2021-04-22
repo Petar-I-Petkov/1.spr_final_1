@@ -18,7 +18,7 @@ public class TestServiceModel extends BaseServiceModel {
 
     private String name;
     private LocalDate dueDate;
-    private List<String> questionIds;
+    private List<Long> questionIds;
     private List<TestTagEnum> testTagEnums;
 
     @NotBlank(message = "Test name cannot be empty.")
@@ -43,11 +43,11 @@ public class TestServiceModel extends BaseServiceModel {
     }
 
     @NotEmpty(message = "There must be at least one question in the test.")
-    public List<String> getQuestionIds() {
+    public List<Long> getQuestionIds() {
         return questionIds;
     }
 
-    public void setQuestionIds(List<String> questionIds) {
+    public void setQuestionIds(List<Long> questionIds) {
         this.questionIds = questionIds;
     }
 

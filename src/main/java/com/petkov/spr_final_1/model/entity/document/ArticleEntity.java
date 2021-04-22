@@ -8,6 +8,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "articles")
+@Access(AccessType.PROPERTY)
+
 public class ArticleEntity extends BaseEntity {
 
     private String title;

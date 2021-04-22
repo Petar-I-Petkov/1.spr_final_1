@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "submitted_questions")
+@Access(AccessType.PROPERTY)
+
 public class SubmittedQuestionEntity extends BaseEntity {
 
     private String name;

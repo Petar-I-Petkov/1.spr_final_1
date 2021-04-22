@@ -2,13 +2,11 @@ package com.petkov.spr_final_1.model.entity;
 
 import com.petkov.spr_final_1.model.entity.enumeration.UserRole;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
+@Access(AccessType.PROPERTY)
 public class UserRoleEntity extends BaseEntity {
 
     public UserRoleEntity() {

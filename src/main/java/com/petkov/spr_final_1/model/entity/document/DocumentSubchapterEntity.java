@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "document_sub_chapters")
+@Access(AccessType.PROPERTY)
 public class DocumentSubchapterEntity extends BaseEntity {
 
     private String name;

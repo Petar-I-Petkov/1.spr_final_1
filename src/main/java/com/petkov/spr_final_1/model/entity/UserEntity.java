@@ -9,7 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Access(AccessType.PROPERTY)
 public class UserEntity extends BaseEntity {
+
 
     private String username;
     private String fullName;

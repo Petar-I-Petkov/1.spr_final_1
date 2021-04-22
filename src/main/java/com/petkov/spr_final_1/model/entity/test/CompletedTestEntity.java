@@ -2,7 +2,6 @@ package com.petkov.spr_final_1.model.entity.test;
 
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.UserEntity;
-import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "completed_tests")
+@Access(AccessType.PROPERTY)
 public class CompletedTestEntity extends BaseEntity {
 
     private String parentTestId;

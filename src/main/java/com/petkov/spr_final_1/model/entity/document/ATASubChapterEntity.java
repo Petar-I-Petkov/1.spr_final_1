@@ -7,6 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "sub_chapters")
+@Access(AccessType.PROPERTY)
+
 public class ATASubChapterEntity extends BaseEntity {
 
     private Integer ataSubCode;

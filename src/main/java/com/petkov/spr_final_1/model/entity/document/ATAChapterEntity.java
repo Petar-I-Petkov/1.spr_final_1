@@ -3,14 +3,13 @@ package com.petkov.spr_final_1.model.entity.document;
 
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "chapters")
+@Access(AccessType.PROPERTY)
+
 public class ATAChapterEntity extends BaseEntity {
 
     private Integer ataCode;

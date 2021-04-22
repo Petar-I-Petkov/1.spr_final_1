@@ -4,10 +4,10 @@ import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.document.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "questions")
+@Access(AccessType.PROPERTY)
 public class QuestionEntity extends BaseEntity {
 
     private String name;

@@ -108,7 +108,6 @@ public class ArticleAddBindingModel {
     }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Size(min = 3, message = "Article title should be min 3 characters.")
     public LocalDate getDocumentDate() {
         return documentDate;
     }
