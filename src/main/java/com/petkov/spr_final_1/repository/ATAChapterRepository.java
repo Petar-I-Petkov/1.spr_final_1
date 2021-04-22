@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface ATAChapterRepository extends JpaRepository<ATAChapterEntity, String> {
+public interface ATAChapterRepository extends JpaRepository<ATAChapterEntity, Long> {
 
     Optional<ATAChapterEntity> findByAtaCode(Integer ataCode);
 

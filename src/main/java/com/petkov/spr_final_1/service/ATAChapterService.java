@@ -14,13 +14,13 @@ public interface ATAChapterService {
 
     ATAChapterServiceModel addChapterToDB(ATAChapterServiceModel chapterServiceModel);
 
-    List<ATAChapterViewModel> getAllChaptersSortedByATADesc();
+    List<ATAChapterViewModel> findAllATAChaptersSortedByATADesc();
 
-    CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDescAsync();
+    CompletableFuture<List<ATAChapterViewModel>> findAllATAChaptersSortedByAtaDescAsync();
 
     ATAChapterServiceModel findChapterByAtaCode(Integer ataCode) throws IllegalArgumentException;
 
-    ATAChapterServiceModel findChapterById(String id) throws IllegalArgumentException;
+    ATAChapterServiceModel findChapterById(Long id) throws IllegalArgumentException;
 
     boolean chapterAtaCodeExists(Integer ataCode);
 

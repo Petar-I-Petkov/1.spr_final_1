@@ -40,7 +40,7 @@ public class TestController {
     }
 
     @GetMapping("/active/{id}")
-    public String activeTestShow(@PathVariable String id, Model model) {
+    public String activeTestShow(@PathVariable Long id, Model model) {
 
         ActiveTestEntity activeTestEntity = testService.buildActiveTest(id);
 

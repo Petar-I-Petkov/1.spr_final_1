@@ -145,7 +145,7 @@ public class DocumentSubChapterServiceImpl implements DocumentSubChapterService 
     @Override
     public List<DocumentSubchapterViewModel> getAllSortedByNameDesc() {
         return documentSubchapterRepository
-                .findAll(Sort.by(Sort.Direction.DESC, "docSubchapterName"))
+                .findAll(Sort.by(Sort.Direction.DESC, "name"))
                 .stream()
                 .map(documentSubchapterEntity -> {
                     DocumentSubchapterViewModel documentSubchapterViewModel =

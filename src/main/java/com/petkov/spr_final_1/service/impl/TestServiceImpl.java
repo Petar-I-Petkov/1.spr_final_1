@@ -52,7 +52,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Transactional
-    public ActiveTestEntity buildActiveTest(String id) {
+    public ActiveTestEntity buildActiveTest(Long id) {
 
         TestEntity testEntity =
                 testRepository.findById(id)
@@ -174,7 +174,7 @@ public class TestServiceImpl implements TestService {
         List<QuestionEntity> questionEntities =
                 testServiceModel.getQuestionIds()
                         .stream()
-                        .map(questionService::findById)
+                        .map(qId -> questionService.findById(Long.parseLong(qId)))
                         .map(serviceModel -> modelMapper.map(serviceModel, QuestionEntity.class))
                         .collect(Collectors.toList());
 

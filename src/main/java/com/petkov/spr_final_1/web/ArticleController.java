@@ -54,7 +54,7 @@ public class ArticleController {
         }
 
         model.addAttribute("documentDbList", documentService.findAllDocumentsSortedByNameDesc());
-        model.addAttribute("chapterDBList", ataChapterService.getAllChaptersSortedByATADesc());
+        model.addAttribute("chapterDBList", ataChapterService.findAllATAChaptersSortedByATADesc());
 
 
         return "articles";

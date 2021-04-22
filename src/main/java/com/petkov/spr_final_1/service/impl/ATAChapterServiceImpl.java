@@ -4,16 +4,13 @@ import com.google.gson.Gson;
 import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
-import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.ATAChapterRepository;
 import com.petkov.spr_final_1.service.ATAChapterService;
 import com.petkov.spr_final_1.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -24,7 +21,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -68,10 +64,10 @@ public class ATAChapterServiceImpl implements ATAChapterService {
 
     @Override
     @Async
-    public CompletableFuture<List<ATAChapterViewModel>> getAllChaptersSortedByAtaDescAsync() {
+    public CompletableFuture<List<ATAChapterViewModel>> findAllATAChaptersSortedByAtaDescAsync() {
 
         return CompletableFuture
-                .supplyAsync(this::getAllChaptersSortedByATADesc)
+                .supplyAsync(this::findAllATAChaptersSortedByATADesc)
                 .orTimeout(30, TimeUnit.SECONDS);
     }
 
@@ -104,7 +100,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     }
 
     @Override
-    public List<ATAChapterViewModel> getAllChaptersSortedByATADesc() {
+    public List<ATAChapterViewModel> findAllATAChaptersSortedByATADesc() {
         return chapterRepository
                 .findAll()
                 .stream()
@@ -126,7 +122,7 @@ public class ATAChapterServiceImpl implements ATAChapterService {
     }
 
     @Override
-    public ATAChapterServiceModel findChapterById(String id) throws IllegalArgumentException {
+    public ATAChapterServiceModel findChapterById(Long id) throws IllegalArgumentException {
 
         ATAChapterEntity chapterEntity =
                 chapterRepository.findById(id)

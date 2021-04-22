@@ -24,10 +24,12 @@ function populateDocSubchapterDropdown() {
                 return response.json();
             }
 
-            return Response.redirect(new Error(response.status + response.text()));
+            throw new Error(response.status + response.text());
 
         })
         .then(data => {
+
+           // console.log(data)
 
             elements.documentDropdown().addEventListener('change', () => filterAndFillDocSubchapterDropdown(data));
 
@@ -46,7 +48,7 @@ function filterAndFillDocSubchapterDropdown(subchapterList) {
     const subchapterListFiltered = subchapterList.filter(subchapter => subchapter.documentRef === documentName);
 
     subchapterListFiltered.forEach(subchapter => {
-        elements.subChapterDropdown().innerHTML += `<option>${subchapter.docSubchapterName}</option>`;
+        elements.subChapterDropdown().innerHTML += `<option>${subchapter.name}</option>`;
     })
 }
 

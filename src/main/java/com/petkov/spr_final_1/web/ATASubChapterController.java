@@ -46,7 +46,7 @@ public class ATASubChapterController {
             model.addAttribute("seedOk", false);
         }
 
-        model.addAttribute("ataDBList", chapterService.getAllChaptersSortedByAtaDescAsync());
+        model.addAttribute("ataChapterDBList", chapterService.findAllATAChaptersSortedByATADesc());
 
         return "ata-subchapters";
     }

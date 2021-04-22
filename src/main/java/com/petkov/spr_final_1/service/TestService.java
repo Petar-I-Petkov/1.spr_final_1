@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface TestService {
 
-    ActiveTestEntity buildActiveTest(String id);
+    ActiveTestEntity buildActiveTest(Long id);
 
     List<TestThumbnailViewModel> getAllUpcomingTestsView();
 

@@ -2,16 +2,16 @@ package com.petkov.spr_final_1.model.service;
 
 public abstract class BaseServiceModel {
 
-    private String id;
+    private Long id;
 
     public BaseServiceModel() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

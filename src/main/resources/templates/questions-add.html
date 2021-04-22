@@ -142,7 +142,7 @@
                                                     aria-label="Select ATA Sub Chapter">
                                                 <option th:text="*{document}">VALUE></option>
                                                 <option th:each="d : ${documentDbList}"
-                                                        th:text="|${d.documentName}|">
+                                                        th:text="|${d.name}|">
                                                     OPTIONS
                                                 </option>
                                             </select>
@@ -191,7 +191,7 @@
                                                     class="form-select"
                                                     aria-label="Select ATA Sub Chapter">
                                                 <option th:text="*{chapter}">VALUE></option>
-                                                <option th:each="c : ${chapterDBList}"
+                                                <option th:each="c : ${ataChapterDBList}"
                                                         th:text="|${c.ataCode} - ${c.name}|">
                                                     OPTIONS
                                                 </option>

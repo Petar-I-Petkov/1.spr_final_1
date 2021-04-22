@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ArticleRepository extends JpaRepository<ArticleEntity, String> {
+public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
     Optional<ArticleEntity> findByTitle(String title);
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DocumentSubchapterRepository extends JpaRepository<DocumentSubchapterEntity, String> {
+public interface DocumentSubchapterRepository extends JpaRepository<DocumentSubchapterEntity, Long> {
 
     Optional<DocumentSubchapterEntity> findByDocumentAndName(DocumentEntity document,
                                                                           String subchapterName);

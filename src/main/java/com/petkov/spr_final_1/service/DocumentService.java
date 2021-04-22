@@ -19,7 +19,7 @@ public interface DocumentService {
 
     List<DocumentViewModel> findAllDocumentsSortedByNameDesc();
 
-    DocumentServiceModel findDocumentById(String id);
+    DocumentServiceModel findDocumentById(Long id);
 
     CompletableFuture<List<DocumentViewModel>> findAllDocumentsSortedByNameDescAsync();
 

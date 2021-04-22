@@ -111,8 +111,8 @@
                                                         aria-label="Select ATA Chapter">
                                                     <option selected th:text="*{ataChapterRefInput}">Select...</option>
                                                     <option
-                                                            th:each="a : ${ataDBList}"
-                                                            th:text="|${a.ataCode} - ${a.name}|">
+                                                            th:each="ata : ${ataChapterDBList}"
+                                                            th:text="|${ata.ataCode} - ${ata.name}|">
                                                         One
                                                     </option>
                                                 </select>

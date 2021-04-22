@@ -20,5 +20,5 @@ public interface QuestionService {
 
     CompletableFuture<List<QuestionViewModel>> getAllQuestionsSortedByATA();
 
-    QuestionServiceModel findById(String id);
+    QuestionServiceModel findById(Long id);
 }

@@ -50,7 +50,7 @@ public class QuestionController {
         }
 
         model.addAttribute("documentDbList", documentService.findAllDocumentsSortedByNameDesc());
-        model.addAttribute("chapterDBList", ataChapterService.getAllChaptersSortedByATADesc());
+        model.addAttribute("ataChapterDBList", ataChapterService.findAllATAChaptersSortedByATADesc());
 
         return "questions-add";
     }

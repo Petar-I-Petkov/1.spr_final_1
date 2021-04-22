@@ -41,7 +41,7 @@ public class ATAChapterRestController {
 
 
         chapterService
-                .getAllChaptersSortedByAtaDescAsync()
+                .findAllATAChaptersSortedByAtaDescAsync()
                 .thenApply(ataChapterViewModels ->
                         deferredResult.setResult(ResponseEntity
                                 .ok()
@@ -59,7 +59,7 @@ public class ATAChapterRestController {
 
     @PutMapping(value = "/{id}", consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<? extends ATAChapterViewModel> editById(@PathVariable String id,
+    public ResponseEntity<? extends ATAChapterViewModel> editById(@PathVariable Long id,
                                                         @Valid @RequestBody ATAChapterAddBindingModel ataChapterAddBindingModel,
                                                         BindingResult bindingResult){
 

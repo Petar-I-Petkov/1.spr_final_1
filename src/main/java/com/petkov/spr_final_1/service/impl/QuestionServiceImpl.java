@@ -160,7 +160,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public QuestionServiceModel findById(String id) {
+    public QuestionServiceModel findById(Long id) {
 
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
 

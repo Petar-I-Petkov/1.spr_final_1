@@ -55,7 +55,7 @@ public class DocumentRestController {
 
     @PutMapping(value = "/{id}", consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<DocumentViewModel> editById(@PathVariable String id,
+    public ResponseEntity<DocumentViewModel> editById(@PathVariable Long id,
                                                       @Valid @RequestBody DocumentAddBindingModel documentAddBindingModel) {
 
         DocumentServiceModel documentServiceModel = documentService.findDocumentById(id);

@@ -136,7 +136,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public DocumentServiceModel findDocumentById(String id) {
+    public DocumentServiceModel findDocumentById(Long id) {
         DocumentEntity documentEntity = documentRepository
                 .findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(DOCUMENT_NOT_FOUND_MESSAGE));
