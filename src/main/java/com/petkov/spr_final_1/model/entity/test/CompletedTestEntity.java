@@ -13,7 +13,7 @@ import java.util.List;
 @Access(AccessType.PROPERTY)
 public class CompletedTestEntity extends BaseEntity {
 
-    private String parentTestId;
+    private Long parentTestId;
     private String name;
     private LocalDate dueDate;
     private LocalDateTime timeCompleted;
@@ -24,11 +24,11 @@ public class CompletedTestEntity extends BaseEntity {
     }
 
     //todo - add columns at CompletedTestEntity
-    public String getParentTestId() {
+    public Long getParentTestId() {
         return parentTestId;
     }
 
-    public void setParentTestId(String parentTestId) {
+    public void setParentTestId(Long parentTestId) {
         this.parentTestId = parentTestId;
     }
 
