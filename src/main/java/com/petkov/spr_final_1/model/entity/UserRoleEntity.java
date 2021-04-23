@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.model.entity;
 
-import com.petkov.spr_final_1.model.entity.enumeration.UserRole;
+import com.petkov.spr_final_1.model.enumeration.UserRole;
 
 import javax.persistence.*;
 

@@ -1,32 +1,30 @@
 package com.petkov.spr_final_1.model.entity.test;
 
+import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.UserEntity;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-public class ActiveTestEntity {
+@Entity
+@Table(name = "active_test_backup")
+@Access(AccessType.PROPERTY)
+public class ActiveTestEntity extends BaseEntity {
 
-    private String id;
+
     private String name;
     private LocalDate dueDate;
     private List<ActiveQuestionViewModel> questionEntities;
     private List<SubmittedQuestionEntity> submittedQuestionEntities;
+    private UserEntity userEntity;
 
     public ActiveTestEntity() {
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    @Column(name = "name", unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -44,6 +42,7 @@ public class ActiveTestEntity {
     }
 
 
+    @Transient
     public List<ActiveQuestionViewModel> getQuestionEntities() {
         return questionEntities;
     }
@@ -52,11 +51,21 @@ public class ActiveTestEntity {
         this.questionEntities = questionEntities;
     }
 
+    @Transient
     public List<SubmittedQuestionEntity> getSubmittedQuestionEntities() {
         return submittedQuestionEntities;
     }
 
     public void setSubmittedQuestionEntities(List<SubmittedQuestionEntity> submittedQuestionEntities) {
         this.submittedQuestionEntities = submittedQuestionEntities;
+    }
+
+    @OneToOne
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

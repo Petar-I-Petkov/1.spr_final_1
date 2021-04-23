@@ -1,14 +1,9 @@
 package com.petkov.spr_final_1.model.service.test;
 
-import com.petkov.spr_final_1.model.entity.UserEntity;
-import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
-import com.petkov.spr_final_1.model.entity.enumeration.TestTagEnum;
-import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
+import com.petkov.spr_final_1.model.enumeration.TestTagEnum;
 import com.petkov.spr_final_1.model.service.BaseServiceModel;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;

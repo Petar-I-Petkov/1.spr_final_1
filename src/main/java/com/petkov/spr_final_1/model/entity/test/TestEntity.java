@@ -2,8 +2,8 @@ package com.petkov.spr_final_1.model.entity.test;
 
 import com.petkov.spr_final_1.model.entity.BaseEntity;
 import com.petkov.spr_final_1.model.entity.UserEntity;
-import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
-import com.petkov.spr_final_1.model.entity.enumeration.TestTagEnum;
+import com.petkov.spr_final_1.model.enumeration.TestStatusEnum;
+import com.petkov.spr_final_1.model.enumeration.TestTagEnum;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -86,7 +86,7 @@ public class TestEntity extends BaseEntity {
         this.testTagEnums = testTagEnums;
     }
 
-    @ManyToMany // todo - refactor this (cascade = CascadeType.ALL) -\
+    @ManyToMany(cascade = CascadeType.ALL) // todo - refactor this (cascade = CascadeType.ALL) -\
                      // todo it has no place here when using frontend to add tests
     @JoinTable(
             name = "tests_questions",

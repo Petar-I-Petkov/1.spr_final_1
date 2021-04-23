@@ -2,7 +2,7 @@ package com.petkov.spr_final_1.service.impl;
 
 import com.petkov.spr_final_1.model.entity.UserEntity;
 import com.petkov.spr_final_1.model.entity.UserRoleEntity;
-import com.petkov.spr_final_1.model.entity.enumeration.UserRole;
+import com.petkov.spr_final_1.model.enumeration.UserRole;
 import com.petkov.spr_final_1.model.service.UserServiceModel;
 import com.petkov.spr_final_1.repository.UserRepository;
 import com.petkov.spr_final_1.repository.UserRoleRepository;

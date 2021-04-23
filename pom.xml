@@ -136,6 +136,12 @@
     </dependencies>
 
     <build>
+        <finalName>avio-desk</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -145,14 +151,31 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.10.3</version>
+
                 <configuration>
                     <propertyFile>
                         src/main/resources/application.properties
                     </propertyFile>
-                    <propertyFileWillOverride>true</propertyFileWillOverride>
+                    <propertyFile>src/main/resources/liquibase/config/liquibase-${build.profile.id}.properties</propertyFile>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>development</id>
+            <properties>
+                <build.profile.id>development</build.profile.id>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>production</id>
+            <properties>
+                <build.profile.id>production</build.profile.id>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

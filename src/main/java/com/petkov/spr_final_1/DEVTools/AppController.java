@@ -3,7 +3,7 @@ package com.petkov.spr_final_1.DEVTools;
 import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
 import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
-import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
+import com.petkov.spr_final_1.model.enumeration.TestStatusEnum;
 import com.petkov.spr_final_1.repository.ArticleRepository;
 import com.petkov.spr_final_1.repository.TestRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -34,7 +34,7 @@ public class AppController implements CommandLineRunner {
         //number of tests in db
         System.out.printf("tests: %d%n", this.testRepository.count());
 
-       //testRepository.saveAndFlush(generateDummyTestWithQuestions());
+       testRepository.saveAndFlush(generateDummyTestWithQuestions());
 
         printTests();
 

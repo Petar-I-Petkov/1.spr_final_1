@@ -1,14 +1,11 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.binding.test.SubmitTestBindingModel;
 import com.petkov.spr_final_1.model.entity.UserEntity;
-import com.petkov.spr_final_1.model.entity.enumeration.TestStatusEnum;
+import com.petkov.spr_final_1.model.enumeration.TestStatusEnum;
 import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
 import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.SubmittedQuestionEntity;
 import com.petkov.spr_final_1.model.entity.test.TestEntity;
-import com.petkov.spr_final_1.model.service.test.CompletedTestServiceModel;
-import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
 import com.petkov.spr_final_1.model.service.test.TestServiceModel;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
@@ -25,9 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
