@@ -5,6 +5,20 @@
       <database-info>
         <option name="enabled" value="true" />
         <dbms-id>mysql</dbms-id>
+        <mapping-types>
+          <mapping-type>
+            <java-class>com.petkov.spr_final_1.model.enumeration.TestStatusEnum</java-class>
+            <sql-type>varchar</sql-type>
+          </mapping-type>
+          <mapping-type>
+            <java-class>com.petkov.spr_final_1.model.enumeration.TestTagEnum</java-class>
+            <sql-type>varchar</sql-type>
+          </mapping-type>
+          <mapping-type>
+            <java-class>com.petkov.spr_final_1.model.enumeration.UserRole</java-class>
+            <sql-type>varchar</sql-type>
+          </mapping-type>
+        </mapping-types>
       </database-info>
     </database-infos>
   </component>

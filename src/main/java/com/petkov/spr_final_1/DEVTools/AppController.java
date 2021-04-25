@@ -34,7 +34,7 @@ public class AppController implements CommandLineRunner {
         //number of tests in db
         System.out.printf("tests: %d%n", this.testRepository.count());
 
-       //testRepository.saveAndFlush(generateDummyTestWithQuestions());
+        // testRepository.saveAndFlush(generateDummyTestWithQuestions());
 
         printTests();
 
@@ -47,7 +47,6 @@ public class AppController implements CommandLineRunner {
         testEntity.setTestStatus(TestStatusEnum.ACTIVE);
         testEntity.setDateCreated(LocalDate.now());
         testEntity.setDueDate(LocalDate.now());
-
 
 
         testEntity.setQuestions(List.of(
@@ -141,7 +140,6 @@ public class AppController implements CommandLineRunner {
         });
 
     }
-
 
 
 }
