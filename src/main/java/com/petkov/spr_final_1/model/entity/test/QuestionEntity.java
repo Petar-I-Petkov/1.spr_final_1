@@ -21,12 +21,6 @@ public class QuestionEntity extends BaseEntity {
 
     private ArticleEntity article;
 
-    private ATAChapterEntity chapter;
-    private ATASubChapterEntity ataSubChapter;
-
-    private DocumentEntity document;
-    private DocumentSubchapterEntity documentSubchapter;
-
     public QuestionEntity() {
     }
 
@@ -111,43 +105,4 @@ public class QuestionEntity extends BaseEntity {
         this.article = article;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
-    public ATAChapterEntity getChapter() {
-        return chapter;
-    }
-
-    public void setChapter(ATAChapterEntity chapter) {
-        this.chapter = chapter;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ata_subchapter", referencedColumnName = "id")
-    public ATASubChapterEntity getAtaSubChapter() {
-        return ataSubChapter;
-    }
-
-    public void setAtaSubChapter(ATASubChapterEntity ataSubChapter) {
-        this.ataSubChapter = ataSubChapter;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "document", referencedColumnName = "id")
-    public DocumentEntity getDocument() {
-        return document;
-    }
-
-    public void setDocument(DocumentEntity document) {
-        this.document = document;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "document_subchapter", referencedColumnName = "id")
-    public DocumentSubchapterEntity getDocumentSubchapter() {
-        return documentSubchapter;
-    }
-
-    public void setDocumentSubchapter(DocumentSubchapterEntity documentSubchapter) {
-        this.documentSubchapter = documentSubchapter;
-    }
 }

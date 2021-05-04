@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ATASubChapterRepository extends JpaRepository<ATASubChapterEntity, Long> {
 
-    Optional<ATASubChapterEntity> findByAtaChapterRefAndAtaSubCode(
-            ATAChapterEntity ataChapterRef, Integer ataSubCode);
+    Optional<ATASubChapterEntity> findByAtaSubCode(Integer ataSubCode);
 
 }

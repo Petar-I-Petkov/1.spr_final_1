@@ -94,7 +94,6 @@ public class QuestionServiceImpl implements QuestionService {
                         .map(ataSubChapterService
                                 .findByChapterAndSubchapterAta(ataChapterCode, ataSubChapterCode), ATASubChapterEntity.class);
 
-                questionEntity.setAtaSubChapter(ataSubChapterEntity);
 
             } catch (IllegalArgumentException ignored) {
                 //todo advice somewhere for what happened
@@ -111,7 +110,6 @@ public class QuestionServiceImpl implements QuestionService {
                                 .findChapterByAtaCode(Integer.parseInt(questionServiceModel.getChapter())),
                         ATAChapterEntity.class);
 
-        questionEntity.setChapter(ataChapterEntity);
 
     }
 
@@ -122,7 +120,6 @@ public class QuestionServiceImpl implements QuestionService {
                 modelMapper.map(documentService
                         .findDocumentByName(questionServiceModel.getDocument()), DocumentEntity.class);
 
-        questionEntity.setDocument(documentEntity);
     }
 
     private void setDocumentSubchapterIfNotNull(QuestionServiceModel questionServiceModel, QuestionEntity questionEntity) {
@@ -138,7 +135,6 @@ public class QuestionServiceImpl implements QuestionService {
                                         findByDocumentAndDocumentSubchapter(documentName, documentSubchapterName),
                                 DocumentSubchapterEntity.class);
 
-                questionEntity.setDocumentSubchapter(documentSubchapterEntity);
 
             } catch (IllegalArgumentException exception) {
                 //todo - advice somewhere for the exception
@@ -172,13 +168,11 @@ public class QuestionServiceImpl implements QuestionService {
                 modelMapper.map(questionEntity, QuestionServiceModel.class);
 
         try {
-            questionServiceModel.setDocument(questionEntity.getDocument().getName());
         } catch (NullPointerException ignored) {
         }
 
         try {
-            questionServiceModel
-                    .setDocumentSubchapter(questionEntity.getDocumentSubchapter().getName());
+
         } catch (NullPointerException ignored) {
         }
 

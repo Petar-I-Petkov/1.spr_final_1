@@ -5,23 +5,11 @@ import com.petkov.spr_final_1.model.entity.BaseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "documents")
+@DiscriminatorValue("document")
 @Access(AccessType.PROPERTY)
-
-public class DocumentEntity extends BaseEntity {
-
-    private String name;
+public class DocumentEntity extends AbstractReference {
 
     public DocumentEntity() {
-    }
-
-    @Column(name = "name", unique = true, nullable = false)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 }

@@ -7,20 +7,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "chapters")
+@DiscriminatorValue("ata_chapter")
 @Access(AccessType.PROPERTY)
-
-public class ATAChapterEntity extends BaseEntity {
+public class ATAChapterEntity extends AbstractReference {
 
     private Integer ataCode;
-    private String name;
-    private List<ATASubChapterEntity> ataSections;
-    private List<ArticleEntity> articles;
 
     public ATAChapterEntity() {
     }
 
-    @Column(name = "ata_code", unique = true, nullable = false)
+    @Column(name = "ata_code", unique = true)
     public Integer getAtaCode() {
         return ataCode;
     }
@@ -29,30 +25,4 @@ public class ATAChapterEntity extends BaseEntity {
         this.ataCode = ataCode;
     }
 
-    @Column(name = "chapter_name", unique = true, nullable = false)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @OneToMany(mappedBy = "ataChapterRef", targetEntity = ATASubChapterEntity.class)
-    public List<ATASubChapterEntity> getAtaSections() {
-        return ataSections;
-    }
-
-    public void setAtaSections(List<ATASubChapterEntity> ataSections) {
-        this.ataSections = ataSections;
-    }
-
-    @OneToMany(mappedBy = "chapter", targetEntity = ArticleEntity.class)
-    public List<ArticleEntity> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleEntity> articles) {
-        this.articles = articles;
-    }
 }

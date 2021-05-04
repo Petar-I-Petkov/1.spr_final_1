@@ -85,7 +85,7 @@ public class TestEntity extends BaseEntity {
         this.testTagEnums = testTagEnums;
     }
 
-    @ManyToMany // todo - refactor this (cascade = CascadeType.ALL) -\
+    @ManyToMany(cascade = CascadeType.ALL) // todo - refactor this (cascade = CascadeType.ALL) -\
                      // todo it has no place here when using frontend to add tests
     @JoinTable(
             name = "tests_questions",

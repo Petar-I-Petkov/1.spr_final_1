@@ -37,9 +37,6 @@ public class DBInit implements CommandLineRunner {
         subchapterService.initSeedSubchaptersFromJson();
 
 
-
-
-
     }
 
 }

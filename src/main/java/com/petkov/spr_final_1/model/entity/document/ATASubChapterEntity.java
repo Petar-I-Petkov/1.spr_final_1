@@ -1,25 +1,19 @@
 package com.petkov.spr_final_1.model.entity.document;
 
-import com.petkov.spr_final_1.model.entity.BaseEntity;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "sub_chapters")
+@DiscriminatorValue("ata_subchapter")
 @Access(AccessType.PROPERTY)
-
-public class ATASubChapterEntity extends BaseEntity {
+public class ATASubChapterEntity extends AbstractReference {
 
     private Integer ataSubCode;
-    private String subchapterName;
-    private List<ArticleEntity> articles;
-    private ATAChapterEntity ataChapterRef;
+    private ATAChapterEntity ataChapter;
 
     public ATASubChapterEntity() {
     }
 
-    @Column(name = "ata_subcode", unique = false, nullable = false)
+    @Column(name = "ata_subcode")
     public Integer getAtaSubCode() {
         return ataSubCode;
     }
@@ -28,32 +22,14 @@ public class ATASubChapterEntity extends BaseEntity {
         this.ataSubCode = ataSubCode;
     }
 
-    @Column(name = "subchapter_name", unique = false, nullable = false)
-    public String getSubchapterName() {
-        return subchapterName;
-    }
-
-    public void setSubchapterName(String subchapterName) {
-        this.subchapterName = subchapterName;
-    }
-
-    @OneToMany(mappedBy = "ataSubChapter", targetEntity = ArticleEntity.class)
-    public List<ArticleEntity> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<ArticleEntity> articles) {
-        this.articles = articles;
-    }
 
     @ManyToOne
-    @JoinColumn(name = "ata_chapter", referencedColumnName = "id")
-    public ATAChapterEntity getAtaChapterRef() {
-        return ataChapterRef;
+    public ATAChapterEntity getAtaChapter() {
+        return ataChapter;
     }
 
-    public void setAtaChapterRef(ATAChapterEntity ataChapterRef) {
-        this.ataChapterRef = ataChapterRef;
+    public void setAtaChapter(ATAChapterEntity ataChapterRef) {
+        this.ataChapter = ataChapterRef;
     }
 }
 

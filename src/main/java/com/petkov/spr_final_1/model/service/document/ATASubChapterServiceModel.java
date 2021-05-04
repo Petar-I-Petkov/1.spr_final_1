@@ -10,7 +10,7 @@ public class ATASubChapterServiceModel extends BaseServiceModel {
     @Expose
     private Integer ataSubCode;
     @Expose
-    private String subchapterName;
+    private String name;
     @Expose
     private String ataChapterRefInput;
 
@@ -29,12 +29,12 @@ public class ATASubChapterServiceModel extends BaseServiceModel {
     }
 
     @Size(min = 3, message = "SubChapter name min 3 characters.")
-    public String getSubchapterName() {
-        return subchapterName;
+    public String getName() {
+        return name;
     }
 
-    public void setSubchapterName(String subchapterName) {
-        this.subchapterName = subchapterName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @NotBlank(message = "ATA Chapter required.")

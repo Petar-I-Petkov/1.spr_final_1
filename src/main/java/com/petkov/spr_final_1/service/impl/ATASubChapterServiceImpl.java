@@ -69,7 +69,6 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
         ATASubChapterEntity subChapterEntity = new ATASubChapterEntity();
 
         subChapterEntity.setAtaSubCode(subChapterServiceModel.getAtaSubCode());
-        subChapterEntity.setSubchapterName(subChapterServiceModel.getSubchapterName());
 
         int ataChapterCode = Integer.parseInt(subChapterServiceModel.
                 getAtaChapterRefInput());
@@ -78,7 +77,8 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
                 modelMapper.map(this.chapterService
                         .findChapterByAtaCode(ataChapterCode), ATAChapterEntity.class);
 
-        subChapterEntity.setAtaChapterRef(chapterEntity);
+        subChapterEntity.setAtaChapter(chapterEntity);
+        subChapterEntity.setName(subChapterServiceModel.getName());
 
         this.subChapterRepository.saveAndFlush(subChapterEntity);
 
@@ -91,7 +91,8 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
         ATAChapterEntity chapter
                 = modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
-        return subChapterRepository.findByAtaChapterRefAndAtaSubCode(chapter, ataSubCode).isPresent();
+        //todo subChapterCodeExists - implement
+        return true;
     }
 
     @Override
@@ -120,10 +121,12 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
                 modelMapper.map(chapterService.findChapterByAtaCode(ataChapterCode), ATAChapterEntity.class);
 
         ATASubChapterEntity subChapterEntity = subChapterRepository
-                .findByAtaChapterRefAndAtaSubCode(chapter, ataSubchapterCode)
+                .findByAtaSubCode(ataSubchapterCode)
                 .orElseThrow(() -> new IllegalArgumentException("ATA SubChapter could not be found in DB"));
 
         return modelMapper.map(subChapterEntity, ATASubChapterServiceModel.class);
+
+        //todo findByChapterAndSubchapterAta - refactor
     }
 
     @Override
@@ -165,7 +168,7 @@ public class ATASubChapterServiceImpl implements ATASubChapterService {
             System.out.printf("For chapter '%s'-'%s' - '%s' %n",
                     subChapterServiceModel.getAtaChapterRefInput(),
                     subChapterServiceModel.getAtaSubCode(),
-                    subChapterServiceModel.getSubchapterName());
+                    subChapterServiceModel.getName());
         }
     }
 

@@ -75,8 +75,6 @@ public class ArticleServiceImpl implements ArticleService {
                     modelMapper.map(subChapterService
                             .findByChapterAndSubchapterAta(chapterRef, subChapterRef), ATASubChapterEntity.class);
 
-            articleEntity.setChapter(chapterEntity);
-            articleEntity.setAtaSubChapter(subChapterEntity);
 
         } else if (!articleServiceModel.getChapterRef().isEmpty()) {
             //todo - put back in controller
@@ -84,7 +82,6 @@ public class ArticleServiceImpl implements ArticleService {
             ATAChapterEntity chapterEntity =
                     modelMapper.map(chapterService.findChapterByAtaCode(chapterRef), ATAChapterEntity.class);
 
-            articleEntity.setChapter(chapterEntity);
 
         }
 

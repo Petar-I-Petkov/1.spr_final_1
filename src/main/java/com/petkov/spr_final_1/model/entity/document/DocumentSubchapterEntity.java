@@ -5,27 +5,16 @@ import com.petkov.spr_final_1.model.entity.BaseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "document_sub_chapters")
+@DiscriminatorValue("document_subchapter")
 @Access(AccessType.PROPERTY)
-public class DocumentSubchapterEntity extends BaseEntity {
+public class DocumentSubchapterEntity extends AbstractReference {
 
-    private String name;
     private DocumentEntity document;
 
     public DocumentSubchapterEntity() {
     }
 
-    @Column(name = "name", unique = false, nullable = false)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String docSubchapterName) {
-        this.name = docSubchapterName;
-    }
-
     @ManyToOne
-    @JoinColumn(name = "document", referencedColumnName = "id")
     public DocumentEntity getDocument() {
         return document;
     }

@@ -2,82 +2,82 @@
   {
     "ataChapterRefInput": "20",
     "ataSubCode": "10",
-    "subchapterName": "Overview"
+    "name": "Overview"
   },
   {
     "ataChapterRefInput": "20",
     "ataSubCode": "20",
-    "subchapterName": "Description"
+    "name": "Description"
   },
   {
     "ataChapterRefInput": "20",
     "ataSubCode": "30",
-    "subchapterName": "Ground Handling"
+    "name": "Ground Handling"
   },
   {
     "ataChapterRefInput": "20",
     "ataSubCode": "40",
-    "subchapterName": "Ground Clearance Diagram"
+    "name": "Ground Clearance Diagram"
   },
   {
     "ataChapterRefInput": "20",
     "ataSubCode": "50",
-    "subchapterName": "Landing Geometry"
+    "name": "Landing Geometry"
   },
   {
     "ataChapterRefInput": "20",
     "ataSubCode": "60",
-    "subchapterName": "Visual Ground Geometry"
+    "name": "Visual Ground Geometry"
   },
   {
     "ataChapterRefInput": "21",
     "ataSubCode": "10",
-    "subchapterName": "Air Conditioning"
+    "name": "Air Conditioning"
   },
   {
     "ataChapterRefInput": "21",
     "ataSubCode": "20",
-    "subchapterName": "Pressurization"
+    "name": "Pressurization"
   },
   {
     "ataChapterRefInput": "21",
     "ataSubCode": "30",
-    "subchapterName": "Ventilation"
+    "name": "Ventilation"
   },
   {
     "ataChapterRefInput": "21",
     "ataSubCode": "40",
-    "subchapterName": "Cargo"
+    "name": "Cargo"
   },
   {
     "ataChapterRefInput": "22",
     "ataSubCode": "10",
-    "subchapterName": "Auto Flight - General"
+    "name": "Auto Flight - General"
   },
   {
     "ataChapterRefInput": "22",
     "ataSubCode": "20",
-    "subchapterName": "Auto Flight - Flight Management"
+    "name": "Auto Flight - Flight Management"
   },
   {
     "ataChapterRefInput": "22",
     "ataSubCode": "30",
-    "subchapterName": "Auto Flight - Flight Guidance"
+    "name": "Auto Flight - Flight Guidance"
   },
   {
     "ataChapterRefInput": "22",
     "ataSubCode": "40",
-    "subchapterName": "Auto Flight - Flight Augmentation"
+    "name": "Auto Flight - Flight Augmentation"
   },
   {
     "ataChapterRefInput": "22",
     "ataSubCode": "45",
-    "subchapterName": "Auto Flight - AOC Functions"
+    "name": "Auto Flight - AOC Functions"
   },
   {
     "ataChapterRefInput": "22",
     "ataSubCode": "46",
-    "subchapterName": "Auto Flight - Print Interface"
+    "name": "Auto Flight - Print Interface"
   }
 
 ]
