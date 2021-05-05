@@ -1,10 +1,5 @@
 package com.petkov.spr_final_1.model.view;
 
-import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
-import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
-
-import java.util.List;
-
 public class ATASubChapterViewModel {
 
     private String id;

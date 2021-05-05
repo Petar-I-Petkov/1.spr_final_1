@@ -1,13 +1,11 @@
-package com.petkov.spr_final_1.model.entity.document;
-
-import com.petkov.spr_final_1.model.entity.BaseEntity;
+package com.petkov.spr_final_1.model.aviation_library_entity;
 
 import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("document_subchapter")
 @Access(AccessType.PROPERTY)
-public class DocumentSubchapterEntity extends AbstractReference {
+public class DocumentSubchapterEntity extends BasicReference {
 
     private DocumentEntity document;
 

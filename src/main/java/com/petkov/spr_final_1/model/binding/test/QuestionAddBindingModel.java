@@ -1,13 +1,7 @@
 package com.petkov.spr_final_1.model.binding.test;
 
-import com.petkov.spr_final_1.model.entity.document.*;
-import com.petkov.spr_final_1.model.entity.test.TestEntity;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class QuestionAddBindingModel {
 

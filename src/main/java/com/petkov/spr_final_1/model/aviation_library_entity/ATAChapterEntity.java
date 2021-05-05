@@ -1,15 +1,12 @@
-package com.petkov.spr_final_1.model.entity.document;
+package com.petkov.spr_final_1.model.aviation_library_entity;
 
-
-import com.petkov.spr_final_1.model.entity.BaseEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @DiscriminatorValue("ata_chapter")
 @Access(AccessType.PROPERTY)
-public class ATAChapterEntity extends AbstractReference {
+public class ATAChapterEntity extends BasicReference {
 
     private Integer ataCode;
 

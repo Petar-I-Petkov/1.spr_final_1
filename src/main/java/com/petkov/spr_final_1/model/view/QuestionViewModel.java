@@ -1,10 +1,5 @@
 package com.petkov.spr_final_1.model.view;
 
-import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
-import com.petkov.spr_final_1.model.entity.test.TestEntity;
-
-import java.util.List;
-
 public class QuestionViewModel {
 
     private String id;

@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.utils;
 
-import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
+import com.petkov.spr_final_1.model.app_entity.ActiveTestEntity;
 
 public class ActiveTestTransporter {
 

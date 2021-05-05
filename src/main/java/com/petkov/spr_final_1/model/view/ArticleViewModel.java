@@ -1,7 +1,5 @@
 package com.petkov.spr_final_1.model.view;
 
-import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
-
 import java.time.LocalDate;
 
 public class ArticleViewModel {

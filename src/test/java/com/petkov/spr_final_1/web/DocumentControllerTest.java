@@ -1,10 +1,8 @@
 package com.petkov.spr_final_1.web;
 
-import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
-import com.petkov.spr_final_1.model.entity.document.DocumentSubchapterEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.DocumentEntity;
 import com.petkov.spr_final_1.repository.DocumentRepository;
 import com.petkov.spr_final_1.repository.DocumentSubchapterRepository;
-import com.petkov.spr_final_1.service.DocumentSubChapterService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 

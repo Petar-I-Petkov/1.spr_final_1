@@ -1,8 +1,8 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.document.ArticleEntity;
-import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
-import com.petkov.spr_final_1.model.entity.document.ATASubChapterEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.ArticleEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.ATAChapterEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.ATASubChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ArticleServiceModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
 import com.petkov.spr_final_1.repository.ArticleRepository;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;

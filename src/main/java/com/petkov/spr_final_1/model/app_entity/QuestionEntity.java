@@ -1,32 +1,32 @@
-package com.petkov.spr_final_1.model.entity.test;
+package com.petkov.spr_final_1.model.app_entity;
 
-import com.petkov.spr_final_1.model.entity.BaseEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.BasicArticle;
+import com.petkov.spr_final_1.model.aviation_library_entity.BasicReference;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "submitted_questions")
+@Table(name = "questions")
 @Access(AccessType.PROPERTY)
-
-public class SubmittedQuestionEntity extends BaseEntity {
+public class QuestionEntity extends BaseEntity {
 
     private String name;
     private String question;
-    private String fullReferencePath;
     private String correctAnswer;
     private String altAnswer1;
     private String altAnswer2;
     private String altAnswer3;
     private String altAnswer4;
 
-    private String submittedAnswer;
-    private boolean answeredCorrectly;
-    private CompletedTestEntity completedTestEntity;
+    private String fullReferencePath;
+    private BasicArticle article;
+    private List<BasicReference> references;
 
-    public SubmittedQuestionEntity() {
+    public QuestionEntity() {
     }
 
-    @Column(name = "name", unique = false, nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -35,7 +35,7 @@ public class SubmittedQuestionEntity extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "question", unique = false, nullable = false, columnDefinition = "TEXT")
+    @Column(name = "question", unique = true, nullable = false, columnDefinition = "TEXT")
     public String getQuestion() {
         return question;
     }
@@ -44,14 +44,6 @@ public class SubmittedQuestionEntity extends BaseEntity {
         this.question = question;
     }
 
-    @Column(name = "full_reference_path", unique = false, nullable = true)
-    public String getFullReferencePath() {
-        return fullReferencePath;
-    }
-
-    public void setFullReferencePath(String fullReferencePath) {
-        this.fullReferencePath = fullReferencePath;
-    }
 
     @Column(name = "correct_answer", unique = false, nullable = false)
     public String getCorrectAnswer() {
@@ -98,32 +90,33 @@ public class SubmittedQuestionEntity extends BaseEntity {
         this.altAnswer4 = altAnswer4;
     }
 
-    @Column(name = "submitted_answer", unique = false, nullable = false)
-    public String getSubmittedAnswer() {
-        return submittedAnswer;
+
+    @Column(name = "full_reference_path", unique = false, nullable = true)
+    public String getFullReferencePath() {
+        return fullReferencePath;
     }
 
-    public void setSubmittedAnswer(String submittedAnswer) {
-        this.submittedAnswer = submittedAnswer;
+    public void setFullReferencePath(String fullReferencePath) {
+        this.fullReferencePath = fullReferencePath;
     }
 
-    @Column(name = "is_correct", unique = false, nullable = false)
-    public boolean isAnsweredCorrectly() {
-        return answeredCorrectly;
+    @ManyToOne(cascade = CascadeType.ALL)// - todo - refactor this (cascade = CascadeType.ALL). Needed only for init DB setup
+    public BasicArticle getArticle() {
+        return article;
     }
 
-    public void setAnsweredCorrectly(boolean answeredCorrectly) {
-        this.answeredCorrectly = answeredCorrectly;
+    public void setArticle(BasicArticle article) {
+        this.article = article;
     }
 
 
-    @ManyToOne
-    @JoinColumn(name = "test", referencedColumnName = "id")
-    public CompletedTestEntity getCompletedTestEntity() {
-        return completedTestEntity;
+    @OneToMany
+    @JoinColumn(name = "question_id")
+    public List<BasicReference> getReferences() {
+        return references;
     }
 
-    public void setCompletedTestEntity(CompletedTestEntity completedTestEntity) {
-        this.completedTestEntity = completedTestEntity;
+    public void setReferences(List<BasicReference> references) {
+        this.references = references;
     }
 }

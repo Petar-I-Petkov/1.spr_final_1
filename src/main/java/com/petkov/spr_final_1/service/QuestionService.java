@@ -1,13 +1,11 @@
 package com.petkov.spr_final_1.service;
 
-import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
+import com.petkov.spr_final_1.model.app_entity.QuestionEntity;
 import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
-import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.model.view.QuestionViewModel;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 
 public interface QuestionService {
 

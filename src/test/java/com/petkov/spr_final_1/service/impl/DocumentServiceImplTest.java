@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.service.impl;
 
 import com.google.gson.Gson;
-import com.petkov.spr_final_1.model.entity.document.DocumentEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.DocumentEntity;
 import com.petkov.spr_final_1.model.service.document.DocumentServiceModel;
 import com.petkov.spr_final_1.model.view.DocumentViewModel;
 import com.petkov.spr_final_1.repository.DocumentRepository;

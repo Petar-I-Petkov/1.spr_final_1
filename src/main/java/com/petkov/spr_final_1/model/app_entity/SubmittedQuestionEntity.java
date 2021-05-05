@@ -1,14 +1,12 @@
-package com.petkov.spr_final_1.model.entity.test;
-
-import com.petkov.spr_final_1.model.entity.BaseEntity;
-import com.petkov.spr_final_1.model.entity.document.*;
+package com.petkov.spr_final_1.model.app_entity;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "submitted_questions")
 @Access(AccessType.PROPERTY)
-public class QuestionEntity extends BaseEntity {
+
+public class SubmittedQuestionEntity extends BaseEntity {
 
     private String name;
     private String question;
@@ -19,12 +17,14 @@ public class QuestionEntity extends BaseEntity {
     private String altAnswer3;
     private String altAnswer4;
 
-    private ArticleEntity article;
+    private String submittedAnswer;
+    private boolean answeredCorrectly;
+    private CompletedTestEntity completedTestEntity;
 
-    public QuestionEntity() {
+    public SubmittedQuestionEntity() {
     }
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", unique = false, nullable = false)
     public String getName() {
         return name;
     }
@@ -33,7 +33,7 @@ public class QuestionEntity extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "question", unique = true, nullable = false, columnDefinition = "TEXT")
+    @Column(name = "question", unique = false, nullable = false, columnDefinition = "TEXT")
     public String getQuestion() {
         return question;
     }
@@ -96,13 +96,32 @@ public class QuestionEntity extends BaseEntity {
         this.altAnswer4 = altAnswer4;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)// - todo - refactor this (cascade = CascadeType.ALL)
-    public ArticleEntity getArticle() {
-        return article;
+    @Column(name = "submitted_answer", unique = false, nullable = false)
+    public String getSubmittedAnswer() {
+        return submittedAnswer;
     }
 
-    public void setArticle(ArticleEntity article) {
-        this.article = article;
+    public void setSubmittedAnswer(String submittedAnswer) {
+        this.submittedAnswer = submittedAnswer;
     }
 
+    @Column(name = "is_correct", unique = false, nullable = false)
+    public boolean isAnsweredCorrectly() {
+        return answeredCorrectly;
+    }
+
+    public void setAnsweredCorrectly(boolean answeredCorrectly) {
+        this.answeredCorrectly = answeredCorrectly;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "test", referencedColumnName = "id")
+    public CompletedTestEntity getCompletedTestEntity() {
+        return completedTestEntity;
+    }
+
+    public void setCompletedTestEntity(CompletedTestEntity completedTestEntity) {
+        this.completedTestEntity = completedTestEntity;
+    }
 }

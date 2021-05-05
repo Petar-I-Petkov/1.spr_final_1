@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.security;
 
-import com.petkov.spr_final_1.model.entity.UserEntity;
+import com.petkov.spr_final_1.model.app_entity.UserEntity;
 import com.petkov.spr_final_1.repository.UserRepository;
 import com.petkov.spr_final_1.repository.UserRoleRepository;
 import org.springframework.security.core.userdetails.UserDetails;

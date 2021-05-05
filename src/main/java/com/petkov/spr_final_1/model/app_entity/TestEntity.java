@@ -1,7 +1,5 @@
-package com.petkov.spr_final_1.model.entity.test;
+package com.petkov.spr_final_1.model.app_entity;
 
-import com.petkov.spr_final_1.model.entity.BaseEntity;
-import com.petkov.spr_final_1.model.entity.UserEntity;
 import com.petkov.spr_final_1.model.enumeration.TestStatusEnum;
 import com.petkov.spr_final_1.model.enumeration.TestTagEnum;
 

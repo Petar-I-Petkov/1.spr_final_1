@@ -1,11 +1,10 @@
-package com.petkov.spr_final_1.model.entity;
+package com.petkov.spr_final_1.model.app_entity;
 
 
 import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class BaseEntity {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

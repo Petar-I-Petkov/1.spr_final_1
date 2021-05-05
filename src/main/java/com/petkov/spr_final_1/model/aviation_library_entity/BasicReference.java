@@ -1,20 +1,18 @@
-package com.petkov.spr_final_1.model.entity.document;
+package com.petkov.spr_final_1.model.aviation_library_entity;
 
-
-import com.petkov.spr_final_1.model.entity.BaseEntity;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "external_references")
+@Table(name = "library_references")
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="reference_type", discriminatorType = DiscriminatorType.STRING)
 @Access(AccessType.PROPERTY)
-public abstract class AbstractReference extends BaseEntity{
+public abstract class BasicReference extends BaseEntity {
 
     private String name;
 
-    public AbstractReference() {
+    public BasicReference() {
     }
 
     @Column(name = "name", unique = true, nullable = false)

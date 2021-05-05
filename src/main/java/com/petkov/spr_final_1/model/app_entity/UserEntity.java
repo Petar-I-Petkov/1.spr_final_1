@@ -1,7 +1,4 @@
-package com.petkov.spr_final_1.model.entity;
-
-import com.petkov.spr_final_1.model.entity.test.CompletedTestEntity;
-import com.petkov.spr_final_1.model.entity.test.TestEntity;
+package com.petkov.spr_final_1.model.app_entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;

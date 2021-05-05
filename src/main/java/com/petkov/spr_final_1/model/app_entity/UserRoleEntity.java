@@ -1,4 +1,4 @@
-package com.petkov.spr_final_1.model.entity;
+package com.petkov.spr_final_1.model.app_entity;
 
 import com.petkov.spr_final_1.model.enumeration.UserRole;
 

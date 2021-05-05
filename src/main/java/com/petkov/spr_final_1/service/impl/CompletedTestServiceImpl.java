@@ -1,10 +1,10 @@
 package com.petkov.spr_final_1.service.impl;
 
 import com.petkov.spr_final_1.model.binding.test.SubmitTestBindingModel;
-import com.petkov.spr_final_1.model.entity.UserEntity;
-import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
-import com.petkov.spr_final_1.model.entity.test.CompletedTestEntity;
-import com.petkov.spr_final_1.model.entity.test.SubmittedQuestionEntity;
+import com.petkov.spr_final_1.model.app_entity.UserEntity;
+import com.petkov.spr_final_1.model.app_entity.ActiveTestEntity;
+import com.petkov.spr_final_1.model.app_entity.CompletedTestEntity;
+import com.petkov.spr_final_1.model.app_entity.SubmittedQuestionEntity;
 import com.petkov.spr_final_1.model.service.test.CompletedTestServiceModel;
 import com.petkov.spr_final_1.repository.CompletedTestRepository;
 import com.petkov.spr_final_1.service.CompletedTestService;
@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.document.*;
-import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
+import com.petkov.spr_final_1.model.app_entity.QuestionEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.*;
 import com.petkov.spr_final_1.model.service.test.QuestionServiceModel;
 import com.petkov.spr_final_1.model.view.QuestionViewModel;
 import com.petkov.spr_final_1.repository.QuestionRepository;

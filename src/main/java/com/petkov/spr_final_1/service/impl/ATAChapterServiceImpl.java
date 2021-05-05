@@ -1,7 +1,7 @@
 package com.petkov.spr_final_1.service.impl;
 
 import com.google.gson.Gson;
-import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.ATAChapterEntity;
 import com.petkov.spr_final_1.model.service.document.ATAChapterServiceModel;
 import com.petkov.spr_final_1.model.view.ATAChapterViewModel;
 import com.petkov.spr_final_1.repository.ATAChapterRepository;

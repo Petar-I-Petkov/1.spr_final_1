@@ -1,11 +1,11 @@
 package com.petkov.spr_final_1.service.impl;
 
-import com.petkov.spr_final_1.model.entity.UserEntity;
+import com.petkov.spr_final_1.model.app_entity.UserEntity;
 import com.petkov.spr_final_1.model.enumeration.TestStatusEnum;
-import com.petkov.spr_final_1.model.entity.test.ActiveTestEntity;
-import com.petkov.spr_final_1.model.entity.test.QuestionEntity;
-import com.petkov.spr_final_1.model.entity.test.SubmittedQuestionEntity;
-import com.petkov.spr_final_1.model.entity.test.TestEntity;
+import com.petkov.spr_final_1.model.app_entity.ActiveTestEntity;
+import com.petkov.spr_final_1.model.app_entity.QuestionEntity;
+import com.petkov.spr_final_1.model.app_entity.SubmittedQuestionEntity;
+import com.petkov.spr_final_1.model.app_entity.TestEntity;
 import com.petkov.spr_final_1.model.service.test.TestServiceModel;
 import com.petkov.spr_final_1.model.view.ActiveQuestionViewModel;
 import com.petkov.spr_final_1.model.view.ArticleViewModel;
@@ -105,7 +105,7 @@ public class TestServiceImpl implements TestService {
         activeTestEntity.setQuestionEntities(activeQuestionViewModels);
     }
 
-    private void setAnswersToQuestionAsList(com.petkov.spr_final_1.model.entity.test.QuestionEntity questionEntity, ActiveQuestionViewModel activeQuestionViewModel) {
+    private void setAnswersToQuestionAsList(QuestionEntity questionEntity, ActiveQuestionViewModel activeQuestionViewModel) {
         List<String> answers = List.of(
                 questionEntity.getCorrectAnswer(),
                 questionEntity.getAltAnswer1(),
@@ -117,7 +117,7 @@ public class TestServiceImpl implements TestService {
         activeQuestionViewModel.setAnswers(answers);
     }
 
-    private void setArticleToQuestionIfNotNull(com.petkov.spr_final_1.model.entity.test.QuestionEntity questionEntity, ActiveQuestionViewModel activeQuestionViewModel) {
+    private void setArticleToQuestionIfNotNull(QuestionEntity questionEntity, ActiveQuestionViewModel activeQuestionViewModel) {
         try {
             ArticleViewModel articleViewModel =
                     modelMapper.map(questionEntity.getArticle(), ArticleViewModel.class);

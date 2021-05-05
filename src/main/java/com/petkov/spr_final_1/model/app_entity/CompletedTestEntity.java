@@ -1,7 +1,4 @@
-package com.petkov.spr_final_1.model.entity.test;
-
-import com.petkov.spr_final_1.model.entity.BaseEntity;
-import com.petkov.spr_final_1.model.entity.UserEntity;
+package com.petkov.spr_final_1.model.app_entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

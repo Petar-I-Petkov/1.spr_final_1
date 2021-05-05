@@ -1,6 +1,6 @@
 package com.petkov.spr_final_1.repository;
 
-import com.petkov.spr_final_1.model.entity.document.ATAChapterEntity;
+import com.petkov.spr_final_1.model.aviation_library_entity.ATAChapterEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
