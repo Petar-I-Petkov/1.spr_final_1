@@ -30,14 +30,14 @@ public class RestControllersGlobalExceptionHandler extends ResponseEntityExcepti
             WebRequest request
     ) {
 
-        List<ApiBindingError> apiBindingError = exception.getBindingResult().getFieldErrors()
+        List<ApiBindingError> apiBindingErrors = exception.getBindingResult().getFieldErrors()
                 .stream()
                 .map(err -> new ApiBindingError(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
                 .distinct()
                 .collect(Collectors.toList());
 
         ApiResponseErrorObject apiResponseErrorObject = new ApiResponseErrorObject(status, "Binding Validation Error", exception);
-        apiResponseErrorObject.setErrors(apiBindingError);
+        apiResponseErrorObject.setErrors(apiBindingErrors);
 
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
